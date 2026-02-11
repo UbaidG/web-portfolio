@@ -98,14 +98,22 @@ const App: React.FC = () => {
               Pavan Kushnure
             </h1>
             <p className="text-2xl text-[#475569] dark:text-[#f1f5f9]">
-              Frontend | Backend | Devops | System Design
+              Full-Stack Engineer | 3+ Years Experience
             </p>
           </motion.div>
 
           <Section title="About Me">
             <p className="leading-relaxed text-[#475569] dark:text-[#94a3b8]">
-              I'm a full stack developer with expertise in the MERN stack,
-              DevOps, and system design. I am passionate about building tech.
+              Full-stack engineer with over 3 years of experience building
+              design collaboration tools using{" "}
+              <strong className="dark:text-[#f1f5f9]">
+                React, Node.js, MongoDB, and GCP
+              </strong>
+              . Delivered sub-100ms search across over 250K assets, enterprise
+              CAD integrations (Onshape, Autodesk, Trimble), and Stripe billing
+              pipelines. Owned features end-to-end from design through
+              deployment at a US-based startup operating across multiple time
+              zones.
             </p>
           </Section>
 
@@ -117,80 +125,80 @@ const App: React.FC = () => {
                     href="https://naya.love/studio"
                     className="hover:text-[#0f172a] dark:hover:text-[#94a3b8] transition-colors"
                   >
-                    Naya
+                    Naya Studio
                   </a>
                 </h3>
-                <p className="text-sm text-[#475569] dark:text-[#94a3b8] mb-4">
-                  Software Developer | Current Role since October 2023
+                <p className="text-sm text-[#475569] dark:text-[#94a3b8] mb-1">
+                  Software Engineer (React.js, Node.js, Express.js, MongoDB,
+                  GCP) | Oct 2023 - Present
+                </p>
+                <p className="text-sm text-[#475569] dark:text-[#94a3b8] mb-4 italic">
+                  New York, USA (Remote)
                 </p>
                 <div className="text-[#475569] dark:text-[#94a3b8] space-y-2">
-                  <p>
-                    At Naya, I contributed to the core product by designing and
-                    delivering features that improved{" "}
-                    <strong className="dark:text-[#f1f5f9]">
-                      interactivity, privacy, scalability, and monetization
-                    </strong>{" "}
-                    for complex, collaborative projects:
-                  </p>
                   <ul className="list-disc list-inside space-y-1">
                     <li>
                       <strong className="dark:text-[#f1f5f9]">
-                        Enhanced user workflows:
+                        Universal search system:
                       </strong>{" "}
-                      Built a shift-click multi-select system for batch
-                      operations, boosting productivity for power users.
+                      Designed and built search indexing{" "}
+                      <strong className="dark:text-[#f1f5f9]">
+                        250K+ files
+                      </strong>{" "}
+                      (images, PDFs, videos, 3D models, links), delivering{" "}
+                      <strong className="dark:text-[#f1f5f9]">
+                        50ms keyword search
+                      </strong>{" "}
+                      via Algolia and 150–200ms semantic retrieval via MongoDB
+                      Atlas Vector Search.
                     </li>
                     <li>
                       <strong className="dark:text-[#f1f5f9]">
-                        Customizable UI:
+                        Stripe billing pipelines:
                       </strong>{" "}
-                      Developed a flexible color palette system to personalize
-                      group blocks and journeys, balancing aesthetics with brand
-                      consistency.
+                      Architected and implemented automated webhooks, tiered
+                      subscription plans, and team-seat management, eliminating{" "}
+                      <strong className="dark:text-[#f1f5f9]">
+                        20 hours/month
+                      </strong>{" "}
+                      of manual billing overhead.
                     </li>
                     <li>
                       <strong className="dark:text-[#f1f5f9]">
-                        Data privacy & security:
+                        CAD integrations:
                       </strong>{" "}
-                      Implemented password-protected blocks using bcrypt,
-                      ensuring sensitive content is accessible only to
-                      authorized users.
+                      Integrated Onshape and Autodesk CAD rendering via OAuth
+                      2.0, webhooks, and cloud translation APIs, enabling
+                      real-time 3D model sync and unlocking enterprise client
+                      adoption.
                     </li>
                     <li>
                       <strong className="dark:text-[#f1f5f9]">
-                        3D model integrations:
-                      </strong>
-                      <ul className="list-disc list-inside ml-6 space-y-1">
-                        <li>
-                          <strong className="dark:text-[#f1f5f9]">
-                            Onshape:
-                          </strong>{" "}
-                          Enabled login + model link embedding with live
-                          previews and real-time syncing via webhooks.
-                        </li>
-                        <li>
-                          <strong className="dark:text-[#f1f5f9]">
-                            Autodesk Viewer:
-                          </strong>{" "}
-                          Integrated seamless rendering and inspection of
-                          complex 3D models directly in-app.
-                        </li>
-                      </ul>
+                        Onshape App Store extension:
+                      </strong>{" "}
+                      Developed and shipped an extension enabling direct project
+                      import/export between Onshape and Naya, reducing
+                      context-switching and increasing design-team adoption by{" "}
+                      <strong className="dark:text-[#f1f5f9]">40%</strong>.
                     </li>
                     <li>
                       <strong className="dark:text-[#f1f5f9]">
-                        Payments & subscriptions:
+                        Multi-select & AI workflows:
                       </strong>{" "}
-                      Designed tiered subscription plans (Free, Professional,
-                      Enterprise) with Stripe, enabling paid seat allocation,
-                      automated upgrades, and safeguard flows for usage limits.
+                      Built a multi-select interaction system for batch editing
+                      and AI-powered asset generation (image/text/3D model
+                      generation via LLM APIs), reducing multi-asset workflow
+                      time by{" "}
+                      <strong className="dark:text-[#f1f5f9]">50%</strong>.
                     </li>
                     <li>
                       <strong className="dark:text-[#f1f5f9]">
-                        Scalable search:
+                        Dashboard re-architecture:
                       </strong>{" "}
-                      Indexed all block content in Algolia and built a universal
-                      search modal for fast, accurate retrieval across projects.
+                      Re-architected the project dashboard into a
+                      drag-and-drop, card-based workspace with nested folder
+                      uploads, reducing manual asset setup time by{" "}
+                      <strong className="dark:text-[#f1f5f9]">70%</strong>.
                     </li>
                   </ul>
                 </div>
@@ -199,42 +207,36 @@ const App: React.FC = () => {
                 <h3 className="font-semibold text-xl text-[#475569] dark:text-[#f1f5f9]">
                   Kratin LLC
                 </h3>
-                <p className="text-sm text-[#475569] dark:text-[#94a3b8] mb-4">
-                  .Net Core Developer | Jan 2023 - Aug 2023
+                <p className="text-sm text-[#475569] dark:text-[#94a3b8] mb-1">
+                  Intern Technologist (ASP.NET Core, C#, SQL Server, IIS) | Jan
+                  2023 - Aug 2023
+                </p>
+                <p className="text-sm text-[#475569] dark:text-[#94a3b8] mb-4 italic">
+                  Nagpur, India
                 </p>
                 <div className="text-[#475569] dark:text-[#94a3b8] space-y-2">
-                  <p>
-                    During my internship, I contributed as a{" "}
-                    <strong className="dark:text-[#f1f5f9]">
-                      Backend Developer
-                    </strong>
-                    , building and maintaining the core backend of a web
-                    application using{" "}
-                    <strong className="dark:text-[#f1f5f9]">
-                      ASP.NET Core, C#, and SQL Server
-                    </strong>
-                    . My work focused on designing RESTful APIs that aligned
-                    with client requirements and scaling them for production
-                    use.
-                  </p>
                   <ul className="list-disc list-inside space-y-1">
                     <li>
                       <strong className="dark:text-[#f1f5f9]">
-                        Task Management Service:
+                        Task management system:
                       </strong>{" "}
-                      Designed and launched a feature-rich system with task
-                      tracking, deadline management, real-time comments, and
-                      file attachments.
+                      Built and scaled a system handling{" "}
+                      <strong className="dark:text-[#f1f5f9]">
+                        250K+ tasks, 3K users, and 100GB of files
+                      </strong>
+                      , improving tracking and real-time collaboration.
                     </li>
                     <li>
                       <strong className="dark:text-[#f1f5f9]">
-                        Scalability:
+                        API optimization:
                       </strong>{" "}
-                      Optimized the backend to support{" "}
+                      Optimized the top 10 high-traffic APIs by improving SQL
+                      queries and minimizing database calls, reducing average
+                      response time from{" "}
                       <strong className="dark:text-[#f1f5f9]">
-                        250,000+ tasks, 3,000+ users, and 100GB of files
+                        1.7s to 1.2s
                       </strong>
-                      , ensuring reliability and performance under heavy load.
+                      .
                     </li>
                   </ul>
                 </div>
@@ -246,14 +248,46 @@ const App: React.FC = () => {
             <div className="space-y-8">
               <motion.div whileHover={{ scale: 1.02 }}>
                 <h3 className="font-semibold text-xl text-[#475569] dark:text-[#f1f5f9]">
-                  ShoppyEasy{" "}
+                  ChessArena
                 </h3>
+                <p className="text-xs text-[#475569] dark:text-[#94a3b8] mb-2">
+                  React.js, Node.js, Express.js, MongoDB, Redux, Socket.io
+                </p>
+                <div className="text-[#475569] dark:text-[#94a3b8] space-y-2">
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>
+                      Built a real-time multiplayer chess platform with
+                      persistent game state and resume-game functionality.
+                    </li>
+                    <li>
+                      Engineered event-driven WebSocket communication for live
+                      gameplay, move validation, and spectator mode support.
+                    </li>
+                  </ul>
+                </div>
+                <a
+                  onClick={() =>
+                    window.open(
+                      "https://github.com/Scylla23/ChessArena"
+                    )
+                  }
+                  className="text-blue-600 dark:text-blue-400 cursor-pointer hover:underline mt-2 inline-block"
+                >
+                  View Code →
+                </a>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.02 }}>
+                <h3 className="font-semibold text-xl text-[#475569] dark:text-[#f1f5f9]">
+                  ShoppyEasy
+                </h3>
+                <p className="text-xs text-[#475569] dark:text-[#94a3b8] mb-2">
+                  Next.js, React, Stripe, Clerk, Prisma
+                </p>
                 <p className="mb-4 text-[#475569] dark:text-[#94a3b8]">
-                  Next13 ecommerce web app with admin dashboard which serves as
-                  a centralized Content Management System for categories, sizes,
-                  colors, and products. Implemented Clerk Authentication and
-                  integrated Stripe for secure user access and seamless payment
-                  processing.
+                  Next.js ecommerce web app with admin dashboard serving as a
+                  centralized CMS for categories, sizes, colors, and products.
+                  Implemented Clerk Authentication and integrated Stripe for
+                  secure user access and seamless payment processing.
                 </p>
                 <a
                   onClick={() => window.open("https://shoppyeasy.netlify.app/")}
@@ -266,12 +300,14 @@ const App: React.FC = () => {
                 <h3 className="font-semibold text-xl text-[#475569] dark:text-[#f1f5f9]">
                   SnappyChat
                 </h3>
+                <p className="text-xs text-[#475569] dark:text-[#94a3b8] mb-2">
+                  React, Node.js, Socket.io, JWT
+                </p>
                 <p className="mb-4 text-[#475569] dark:text-[#94a3b8]">
-                  Web application that enables users to chat with different
-                  users and receive realtime notifications when they receive the
-                  message.Achieved secure user authentication and authorization
-                  with JSON Web Tokens (JWT).Used Socket.io for realtime
-                  notifications.
+                  Real-time chat application enabling users to communicate with
+                  different users and receive real-time notifications. Achieved
+                  secure user authentication and authorization with JSON Web
+                  Tokens (JWT). Used Socket.io for real-time notifications.
                 </p>
                 <a
                   onClick={() =>
@@ -286,13 +322,14 @@ const App: React.FC = () => {
                 <h3 className="font-semibold text-xl text-[#475569] dark:text-[#f1f5f9]">
                   DrawTogetherHub
                 </h3>
+                <p className="text-xs text-[#475569] dark:text-[#94a3b8] mb-2">
+                  React, Node.js, Socket.io, Canvas API
+                </p>
                 <p className="mb-4 text-[#475569] dark:text-[#94a3b8]">
-                  A dynamic real-time whiteboard application which facilitated
-                  seamless real-time collaboration by implementing Socket.io and
-                  Node.js events, enabling multiple users to work simultaneously
-                  and witness instant updates and an intuitive Undo-Redo
-                  feature, utilizing an array-based stack to manage
-                  positions,colors, and pen/eraser widths.
+                  A dynamic real-time whiteboard application facilitating
+                  seamless collaboration via Socket.io and Node.js events,
+                  enabling multiple users to work simultaneously with instant
+                  updates and an intuitive Undo-Redo feature.
                 </p>
                 <a
                   onClick={() =>
@@ -307,20 +344,145 @@ const App: React.FC = () => {
           </Section>
 
           <Section title="Skills">
-            <div className="flex flex-wrap -m-2">
-              <SkillBadge skill="React" />
-              <SkillBadge skill="Node.js" />
-              <SkillBadge skill="Express.js" />
-              <SkillBadge skill="MongoDB" />
-              <SkillBadge skill="SQLServer" />
-              <SkillBadge skill="AWS" />
-              <SkillBadge skill="Docker" />
-              <SkillBadge skill="Kubernetes" />
-              <SkillBadge skill="Git" />
-              <SkillBadge skill="CI/CD" />
-              <SkillBadge skill="Serverless" />
-              <SkillBadge skill="Redis" />
-              <SkillBadge skill="System Design" />
+            <div className="space-y-4">
+              <div>
+                <h4 className="text-sm font-semibold text-[#475569] dark:text-[#f1f5f9] mb-2">
+                  Languages
+                </h4>
+                <div className="flex flex-wrap -m-1">
+                  <SkillBadge skill="JavaScript" />
+                  <SkillBadge skill="TypeScript" />
+                  <SkillBadge skill="Java" />
+                  <SkillBadge skill="C#" />
+                </div>
+              </div>
+              <div>
+                <h4 className="text-sm font-semibold text-[#475569] dark:text-[#f1f5f9] mb-2">
+                  Frontend
+                </h4>
+                <div className="flex flex-wrap -m-1">
+                  <SkillBadge skill="React.js" />
+                  <SkillBadge skill="Next.js" />
+                  <SkillBadge skill="Redux" />
+                  <SkillBadge skill="Recoil" />
+                  <SkillBadge skill="Micro-frontends" />
+                </div>
+              </div>
+              <div>
+                <h4 className="text-sm font-semibold text-[#475569] dark:text-[#f1f5f9] mb-2">
+                  Backend
+                </h4>
+                <div className="flex flex-wrap -m-1">
+                  <SkillBadge skill="Node.js" />
+                  <SkillBadge skill="Express.js" />
+                  <SkillBadge skill="REST APIs" />
+                  <SkillBadge skill="WebSockets" />
+                  <SkillBadge skill="Webhooks" />
+                  <SkillBadge skill="Pub/Sub" />
+                </div>
+              </div>
+              <div>
+                <h4 className="text-sm font-semibold text-[#475569] dark:text-[#f1f5f9] mb-2">
+                  Databases
+                </h4>
+                <div className="flex flex-wrap -m-1">
+                  <SkillBadge skill="MongoDB" />
+                  <SkillBadge skill="PostgreSQL" />
+                  <SkillBadge skill="Algolia" />
+                </div>
+              </div>
+              <div>
+                <h4 className="text-sm font-semibold text-[#475569] dark:text-[#f1f5f9] mb-2">
+                  Cloud & DevOps
+                </h4>
+                <div className="flex flex-wrap -m-1">
+                  <SkillBadge skill="AWS" />
+                  <SkillBadge skill="GCP" />
+                  <SkillBadge skill="Docker" />
+                  <SkillBadge skill="Kubernetes" />
+                  <SkillBadge skill="CI/CD" />
+                  <SkillBadge skill="Terraform" />
+                  <SkillBadge skill="Nginx" />
+                </div>
+              </div>
+              <div>
+                <h4 className="text-sm font-semibold text-[#475569] dark:text-[#f1f5f9] mb-2">
+                  Tools & Services
+                </h4>
+                <div className="flex flex-wrap -m-1">
+                  <SkillBadge skill="Git" />
+                  <SkillBadge skill="Postman" />
+                  <SkillBadge skill="Swagger" />
+                  <SkillBadge skill="Apache JMeter" />
+                  <SkillBadge skill="Zapier" />
+                  <SkillBadge skill="Stripe API" />
+                </div>
+              </div>
+            </div>
+          </Section>
+
+          <Section title="Education">
+            <div className="space-y-6">
+              <motion.div whileHover={{ scale: 1.02 }}>
+                <h3 className="font-semibold text-xl text-[#475569] dark:text-[#f1f5f9]">
+                  Shri Guru Gobind Singhji Institute of Engineering and
+                  Technology, Nanded
+                </h3>
+                <p className="text-sm text-[#475569] dark:text-[#94a3b8] mb-1">
+                  Bachelor of Technology in Computer Science and Engineering |
+                  June 2023
+                </p>
+                <p className="text-sm text-[#475569] dark:text-[#94a3b8]">
+                  CGPA:{" "}
+                  <strong className="dark:text-[#f1f5f9]">9.02</strong>
+                </p>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.02 }}>
+                <h3 className="font-semibold text-xl text-[#475569] dark:text-[#f1f5f9]">
+                  Jawahar Navodaya Vidyalaya, Wardha
+                </h3>
+                <p className="text-sm text-[#475569] dark:text-[#94a3b8] mb-1">
+                  Class XII (PCM) & Class X | Sep 2011 – May 2018
+                </p>
+                <p className="text-sm text-[#475569] dark:text-[#94a3b8]">
+                  Class XII:{" "}
+                  <strong className="dark:text-[#f1f5f9]">94%</strong> | Class
+                  X: <strong className="dark:text-[#f1f5f9]">CGPA 10</strong>
+                </p>
+              </motion.div>
+            </div>
+          </Section>
+
+          <Section title="Achievements">
+            <div className="text-[#475569] dark:text-[#94a3b8] space-y-2">
+              <ul className="list-disc list-inside space-y-2">
+                <li>
+                  Solved{" "}
+                  <strong className="dark:text-[#f1f5f9]">
+                    500+ problems
+                  </strong>{" "}
+                  on LeetCode with a streak of{" "}
+                  <strong className="dark:text-[#f1f5f9]">200+ days</strong>.
+                </li>
+                <li>
+                  Solved{" "}
+                  <strong className="dark:text-[#f1f5f9]">
+                    300+ problems
+                  </strong>{" "}
+                  on GeeksforGeeks with{" "}
+                  <strong className="dark:text-[#f1f5f9]">
+                    1200+ coding score
+                  </strong>
+                  .
+                </li>
+                <li>
+                  Qualified{" "}
+                  <strong className="dark:text-[#f1f5f9]">
+                    Graduate Aptitude Test in Engineering (GATE) 2023 & 2024
+                  </strong>
+                  .
+                </li>
+              </ul>
             </div>
           </Section>
         </div>
@@ -373,7 +535,7 @@ const App: React.FC = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
-              window.open("/Pavankumar Kushnure 2023.pdf");
+              window.open("/Pavan Kushnure.pdf");
             }}
             className="flex px-6 py-3 bg-[#f8fafc] dark:bg-[#1e293b] text-[#0f172a] dark:text-[#f1f5f9] rounded-full shadow-lg items-center justify-center border border-[#475569] dark:border-[#94a3b8] hover:bg-[#ffffff] dark:hover:bg-[#0f172a] transition-colors"
           >
