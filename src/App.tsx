@@ -1,11 +1,5 @@
 import { useState, useEffect, useRef, ReactNode } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useInView,
-  AnimatePresence,
-} from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
   Mail,
   Github,
@@ -13,7 +7,6 @@ import {
   Twitter,
   Download,
   ArrowUpRight,
-  ArrowDown,
   Menu,
   X,
 } from "lucide-react";
@@ -28,12 +21,6 @@ const NAV_LINKS = [
   { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
-];
-
-const STATS = [
-  { value: "3+", label: "Years Experience" },
-  { value: "500+", label: "LeetCode Solved" },
-  { value: "250K+", label: "Assets Indexed" },
 ];
 
 const SKILLS_DATA: Record<string, string[]> = {
@@ -282,11 +269,13 @@ function Navbar() {
       transition={{ duration: 0.6, ease }}
       className="fixed top-4 left-4 right-4 sm:left-6 sm:right-6 z-50"
     >
-      <div className={`max-w-6xl mx-auto px-6 h-14 flex items-center justify-between rounded-2xl border transition-all duration-500 ${
-        scrolled
-          ? "bg-surface/80 backdrop-blur-2xl border-white/[0.08]"
-          : "bg-surface/50 backdrop-blur-xl border-white/[0.06]"
-      }`}>
+      <div
+        className={`max-w-6xl mx-auto px-6 h-14 flex items-center justify-between rounded-2xl border transition-all duration-500 ${
+          scrolled
+            ? "bg-surface/80 backdrop-blur-2xl border-white/[0.08]"
+            : "bg-surface/50 backdrop-blur-xl border-white/[0.06]"
+        }`}
+      >
         <a
           href="#"
           className="font-display font-bold text-xl tracking-tight gradient-text"
@@ -714,9 +703,7 @@ function Contact() {
                 href={href}
                 target={href.startsWith("mailto") ? undefined : "_blank"}
                 rel={
-                  href.startsWith("mailto")
-                    ? undefined
-                    : "noopener noreferrer"
+                  href.startsWith("mailto") ? undefined : "noopener noreferrer"
                 }
                 aria-label={label}
                 className="w-12 h-12 rounded-full border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-white/30 hover:text-white hover:border-white/[0.15] hover:bg-white/[0.05] transition-all duration-300"
