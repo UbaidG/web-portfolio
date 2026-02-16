@@ -69,6 +69,24 @@ const SKILLS_DATA: Record<string, string[]> = {
 
 const PROJECTS = [
   {
+    title: "FeatureGate",
+    tech: ["React", "Node.js", "MongoDB", "Redis", "Docker", "TypeScript"],
+    description:
+      "Self-hosted feature flag management system — an open-source LaunchDarkly alternative. Supports boolean and multivariate flags, rule-based user segments, percentage rollouts via consistent hashing, and real-time propagation through SSE and Redis Pub/Sub.",
+    link: "https://github.com/Scylla23/featuregate",
+    linkLabel: "View Code",
+    gradient: "from-rose-500/20 via-pink-500/10 to-red-500/20",
+  },
+  {
+    title: "LiftLog",
+    tech: ["React Native", "Expo", "Supabase", "TypeScript"],
+    description:
+      "Mobile workout tracking app to log exercises, sets with weight/reps, and track fitness progress. Features an exercise library, workout calendar, Google OAuth, and i18n support for English and Spanish.",
+    link: "https://github.com/Scylla23/Liftlog",
+    linkLabel: "View Code",
+    gradient: "from-purple-500/20 via-violet-500/10 to-indigo-500/20",
+  },
+  {
     title: "ChessArena",
     tech: ["React.js", "Node.js", "MongoDB", "Redux", "Socket.io"],
     description:
@@ -262,13 +280,13 @@ function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-surface/80 backdrop-blur-2xl border-b border-white/[0.06]"
-          : "bg-transparent"
-      }`}
+      className="fixed top-4 left-4 right-4 sm:left-6 sm:right-6 z-50"
     >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className={`max-w-6xl mx-auto px-6 h-14 flex items-center justify-between rounded-2xl border transition-all duration-500 ${
+        scrolled
+          ? "bg-surface/80 backdrop-blur-2xl border-white/[0.08]"
+          : "bg-surface/50 backdrop-blur-xl border-white/[0.06]"
+      }`}>
         <a
           href="#"
           className="font-display font-bold text-xl tracking-tight gradient-text"
@@ -315,7 +333,7 @@ function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-surface-50/95 backdrop-blur-2xl border-b border-white/[0.06] overflow-hidden"
+            className="md:hidden bg-surface/90 backdrop-blur-2xl border border-white/[0.08] border-t-0 rounded-b-2xl overflow-hidden"
           >
             <div className="px-6 py-6 flex flex-col gap-4">
               {NAV_LINKS.map((link) => (
@@ -342,149 +360,6 @@ function Navbar() {
         )}
       </AnimatePresence>
     </motion.nav>
-  );
-}
-
-// ═══════════════════════════════════════════
-// HERO
-// ═══════════════════════════════════════════
-
-function Hero() {
-  const { scrollYProgress } = useScroll();
-  const opacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.15], [0, -80]);
-
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Ambient orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-accent-teal/8 blur-[120px]"
-          style={{ animation: "orb-1 20s ease-in-out infinite" }}
-        />
-        <div
-          className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full bg-accent-violet/8 blur-[120px]"
-          style={{ animation: "orb-2 25s ease-in-out infinite" }}
-        />
-        <div
-          className="absolute bottom-1/4 left-1/3 w-[350px] h-[350px] rounded-full bg-accent-blue/6 blur-[120px]"
-          style={{ animation: "orb-3 30s ease-in-out infinite" }}
-        />
-      </div>
-
-      {/* Grid overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:72px_72px]" />
-
-      <motion.div
-        style={{ opacity, y }}
-        className="relative z-10 max-w-4xl mx-auto px-6 text-center"
-      >
-        {/* Status badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease }}
-        >
-          <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-white/[0.03] border border-white/[0.06] rounded-full mb-10">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-teal opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-teal" />
-            </span>
-            <span className="text-sm font-body text-white/40">
-              Available for opportunities
-            </span>
-          </div>
-        </motion.div>
-
-        {/* Heading */}
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.4, ease }}
-          className="text-[clamp(2.5rem,8vw,5rem)] font-display font-bold leading-[1.08] tracking-tight mb-8"
-        >
-          Building{" "}
-          <span className="font-serif italic font-normal gradient-text">
-            scalable
-          </span>
-          <br />
-          web{" "}
-          <span className="font-serif italic font-normal gradient-text">
-            experiences
-          </span>
-        </motion.h1>
-
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease }}
-          className="text-base sm:text-lg font-body text-white/35 max-w-xl mx-auto mb-12 leading-relaxed"
-        >
-          Full-stack engineer with 3+ years crafting production-ready
-          applications with React, Node.js, and cloud technologies.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8, ease }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <a
-            href="#projects"
-            className="group inline-flex items-center gap-2 px-7 py-3.5 font-body font-medium text-sm bg-white text-surface rounded-full hover:shadow-[0_0_40px_rgba(255,255,255,0.12)] transition-all duration-400"
-          >
-            View Projects
-            <ArrowUpRight
-              size={16}
-              className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            />
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 px-7 py-3.5 font-body font-medium text-sm text-white/60 border border-white/[0.1] rounded-full hover:border-white/25 hover:text-white/90 transition-all duration-400"
-          >
-            Get in Touch
-          </a>
-        </motion.div>
-
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          className="flex justify-center gap-10 sm:gap-16 mt-20 pt-10 border-t border-white/[0.04]"
-        >
-          {STATS.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-2xl sm:text-3xl font-display font-bold gradient-text">
-                {stat.value}
-              </div>
-              <div className="text-[11px] sm:text-xs font-body text-white/25 mt-1.5 tracking-wide uppercase">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </motion.div>
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-        >
-          <ArrowDown size={18} className="text-white/15" />
-        </motion.div>
-      </motion.div>
-    </section>
   );
 }
 
@@ -897,7 +772,6 @@ export default function App() {
     <div className="bg-surface text-white min-h-screen font-body antialiased selection:bg-accent-teal/25">
       <Navbar />
       <main>
-        <Hero />
         <About />
         <Skills />
         <Projects />
