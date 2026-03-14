@@ -4,22 +4,22 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['"Syne"', "sans-serif"],
-        body: ['"DM Sans"', "sans-serif"],
-        serif: ['"Instrument Serif"', "serif"],
+        display: ['"Plus Jakarta Sans"', "sans-serif"],
+        body: ['"Karla"', "sans-serif"],
+        serif: ['"Newsreader"', "serif"],
       },
       colors: {
         surface: {
-          DEFAULT: "#030303",
-          50: "#0a0a0a",
-          100: "#111111",
-          200: "#1a1a1a",
-          300: "#222222",
+          DEFAULT: "#050508",
+          50: "#0b0b10",
+          100: "#111118",
+          200: "#1a1a24",
+          300: "#242430",
         },
         accent: {
-          teal: "#00d4aa",
-          violet: "#7c5bf5",
-          blue: "#00a8e8",
+          ember: "#ff7849",
+          lavender: "#a78bfa",
+          mint: "#2dd4bf",
         },
       },
     },

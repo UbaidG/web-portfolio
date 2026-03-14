@@ -4,11 +4,16 @@ import {
   Mail,
   Github,
   Linkedin,
-  Twitter,
+  Phone,
   Download,
   ArrowUpRight,
   Menu,
   X,
+  Award,
+  Briefcase,
+  GraduationCap,
+  Code2,
+  Cpu,
 } from "lucide-react";
 
 // ═══════════════════════════════════════════
@@ -17,149 +22,205 @@ import {
 
 const NAV_LINKS = [
   { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
+  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
 ];
 
 const SKILLS_DATA: Record<string, string[]> = {
-  Languages: ["JavaScript", "TypeScript", "Java", "C#"],
-  Frontend: ["React.js", "Next.js", "Redux", "Recoil", "Micro-frontends"],
-  Backend: [
-    "Node.js",
-    "Express.js",
-    "REST APIs",
-    "WebSockets",
-    "Webhooks",
-    "Pub/Sub",
+  Programming: [
+    "Python",
+    "SQL",
+    "NoSQL",
+    "Cypher",
+    "JavaScript",
+    "Java",
+    "C",
+    "C++",
+    "HTML/CSS",
   ],
-  Databases: ["MongoDB", "PostgreSQL", "Algolia"],
-  "Cloud & DevOps": [
-    "AWS",
-    "GCP",
+  "ML & AI": [
+    "LLMs (OpenAI, Llama2)",
+    "RAG",
+    "NER",
+    "LangChain",
+    "CrewAI",
+    "LangGraph",
+    "PyTorch",
+    "TensorFlow",
+    "scikit-learn",
+    "Pandas",
+    "spaCy",
+    "RASA",
+    "Huggingface",
+  ],
+  "Cloud & Tools": [
+    "AWS (Bedrock, AgentCore, ECR, CloudWatch)",
+    "Azure (AI Services, Data Factory)",
     "Docker",
-    "Kubernetes",
-    "CI/CD",
-    "Terraform",
-    "Nginx",
-  ],
-  "Tools & Services": [
     "Git",
-    "Postman",
-    "Swagger",
-    "Apache JMeter",
-    "Zapier",
-    "Stripe API",
+    "GCP",
+    "Neo4j",
+    "Weights & Biases",
+    "Apache Spark",
+    "Kubernetes",
+    "Datadog",
+  ],
+  Frameworks: [
+    "Flask",
+    "FastAPI",
+    "Streamlit",
+    "Angular",
+    "n8n",
+    "MCP",
+    "A2A",
   ],
 };
 
 const PROJECTS = [
   {
-    title: "FeatureGate",
-    tech: ["React", "Node.js", "MongoDB", "Redis", "Docker", "TypeScript"],
+    title: "Voice Agent Pipeline",
+    tech: ["Python", "LiveKit", "Deepgram", "OpenAI", "Huggingface"],
     description:
-      "Self-hosted feature flag management system — an open-source LaunchDarkly alternative. Supports boolean and multivariate flags, rule-based user segments, percentage rollouts via consistent hashing, and real-time propagation through SSE and Redis Pub/Sub.",
-    link: "https://github.com/Scylla23/featuregate",
-    linkLabel: "View Code",
-    gradient: "from-rose-500/20 via-pink-500/10 to-red-500/20",
+      "Architected a customizable voice agent pipeline integrating Deepgram (STT), OpenAI (LLM), and Cartesia (TTS); incorporated open-source models for EOU detection and VAD. Enabled full preprocessing/postprocessing customization for real-time voice interaction systems.",
+    link: "https://github.com/Ubaid-Ghante",
+    linkLabel: "GitHub",
+    gradient: "from-accent-ember/20 via-orange-500/10 to-red-500/20",
   },
   {
-    title: "LiftLog",
-    tech: ["React Native", "Expo", "Supabase", "TypeScript"],
+    title: "Stitchit (iOS App)",
+    tech: ["Python", "Flask", "Swift", "AWS", "Neo4j", "Docker"],
     description:
-      "Mobile workout tracking app to log exercises, sets with weight/reps, and track fitness progress. Features an exercise library, workout calendar, Google OAuth, and i18n support for English and Spanish.",
-    link: "https://github.com/Scylla23/Liftlog",
-    linkLabel: "View Code",
-    gradient: "from-purple-500/20 via-violet-500/10 to-indigo-500/20",
+      "Full-stack iOS app to prevent content theft using computer vision (PANNs, Swin Transformer) for video similarity. Implemented user-specific AI bubbles via graph database (Neo4j) for personalization and content recommendation.",
+    link: "https://github.com/Ubaid-Ghante",
+    linkLabel: "TestFlight",
+    gradient: "from-accent-lavender/20 via-purple-500/10 to-indigo-500/20",
   },
   {
-    title: "ChessArena",
-    tech: ["React.js", "Node.js", "MongoDB", "Redux", "Socket.io"],
+    title: "Gen AI Dashboard",
+    tech: ["Python", "Flask", "OpenAI", "RASA", "NER", "SQL"],
     description:
-      "Real-time multiplayer chess platform with persistent game state, resume-game functionality, and event-driven WebSocket communication for live gameplay, move validation, and spectator mode.",
-    link: "https://github.com/Scylla23/ChessArena",
-    linkLabel: "View Code",
-    gradient: "from-emerald-500/20 via-teal-500/10 to-cyan-500/20",
+      "Engineered a chatbot that translates user queries into optimized SQL, auto-selects best-fit visualizations, and masks PHI/PII using a Huggingface NER model for secure data interaction.",
+    link: "https://github.com/Ubaid-Ghante",
+    linkLabel: "GitHub",
+    gradient: "from-accent-mint/20 via-teal-500/10 to-cyan-500/20",
   },
   {
-    title: "ShoppyEasy",
-    tech: ["Next.js", "React", "Stripe", "Clerk", "Prisma"],
+    title: "RAG Chatbot",
+    tech: ["Python", "Flask", "Azure OpenAI", "RASA", "CosmosDB"],
     description:
-      "Full-stack ecommerce app with admin dashboard serving as a centralized CMS for categories, sizes, colors, and products. Integrated Clerk Authentication and Stripe payments.",
-    link: "https://shoppyeasy.netlify.app/",
-    linkLabel: "View Project",
-    gradient: "from-violet-500/20 via-purple-500/10 to-fuchsia-500/20",
+      "High-accuracy RAG chatbot with intent mapping (RASA), caching, and vector search to answer clinician questions based on a specialized knowledge base.",
+    link: "https://github.com/Ubaid-Ghante",
+    linkLabel: "GitHub",
+    gradient: "from-blue-500/20 via-sky-500/10 to-accent-lavender/20",
   },
   {
-    title: "SnappyChat",
-    tech: ["React", "Node.js", "Socket.io", "JWT"],
+    title: "Clinician Note Analyzer",
+    tech: ["NER", "GraphRAG", "Python"],
     description:
-      "Real-time chat application with instant messaging, live notifications via Socket.io, and secure authentication with JSON Web Tokens.",
-    link: "https://snappychatt.netlify.app/login",
-    linkLabel: "View Project",
-    gradient: "from-blue-500/20 via-indigo-500/10 to-sky-500/20",
+      "Patient personalizer AI using NER and GraphRAG for summarization and preference grouping, enabling clinicians to quickly understand patient needs.",
+    link: "https://github.com/Ubaid-Ghante",
+    linkLabel: "GitHub",
+    gradient: "from-rose-500/20 via-pink-500/10 to-accent-ember/20",
   },
   {
-    title: "DrawTogetherHub",
-    tech: ["React", "Node.js", "Socket.io", "Canvas API"],
+    title: "Patient Health Progression",
+    tech: ["LSTM", "Python", "Time-Series ML"],
     description:
-      "Dynamic real-time whiteboard enabling seamless multi-user collaboration with instant updates and an intuitive Undo-Redo feature.",
-    link: "https://drawtogetherhub.netlify.app/",
-    linkLabel: "View Project",
-    gradient: "from-amber-500/20 via-orange-500/10 to-rose-500/20",
+      "LSTM model to predict LDex trigger points in hospice patients with lymphedema, enabling early diagnosis for 20,890+ patients using SOTA prediction techniques.",
+    link: "https://github.com/Ubaid-Ghante",
+    linkLabel: "GitHub",
+    gradient: "from-amber-500/20 via-yellow-500/10 to-accent-mint/20",
   },
 ];
 
 const EXPERIENCES = [
   {
-    company: "Naya Studio",
-    companyUrl: "https://naya.love/studio",
-    role: "Software Engineer",
-    tech: "React.js · Node.js · Express.js · MongoDB · GCP",
-    period: "Oct 2023 — Present",
-    location: "New York, USA (Remote)",
+    company: "Korn Ferry (ResearchFox)",
+    role: "Machine Learning Engineer",
+    tech: "ML Models · GenAI · LangGraph · FastAPI · Docker · Kubernetes",
+    period: "Nov 2025 — Present",
+    location: "Remote",
     highlights: [
       {
-        label: "Universal search system",
-        text: "Designed and built search indexing 250K+ files (images, PDFs, videos, 3D models, links), delivering 50ms keyword search via Algolia and 150–200ms semantic retrieval via MongoDB Atlas Vector Search.",
+        label: "Job Classifier Agent",
+        text: "Building Job Classifier Agent Workflow with inbuilt ML models + GenAI Response + Chat Interface for talent acquisition teams.",
       },
       {
-        label: "Stripe billing pipelines",
-        text: "Architected automated webhooks, tiered subscription plans, and team-seat management, eliminating 20 hours/month of manual billing overhead.",
+        label: "Salary Prediction",
+        text: "Built ML models to Predict Salary Estimates based on historic data with very sparse data points, adding a key component in Talent Suite Product.",
       },
       {
-        label: "CAD integrations",
-        text: "Integrated Onshape and Autodesk CAD rendering via OAuth 2.0, webhooks, and cloud translation APIs, enabling real-time 3D model sync and unlocking enterprise client adoption.",
+        label: "Tableau MCP Integration",
+        text: "Worked on Tableau MCP and TabPy Server with integrated LangGraph flows to enhance Dashboards by adding complex analysis at a glance.",
       },
       {
-        label: "Onshape App Store extension",
-        text: "Developed and shipped an extension enabling direct project import/export between Onshape and Naya, reducing context-switching and increasing design-team adoption by 40%.",
+        label: "MLOps Pipelines",
+        text: "Architected scalable MLOps pipelines using FastAPI, Docker, Kubernetes, and GitHub Actions, ensuring robust monitoring via Datadog.",
       },
       {
-        label: "Multi-select & AI workflows",
-        text: "Built a multi-select interaction system for batch editing and AI-powered asset generation via LLM APIs, reducing multi-asset workflow time by 50%.",
+        label: "Scale",
+        text: "Working on POCs as well as production products with 170M+ user profiles.",
+      },
+    ],
+  },
+  {
+    company: "ACE Software Solutions",
+    role: "Machine Learning Engineer",
+    tech: "CrewAI · LangChain · LangGraph · n8n · Amazon Bedrock · Docker",
+    period: "Nov 2024 — Nov 2025",
+    location: "Remote",
+    highlights: [
+      {
+        label: "Agentic Workflows",
+        text: "Developed production-grade agentic workflows using CrewAI, LangChain, LangGraph and n8n. Worked with Amazon Bedrock, Huggingface, OpenAI and Ollama.",
       },
       {
-        label: "Dashboard re-architecture",
-        text: "Re-architected the project dashboard into a drag-and-drop, card-based workspace with nested folder uploads, reducing manual asset setup time by 70%.",
+        label: "MCP Servers",
+        text: "Designed and developed MCP Servers to handle complex queries in banking and compliance.",
+      },
+      {
+        label: "Scalable Pipelines",
+        text: "Built and deployed scalable pipelines using Flask / FastAPI + Docker for every project.",
       },
     ],
   },
   {
     company: "Kratin LLC",
-    role: "Intern Technologist",
-    tech: "ASP.NET Core · C# · SQL Server · IIS",
-    period: "Jan 2023 — Aug 2023",
-    location: "Nagpur, India",
+    role: "Data Scientist",
+    tech: "Azure Speech AI · OpenAI · LLMs · RAG · Time-Series ML",
+    period: "Aug 2023 — Nov 2024",
+    location: "Remote",
     highlights: [
       {
-        label: "Task management system",
-        text: "Built and scaled a system handling 250K+ tasks, 3K users, and 100GB of files, improving tracking and real-time collaboration.",
+        label: "Speech-to-Text",
+        text: "Implemented Speech-to-Text with intent mapping (RASA) using Azure Speech AI and fine-tuned Azure OpenAI models, enhancing voice command accuracy.",
       },
       {
-        label: "API optimization",
-        text: "Optimized the top 10 high-traffic APIs by improving SQL queries and minimizing database calls, reducing average response time from 1.7s to 1.2s.",
+        label: "LLM Automation",
+        text: "Leveraged LLMs (GPT, Llama2) to automate tasks and develop RAG and NER applications, reducing process time by 40%.",
+      },
+      {
+        label: "Health Prediction",
+        text: "Created a time-series ML model to predict patient health progression, enabling early lymphedema diagnosis for 20,890+ patients.",
+      },
+    ],
+  },
+  {
+    company: "Kratin LLC",
+    role: "Junior Data Scientist",
+    tech: "Neo4j · Graph Databases · Algorithm Design",
+    period: "Jan 2023 — Jul 2023",
+    location: "On-site",
+    highlights: [
+      {
+        label: "Graph Databases",
+        text: "Constructed and managed graph databases (Neo4j) to uncover and analyze complex data relationships, improving data insight retrieval speed.",
+      },
+      {
+        label: "Workforce Optimization",
+        text: "Designed a scheduler algorithm for workforce time optimization, enhancing operational efficiency at scale.",
       },
     ],
   },
@@ -169,36 +230,54 @@ const EDUCATION = [
   {
     school: "SGGSIE&T, Nanded",
     degree: "B.Tech in Computer Science and Engineering",
-    period: "June 2023",
-    score: "CGPA: 9.02",
+    period: "2019 — 2023",
+    score: "CGPA: 9.3",
   },
   {
-    school: "Jawahar Navodaya Vidyalaya, Wardha",
-    degree: "Class XII (PCM) & Class X",
-    period: "Sep 2011 — May 2018",
-    score: "XII: 94% · X: CGPA 10",
+    school: "Sant Tukaram National Model School",
+    degree: "CBSE Board",
+    period: "2017 — 2019",
+    score: "84.6%",
   },
 ];
 
-const ACHIEVEMENTS = [
-  "500+ problems on LeetCode with a 200+ day streak",
-  "300+ problems on GeeksforGeeks with 1200+ coding score",
-  "Qualified GATE 2023 & 2024",
+const CERTIFICATIONS = [
+  { name: "Machine Learning with Python", issuer: "IBM", date: "Jan 2026" },
+  {
+    name: "Intro to Deep Learning & Neural Networks with Keras",
+    issuer: "IBM",
+    date: "Jan 2026",
+  },
+  {
+    name: "Foundations of Project Management",
+    issuer: "Google",
+    date: "Jan 2026",
+  },
+  {
+    name: "Deep Learning with Keras and TensorFlow",
+    issuer: "IBM",
+    date: "Jan 2026",
+  },
+  {
+    name: "Project Initiation: Starting a Successful Project",
+    issuer: "Google",
+    date: "Jan 2026",
+  },
 ];
 
 const SOCIAL_LINKS = [
-  { Icon: Mail, href: "mailto:pavankumarkushnure@gmail.com", label: "Email" },
-  { Icon: Github, href: "https://github.com/Scylla23", label: "GitHub" },
+  { Icon: Mail, href: "mailto:ughante@gmail.com", label: "Email" },
+  {
+    Icon: Github,
+    href: "https://github.com/Ubaid-Ghante",
+    label: "GitHub",
+  },
   {
     Icon: Linkedin,
-    href: "https://www.linkedin.com/in/pavankumar-kushnure-97274b1a3/",
+    href: "https://linkedin.com/in/ubaid-ghante",
     label: "LinkedIn",
   },
-  {
-    Icon: Twitter,
-    href: "https://x.com/Pavankumarkush5",
-    label: "Twitter",
-  },
+  { Icon: Phone, href: "tel:+919284876115", label: "Phone" },
 ];
 
 // ═══════════════════════════════════════════
@@ -232,9 +311,16 @@ function FadeIn({
   );
 }
 
-function SectionLabel({ children }: { children: ReactNode }) {
+function SectionLabel({
+  children,
+  icon: Icon,
+}: {
+  children: ReactNode;
+  icon?: React.ElementType;
+}) {
   return (
-    <span className="inline-block px-4 py-1.5 text-[11px] font-display font-semibold tracking-[0.2em] uppercase text-accent-teal/80 border border-accent-teal/20 rounded-full mb-6">
+    <span className="inline-flex items-center gap-2 px-4 py-1.5 text-[11px] font-display font-semibold tracking-[0.2em] uppercase text-accent-ember/80 border border-accent-ember/20 rounded-full mb-6">
+      {Icon && <Icon size={12} />}
       {children}
     </span>
   );
@@ -278,12 +364,11 @@ function Navbar() {
       >
         <a
           href="#"
-          className="font-display font-bold text-xl tracking-tight gradient-text"
+          className="font-display font-extrabold text-xl tracking-tight gradient-text"
         >
-          PK
+          UG
         </a>
 
-        {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map((link) => (
             <a
@@ -295,17 +380,16 @@ function Navbar() {
             </a>
           ))}
           <a
-            href="/Pavan Kushnure.pdf"
+            href="/Feb2026LatexResumeMinimal.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2 text-sm font-body font-medium bg-white text-surface rounded-full hover:bg-white/90 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-5 py-2 text-sm font-body font-medium bg-accent-ember text-white rounded-full hover:bg-accent-ember/90 transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,120,73,0.2)]"
           >
             <Download size={14} />
             Resume
           </a>
         </div>
 
-        {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="md:hidden text-white/60 hover:text-white transition-colors"
@@ -336,10 +420,10 @@ function Navbar() {
                 </a>
               ))}
               <a
-                href="/Pavan Kushnure.pdf"
+                href="/Feb2026LatexResumeMinimal.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-body font-medium bg-white text-surface rounded-full w-fit mt-2"
+                className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-body font-medium bg-accent-ember text-white rounded-full w-fit mt-2"
               >
                 <Download size={14} />
                 Resume
@@ -353,6 +437,99 @@ function Navbar() {
 }
 
 // ═══════════════════════════════════════════
+// HERO
+// ═══════════════════════════════════════════
+
+function Hero() {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Animated mesh gradient orbs */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="mesh-orb-1 absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-accent-ember/[0.07] blur-[120px]" />
+        <div className="mesh-orb-2 absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-accent-lavender/[0.06] blur-[100px]" />
+        <div className="mesh-orb-3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-accent-mint/[0.04] blur-[140px]" />
+      </div>
+
+      {/* Grid pattern overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:60px_60px]" />
+
+      <div className="relative max-w-6xl mx-auto px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease }}
+        >
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 text-[11px] font-display font-semibold tracking-[0.2em] uppercase text-accent-ember/70 border border-accent-ember/15 rounded-full mb-8">
+            <Cpu size={12} />
+            Machine Learning Engineer
+          </span>
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.35, ease }}
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-extrabold tracking-tight leading-[1.05] mb-6"
+        >
+          Ubaid
+          <br />
+          <span className="font-serif italic gradient-text">Ghante</span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.55, ease }}
+          className="text-base sm:text-lg font-body text-white/35 max-w-xl mx-auto mb-10 leading-relaxed"
+        >
+          Building production AI systems, agentic workflows, and scalable
+          MLOps pipelines — from NLP and computer vision to real-time voice
+          agents.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.75, ease }}
+          className="flex flex-wrap justify-center gap-4"
+        >
+          <a
+            href="#experience"
+            className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-body font-medium bg-accent-ember text-white rounded-full hover:shadow-[0_0_50px_rgba(255,120,73,0.25)] transition-all duration-400"
+          >
+            <Briefcase size={15} />
+            View Experience
+          </a>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-body font-medium border border-white/10 text-white/60 rounded-full hover:border-white/20 hover:text-white/80 transition-all duration-300"
+          >
+            Get in Touch
+            <ArrowUpRight size={15} />
+          </a>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 1 }}
+          className="absolute bottom-12 left-1/2 -translate-x-1/2"
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="w-5 h-8 border border-white/15 rounded-full flex items-start justify-center p-1"
+          >
+            <div className="w-1 h-2 bg-accent-ember/50 rounded-full" />
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════
 // ABOUT
 // ═══════════════════════════════════════════
 
@@ -361,56 +538,49 @@ function About() {
     <section id="about" className="py-28 sm:py-36">
       <div className="max-w-6xl mx-auto px-6">
         <FadeIn>
-          <SectionLabel>About</SectionLabel>
+          <SectionLabel icon={Code2}>About</SectionLabel>
         </FadeIn>
 
-        <div className="grid md:grid-cols-[auto_1fr] gap-12 lg:gap-16 items-start">
-          {/* Avatar */}
-          <FadeIn delay={0.1}>
-            <div className="relative mx-auto md:mx-0">
-              <div className="w-44 h-44 sm:w-52 sm:h-52 rounded-2xl overflow-hidden ring-1 ring-white/[0.06]">
-                <img
-                  src="/me.gif"
-                  alt="Pavan Kushnure"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              {/* Gradient glow behind avatar */}
-              <div className="absolute -inset-4 bg-gradient-to-br from-accent-teal/10 via-transparent to-accent-violet/10 rounded-3xl blur-2xl -z-10" />
-            </div>
-          </FadeIn>
-
-          {/* Bio */}
+        <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-16 items-start">
           <div>
-            <FadeIn delay={0.15}>
+            <FadeIn delay={0.1}>
               <SectionHeading>
-                Full-stack engineer who loves
+                ML engineer crafting
                 <br className="hidden lg:block" />
                 <span className="font-serif italic gradient-text">
                   {" "}
-                  building at scale
+                  intelligent systems
                 </span>
               </SectionHeading>
             </FadeIn>
 
-            <FadeIn delay={0.25}>
+            <FadeIn delay={0.2}>
               <p className="text-base font-body text-white/40 leading-[1.8] mb-8 max-w-2xl">
-                Over 3 years of experience building design collaboration tools
-                using{" "}
-                <span className="text-white/70">
-                  React, Node.js, MongoDB, and GCP
+                3+ years building production ML systems — from{" "}
+                <span className="text-white/65">
+                  agentic workflows with CrewAI, LangChain, and LangGraph
+                </span>{" "}
+                to{" "}
+                <span className="text-white/65">
+                  scalable MLOps pipelines with FastAPI, Docker, and Kubernetes
                 </span>
-                . Delivered sub-100ms search across over 250K assets, enterprise
-                CAD integrations (Onshape, Autodesk, Trimble), and Stripe
-                billing pipelines. Owned features end-to-end from design through
-                deployment at a US-based startup operating across multiple time
-                zones.
+                . Currently at Korn Ferry working on talent acquisition AI
+                serving{" "}
+                <span className="text-accent-ember/80">170M+ user profiles</span>
+                . Previously built RAG chatbots, NER systems, voice agents, and
+                time-series health prediction models.
               </p>
             </FadeIn>
 
             {/* Education */}
-            <FadeIn delay={0.35}>
-              <div className="space-y-3">
+            <FadeIn delay={0.3}>
+              <div className="flex items-center gap-2 mb-4">
+                <GraduationCap size={16} className="text-accent-lavender/60" />
+                <span className="text-xs font-display font-semibold tracking-[0.15em] uppercase text-white/25">
+                  Education
+                </span>
+              </div>
+              <div className="space-y-3 mb-8">
                 {EDUCATION.map((edu) => (
                   <div
                     key={edu.school}
@@ -428,140 +598,53 @@ function About() {
               </div>
             </FadeIn>
 
-            {/* Achievements */}
-            <FadeIn delay={0.4}>
-              <div className="flex flex-wrap gap-2 mt-6">
-                {ACHIEVEMENTS.map((a) => (
+            {/* Certifications */}
+            <FadeIn delay={0.35}>
+              <div className="flex items-center gap-2 mb-4">
+                <Award size={16} className="text-accent-mint/60" />
+                <span className="text-xs font-display font-semibold tracking-[0.15em] uppercase text-white/25">
+                  Certifications
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {CERTIFICATIONS.map((cert) => (
                   <span
-                    key={a}
+                    key={cert.name}
                     className="px-3 py-1.5 text-xs font-body text-white/40 bg-white/[0.03] border border-white/[0.06] rounded-full"
                   >
-                    {a}
+                    {cert.name}{" "}
+                    <span className="text-accent-ember/50">
+                      · {cert.issuer}
+                    </span>
                   </span>
                 ))}
               </div>
             </FadeIn>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
-// ═══════════════════════════════════════════
-// SKILLS
-// ═══════════════════════════════════════════
-
-function Skills() {
-  return (
-    <section id="skills" className="py-28 sm:py-36">
-      <div className="max-w-6xl mx-auto px-6">
-        <FadeIn>
-          <SectionLabel>Tech Stack</SectionLabel>
-        </FadeIn>
-        <FadeIn delay={0.1}>
-          <SectionHeading>
-            Tools &{" "}
-            <span className="font-serif italic gradient-text">
-              technologies
-            </span>{" "}
-            I work with
-          </SectionHeading>
-        </FadeIn>
-
-        <div className="mt-14 space-y-10">
-          {Object.entries(SKILLS_DATA).map(([category, skills], catIdx) => (
-            <FadeIn key={category} delay={catIdx * 0.08}>
-              <div>
-                <h3 className="text-xs font-display font-semibold tracking-[0.15em] uppercase text-white/25 mb-4">
-                  {category}
-                </h3>
-                <div className="flex flex-wrap gap-2.5">
-                  {skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="skill-pill px-4 py-2 text-sm font-body text-white/55 bg-white/[0.03] border border-white/[0.06] rounded-full hover:text-white/80 hover:border-white/[0.12] transition-all duration-300 cursor-default"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ═══════════════════════════════════════════
-// PROJECTS
-// ═══════════════════════════════════════════
-
-function Projects() {
-  return (
-    <section id="projects" className="py-28 sm:py-36">
-      <div className="max-w-6xl mx-auto px-6">
-        <FadeIn>
-          <SectionLabel>Projects</SectionLabel>
-        </FadeIn>
-        <FadeIn delay={0.1}>
-          <SectionHeading>
-            Things I&apos;ve{" "}
-            <span className="font-serif italic gradient-text">built</span>
-          </SectionHeading>
-        </FadeIn>
-
-        <div className="grid md:grid-cols-2 gap-5 mt-14">
-          {PROJECTS.map((project, i) => (
-            <FadeIn key={project.title} delay={i * 0.1}>
-              <div className="group card-glow rounded-2xl overflow-hidden h-full flex flex-col">
-                {/* Gradient header */}
+          {/* Stats sidebar */}
+          <FadeIn delay={0.25}>
+            <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 lg:w-48">
+              {[
+                { value: "3+", label: "Years Experience" },
+                { value: "170M+", label: "User Profiles" },
+                { value: "40%", label: "Process Time Reduced" },
+                { value: "9.3", label: "CGPA" },
+              ].map((stat) => (
                 <div
-                  className={`h-36 sm:h-44 bg-gradient-to-br ${project.gradient} relative`}
+                  key={stat.label}
+                  className="card-glow rounded-xl p-4 text-center lg:text-left"
                 >
-                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:24px_24px]" />
-                  <div className="absolute bottom-4 left-5 right-5">
-                    <h3 className="text-xl sm:text-2xl font-display font-bold">
-                      {project.title}
-                    </h3>
+                  <div className="text-2xl font-display font-extrabold gradient-text">
+                    {stat.value}
+                  </div>
+                  <div className="text-[11px] font-body text-white/30 mt-1">
+                    {stat.label}
                   </div>
                 </div>
-
-                {/* Content */}
-                <div className="p-5 sm:p-6 flex-1 flex flex-col">
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="px-2.5 py-1 text-[11px] font-body text-white/35 bg-white/[0.04] rounded-md"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  <p className="text-sm font-body text-white/35 leading-relaxed flex-1">
-                    {project.description}
-                  </p>
-
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 mt-5 text-sm font-body font-medium text-white/50 hover:text-accent-teal transition-colors duration-300 group/link"
-                  >
-                    {project.linkLabel}
-                    <ArrowUpRight
-                      size={14}
-                      className="transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
-                    />
-                  </a>
-                </div>
-              </div>
-            </FadeIn>
-          ))}
+              ))}
+            </div>
+          </FadeIn>
         </div>
       </div>
     </section>
@@ -577,7 +660,7 @@ function Experience() {
     <section id="experience" className="py-28 sm:py-36">
       <div className="max-w-6xl mx-auto px-6">
         <FadeIn>
-          <SectionLabel>Experience</SectionLabel>
+          <SectionLabel icon={Briefcase}>Experience</SectionLabel>
         </FadeIn>
         <FadeIn delay={0.1}>
           <SectionHeading>
@@ -587,40 +670,26 @@ function Experience() {
         </FadeIn>
 
         <div className="mt-14 relative">
-          {/* Timeline line */}
           <div className="absolute left-[7px] md:left-[9px] top-3 bottom-3 w-px timeline-line opacity-20" />
 
           <div className="space-y-16">
             {EXPERIENCES.map((exp, i) => (
-              <FadeIn key={exp.company} delay={i * 0.15}>
+              <FadeIn key={`${exp.company}-${exp.role}`} delay={i * 0.12}>
                 <div className="relative pl-8 md:pl-10">
-                  {/* Timeline dot */}
-                  <div className="absolute left-0 top-2 w-[15px] h-[15px] md:w-[19px] md:h-[19px] rounded-full border-2 border-accent-teal/40 bg-surface flex items-center justify-center">
-                    <div className="w-[5px] h-[5px] md:w-[7px] md:h-[7px] rounded-full bg-accent-teal/80" />
+                  <div className="absolute left-0 top-2 w-[15px] h-[15px] md:w-[19px] md:h-[19px] rounded-full border-2 border-accent-ember/40 bg-surface flex items-center justify-center">
+                    <div className="w-[5px] h-[5px] md:w-[7px] md:h-[7px] rounded-full bg-accent-ember/80" />
                   </div>
 
-                  {/* Header */}
                   <div className="mb-5">
                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                       <h3 className="text-xl sm:text-2xl font-display font-bold">
-                        {exp.companyUrl ? (
-                          <a
-                            href={exp.companyUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:text-accent-teal transition-colors duration-300"
-                          >
-                            {exp.company}
-                          </a>
-                        ) : (
-                          exp.company
-                        )}
+                        {exp.company}
                       </h3>
                       <span className="text-sm font-body text-white/25">
                         {exp.period}
                       </span>
                     </div>
-                    <p className="text-sm font-body text-white/40 mt-1">
+                    <p className="text-sm font-body text-accent-ember/60 mt-1 font-medium">
                       {exp.role}
                     </p>
                     <p className="text-xs font-body text-white/20 mt-0.5">
@@ -628,7 +697,6 @@ function Experience() {
                     </p>
                   </div>
 
-                  {/* Highlights */}
                   <div className="space-y-3">
                     {exp.highlights.map((h) => (
                       <div
@@ -656,6 +724,124 @@ function Experience() {
 }
 
 // ═══════════════════════════════════════════
+// PROJECTS
+// ═══════════════════════════════════════════
+
+function Projects() {
+  return (
+    <section id="projects" className="py-28 sm:py-36">
+      <div className="max-w-6xl mx-auto px-6">
+        <FadeIn>
+          <SectionLabel icon={Code2}>Projects</SectionLabel>
+        </FadeIn>
+        <FadeIn delay={0.1}>
+          <SectionHeading>
+            Things I&apos;ve{" "}
+            <span className="font-serif italic gradient-text">built</span>
+          </SectionHeading>
+        </FadeIn>
+
+        <div className="grid md:grid-cols-2 gap-5 mt-14">
+          {PROJECTS.map((project, i) => (
+            <FadeIn key={project.title} delay={i * 0.08}>
+              <div className="group card-glow rounded-2xl overflow-hidden h-full flex flex-col">
+                <div
+                  className={`h-32 sm:h-40 bg-gradient-to-br ${project.gradient} relative`}
+                >
+                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:20px_20px]" />
+                  <div className="absolute bottom-4 left-5 right-5">
+                    <h3 className="text-lg sm:text-xl font-display font-bold">
+                      {project.title}
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="p-5 sm:p-6 flex-1 flex flex-col">
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {project.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="px-2.5 py-1 text-[11px] font-body text-accent-ember/50 bg-accent-ember/[0.06] border border-accent-ember/10 rounded-md"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  <p className="text-sm font-body text-white/35 leading-relaxed flex-1">
+                    {project.description}
+                  </p>
+
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 mt-5 text-sm font-body font-medium text-white/50 hover:text-accent-ember transition-colors duration-300 group/link"
+                  >
+                    {project.linkLabel}
+                    <ArrowUpRight
+                      size={14}
+                      className="transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
+                    />
+                  </a>
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════
+// SKILLS
+// ═══════════════════════════════════════════
+
+function Skills() {
+  return (
+    <section id="skills" className="py-28 sm:py-36">
+      <div className="max-w-6xl mx-auto px-6">
+        <FadeIn>
+          <SectionLabel icon={Cpu}>Tech Stack</SectionLabel>
+        </FadeIn>
+        <FadeIn delay={0.1}>
+          <SectionHeading>
+            Tools &{" "}
+            <span className="font-serif italic gradient-text">
+              technologies
+            </span>{" "}
+            I work with
+          </SectionHeading>
+        </FadeIn>
+
+        <div className="mt-14 space-y-10">
+          {Object.entries(SKILLS_DATA).map(([category, skills], catIdx) => (
+            <FadeIn key={category} delay={catIdx * 0.08}>
+              <div>
+                <h3 className="text-xs font-display font-semibold tracking-[0.15em] uppercase text-white/25 mb-4">
+                  {category}
+                </h3>
+                <div className="flex flex-wrap gap-2.5">
+                  {skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="skill-pill px-4 py-2 text-sm font-body text-white/55 bg-white/[0.03] border border-white/[0.06] rounded-full hover:text-white/80 hover:border-accent-ember/20 transition-all duration-300 cursor-default"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════
 // CONTACT
 // ═══════════════════════════════════════════
 
@@ -664,7 +850,7 @@ function Contact() {
     <section id="contact" className="py-28 sm:py-36">
       <div className="max-w-6xl mx-auto px-6 text-center">
         <FadeIn>
-          <SectionLabel>Contact</SectionLabel>
+          <SectionLabel icon={Mail}>Contact</SectionLabel>
         </FadeIn>
 
         <FadeIn delay={0.1}>
@@ -676,18 +862,18 @@ function Contact() {
 
         <FadeIn delay={0.2}>
           <p className="text-base font-body text-white/35 max-w-md mx-auto mb-10 leading-relaxed">
-            I&apos;m always open to discussing new opportunities, interesting
-            projects, or just having a chat about tech.
+            Open to discussing ML engineering roles, AI projects, and research
+            collaborations. Let&apos;s build something intelligent together.
           </p>
         </FadeIn>
 
         <FadeIn delay={0.3}>
           <a
-            href="mailto:pavankumarkushnure@gmail.com"
-            className="group inline-flex items-center gap-2 px-8 py-4 font-body font-medium text-sm bg-white text-surface rounded-full hover:shadow-[0_0_50px_rgba(255,255,255,0.1)] transition-all duration-400 mb-12"
+            href="mailto:ughante@gmail.com"
+            className="group inline-flex items-center gap-2 px-8 py-4 font-body font-medium text-sm bg-accent-ember text-white rounded-full hover:shadow-[0_0_50px_rgba(255,120,73,0.2)] transition-all duration-400 mb-12"
           >
             <Mail size={16} />
-            pavankumarkushnure@gmail.com
+            ughante@gmail.com
             <ArrowUpRight
               size={16}
               className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -701,12 +887,18 @@ function Contact() {
               <a
                 key={label}
                 href={href}
-                target={href.startsWith("mailto") ? undefined : "_blank"}
+                target={
+                  href.startsWith("mailto") || href.startsWith("tel")
+                    ? undefined
+                    : "_blank"
+                }
                 rel={
-                  href.startsWith("mailto") ? undefined : "noopener noreferrer"
+                  href.startsWith("mailto") || href.startsWith("tel")
+                    ? undefined
+                    : "noopener noreferrer"
                 }
                 aria-label={label}
-                className="w-12 h-12 rounded-full border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-white/30 hover:text-white hover:border-white/[0.15] hover:bg-white/[0.05] transition-all duration-300"
+                className="w-12 h-12 rounded-full border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-white/30 hover:text-accent-ember hover:border-accent-ember/30 hover:bg-accent-ember/[0.05] transition-all duration-300"
               >
                 <Icon size={18} />
               </a>
@@ -727,16 +919,22 @@ function Footer() {
     <footer className="border-t border-white/[0.04] py-8">
       <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
         <p className="text-xs font-body text-white/20">
-          &copy; {new Date().getFullYear()} Pavan Kushnure
+          &copy; {new Date().getFullYear()} Ubaid Ghante
         </p>
         <div className="flex items-center gap-5">
           {SOCIAL_LINKS.map(({ Icon, href, label }) => (
             <a
               key={label}
               href={href}
-              target={href.startsWith("mailto") ? undefined : "_blank"}
+              target={
+                href.startsWith("mailto") || href.startsWith("tel")
+                  ? undefined
+                  : "_blank"
+              }
               rel={
-                href.startsWith("mailto") ? undefined : "noopener noreferrer"
+                href.startsWith("mailto") || href.startsWith("tel")
+                  ? undefined
+                  : "noopener noreferrer"
               }
               aria-label={label}
               className="text-white/15 hover:text-white/50 transition-colors duration-300"
@@ -756,13 +954,19 @@ function Footer() {
 
 export default function App() {
   return (
-    <div className="bg-surface text-white min-h-screen font-body antialiased selection:bg-accent-teal/25">
+    <div className="noise-overlay bg-surface text-white min-h-screen font-body antialiased selection:bg-accent-ember/25">
       <Navbar />
       <main>
+        <Hero />
+        <div className="section-divider max-w-6xl mx-auto" />
         <About />
-        <Skills />
-        <Projects />
+        <div className="section-divider max-w-6xl mx-auto" />
         <Experience />
+        <div className="section-divider max-w-6xl mx-auto" />
+        <Projects />
+        <div className="section-divider max-w-6xl mx-auto" />
+        <Skills />
+        <div className="section-divider max-w-6xl mx-auto" />
         <Contact />
       </main>
       <Footer />
