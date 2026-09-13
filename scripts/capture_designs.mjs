@@ -27,12 +27,12 @@ async function capture() {
   });
 
   const designs = [
-    { id: 1, name: "design1_atelier.png", label: "Kinetic Atelier / Fluid Editorial" },
-    { id: 2, name: "design2_cyber_terminal.png", label: "Neural Cyber-Terminal" },
-    { id: 3, name: "design3_swiss_blueprint.png", label: "Swiss Modernist Blueprint" },
-    { id: 4, name: "design4_ethereal_aurora.png", label: "Ethereal Aurora" },
-    { id: 5, name: "design5_analog_archive.png", label: "1970s Braun Analog Archive" },
-    { id: 6, name: "design6_spatial_gallery.png", label: "Spatial Holo-Gallery" },
+    { id: 1, name: "design1_space_odyssey.png", label: "Space Odyssey (Theme: Space)" },
+    { id: 2, name: "design2_casino_royale.png", label: "Casino Royale (Theme: Casino & Poker)" },
+    { id: 3, name: "design3_cyber_tarot.png", label: "Cyber Arcana (Theme: Cards & Tarot)" },
+    { id: 4, name: "design4_oryzo_coaster.png", label: "Oryzo Coaster & Beans (Theme: Oryzo.ai)" },
+    { id: 5, name: "design5_lusion_cinema.png", label: "Lusion Cinema (Theme: Lusion.co)" },
+    { id: 6, name: "design6_neon_arcade.png", label: "Neon Arcade Collider (Theme: Playable Pinball)" },
   ];
 
   for (const d of designs) {

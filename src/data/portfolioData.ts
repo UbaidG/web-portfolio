@@ -50,6 +50,7 @@ export const PORTFOLIO_DATA = {
     linkedin: "https://linkedin.com/in/ubaid-ghante",
     github: "https://github.com/Ubaid-Ghante",
     resumePdf: `${import.meta.env.BASE_URL}Aug2026LatexResumeMinimal.pdf`,
+    resumeUrl: `${import.meta.env.BASE_URL}Aug2026LatexResumeMinimal.pdf`,
     shortBio:
       "Machine Learning Engineer with 3+ years architecting production-grade agentic workflows, autonomous systems, and large-scale MLOps pipelines serving 170M+ users. Specializing in multi-agent orchestration (LangGraph, CrewAI, MCP), real-time multimodal voice systems, and enterprise LLM infrastructure.",
     stats: [
@@ -318,3 +319,6 @@ export const PORTFOLIO_DATA = {
     { name: "Project Initiation: Starting a Successful Project", issuer: "Google", date: "Jan 2026" },
   ] as CertificationItem[],
 };
+
+export const portfolioData = PORTFOLIO_DATA;
+
