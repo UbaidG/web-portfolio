@@ -1,186 +1,196 @@
-# Portfolio Design Explorations: 6 Radical Cinematic Concepts
-**Movie-Like Interactive 3D Physics, Tumbling Centerpieces & Cursor-Disturbed Swarms**
+# Coffee-Themed Portfolio Explorations: 3 Master Designs
+**Cinematic Developer Fuel: Realistic 3D Steam Mugs, Seamless Bean Rivers & Horizontal Scroll Runways**
 *Candidate: Ubaid Ghante — Machine Learning Engineer & Multi-Agent Systems Architect*
 
 ---
 
-## Executive Overview
+## Executive Summary & Creative Direction
 
-In response to creative direction, this dossier presents **six radically new, movie-like interactive portfolio designs** for Ubaid Ghante. All generic "walls of text" have been eliminated in favor of bold, cinematic viewports, central tumbling 3D artifacts, and real-time cursor-disturbed particle physics.
-
-Each concept is themed around distinct visual universes requested:
-- **Theme 1: Space Odyssey** (Deep Space, Astronaut Helmet & Asteroid Gravity Swarm)
-- **Theme 2: Casino Royale** (Monte Carlo High-Roller, Gold Chip & Floating Poker Chips/Dice Swarm)
-- **Theme 3: Cyber Arcana** (Cards & Tarot, 3D Holographic Tarot Card & Mystic Card Suits Swarm)
-- **Theme 4: Oryzo Coaster & Beans** (Direct implementation of Oryzo.ai cork coaster & cursor-disturbed coffee bean river)
-- **Theme 5: Lusion Cinema** (Lusion.co movie frames, 3D Ion Thruster, laser vector lines & scene diving)
-- **Theme 6: Neon Arcade Collider** (Retro-futuristic Tokyo pinball, tumbling sphere & live combo multiplier)
-
-### Live Interactive Testing Controls
-The portfolio is running live at **`http://localhost:5173/web-portfolio/`**:
-- **Interactive Switcher Dock**: Located at the bottom-center of the screen. Click any theme (**1** through **6**) to switch instantly.
-- **Instant Keyboard Hotkeys**: Press keys `1`, `2`, `3`, `4`, `5`, or `6` anywhere on your keyboard.
-- **Direct URL Parameters**: Append `?v=1` through `?v=6` (e.g. `http://localhost:5173/web-portfolio/?v=4` for Oryzo Coaster & Beans).
-
----
-
-## Interactive Physics & Mechanics Breakdown
-
-### 1. The Tumbling Centerpiece (`TumblingCenterpieceCanvas.tsx`)
-Inspired directly by the coaster tumbling down the center in the Oryzo.ai screenshots:
-- A 3D object (Cork Coaster, Gold Casino Chip, Astronaut Helmet, Tarot Card) is suspended along the central vertical axis.
-- As the user scrolls, the object tumbles, wobbles, and spins on all 3 axes in direct mathematical synchronicity with scroll progress:
-  $$\theta_x(p) = p \times 3.6\pi, \quad \theta_y(p) = p \times 4.2\pi, \quad \theta_z(p) = \sin(3\pi p) \times 0.6$$
-- Moving the mouse imparts a gentle inertial torque, making the 3D artifact feel physically tangible.
-
-### 2. The Cursor-Disturbed Swarm River (`InteractiveSwarmCanvas.tsx`)
-Inspired directly by the coffee bean flow in `Screen Recording 2026-09-14 at 1.14.36 AM.mov`:
-- 120–160 individual 3D objects (roasted coffee beans with cleft center, gold poker chips, space asteroids, tarot cards) flow along an organic sine wave trajectory across the screen.
-- A 3D mouse raycaster projects the cursor coordinates into world space. When the cursor approaches any particle within a threshold radius $R$, a repulsive radial force field scatters the particles:
-  $$\vec{F}_{\text{repel}} = \frac{\vec{r}_i - \vec{r}_{\text{cursor}}}{\|\vec{r}_i - \vec{r}_{\text{cursor}}\|} \times \left(1 - \frac{d}{R}\right) \times \text{force}$$
-- Rotational torque causes disturbed particles to tumble furiously. Damped spring forces smoothly pull them back into their flowing stream path.
+Following your feedback and deep study of `Screen Recording 2026-09-14 at 1.49.08 AM.mov` and `Screen Recording 2026-09-14 at 1.14.36 AM.mov`:
+1. **Scope Refined to 3 High-Polish Master Designs**:
+   - Rather than 6 divergent prototypes, we crafted **3 deeply polished, production-grade designs** centered entirely on the **Coffee Theme** (the quintessential developer fuel).
+2. **100% Genuine Resume Data**:
+   - Completely eradicated all fictional quotes ("Jamie R.", "Gol D. Roger", "Hollywood is not ready") and fake review stats ("364 reviews").
+   - Integrated Ubaid Ghante's exact career metrics: Korn Ferry (170M+ profiles, LLM job classification), ACE Software Solutions (autonomous banking swarms with CrewAI, LangGraph & Bedrock), Kratin LLC (20,890+ patients speech-to-text clinical voice agent), GH Raisoni College of Engineering (9.3 CGPA Summa Cum Laude), and 5x Google & IBM Certifications.
+3. **Realistic 3D Coffee Elements & Procedural Steam**:
+   - Replaced flat coasters with a **photorealistic 3D Coffee Mug / Takeaway Cup** featuring a hollow ceramic interior, liquid coffee surface with a golden crema ring, and **rising procedural steam particles** with organic wind turbulence.
+   - Replaced primitive ellipsoids with **anatomically realistic coffee beans** featuring a curved longitudinal fissure/crease, raised inner lips, and procedural roasted PBR texture with micro-grain and oil sheen.
+4. **Seamless Off-Screen Loop (No Visible Reset Pop)**:
+   - Extended the stream horizontal bounds to $X \in [-36, +36]$ (the camera viewport at $Z=20$ is only $[-16, +16]$).
+   - Beans spawn and recycle 20 units off-screen, completely eliminating any visible jumping or popping. Speed reduced to a gentle, organic drift ($0.02$ units/frame) with elastic cursor repulsion.
+5. **Horizontal Scroll-Left Runway on Scroll Down**:
+   - Studied `Screen Recording 2026-09-14 at 1.49.08 AM.mov` frame-by-frame: vertical scrolling seamlessly drives a horizontal card slide across the screen.
+   - Built a 300vh pinned container where vertical scrolling translates career milestone cards smoothly from right to left (`translateX(-${progress * 65}%)`), letting the viewer traverse Korn Ferry, ACE Software, Kratin LLC, and GH Raisoni horizontally before unlocking vertical page flow.
+6. **Multi-Stage Animation Phasing**:
+   - Animations do not run continuously in a monolithic blur. Instead, animations are partitioned into distinct stages:
+     - **Stage 1 (Hero & Extraction)**: 3D Coffee Cup with rising steam and gentle off-screen bean stream.
+     - **Stage 2 (Horizontal Runway)**: Bean stream fades out as the horizontal card conveyor locks in.
+     - **Stage 3 (Cupping Matrix / Lab Gauges)**: Interactive parameter controls, tech stack matrix, and project showcase.
+     - **Stage 4 (Roast Log & Colophon)**: 5x Certifications and terminal contact footer.
 
 ---
 
-## The 6 Cinematic Designs
+## Live Interactive Testing Controls
+
+The web application is live and running at **`http://localhost:5173/web-portfolio/`**:
+- **Floating Switcher Dock**: Fixed at the bottom-center. Click **1**, **2**, or **3** to switch designs instantly with zero reload delay.
+- **Instant Keyboard Shortcuts**: Press keys `1`, `2`, or `3` anywhere on the page to toggle between designs.
+- **Direct URL Query Parameters**:
+  - Design 1: `http://localhost:5173/web-portfolio/?v=1`
+  - Design 2: `http://localhost:5173/web-portfolio/?v=2`
+  - Design 3: `http://localhost:5173/web-portfolio/?v=3`
 
 ---
 
-### Design 4: Oryzo Coaster & Coffee Beans (Theme: Oryzo.ai Physical Product Movie)
+## Detailed Breakdown of the 3 Master Coffee Designs
 
-> **Creative Concept**: Direct frame-by-frame implementation of the Oryzo.ai experience from your screenshots and screen recording.  
-> **Key Mechanics**: Central 3D cork coaster tumbling on scroll, river of roasted 3D coffee beans parting on cursor contact, 5-star bold review headlines on the left, media showcase cards on the right.
+---
 
-| Hero Viewport with Coffee Bean Stream | Scrolled View with Tumbling Coaster & Reviews |
+### Design 1: The Espresso Lab (Modern Specialty Roastery)
+*Dialing In High-Yield Distributed AI & Autonomous Agent Pipelines*
+
+> **Concept**: A high-tech specialty coffee laboratory where machine learning engineering is treated like precision espresso extraction: calibrated pressure, optimal grind distribution, and zero-defect yield.
+
+| Hero Viewport: 3D Ceramic Mug, Steam & Off-Screen Bean Stream | Scrolled View: Horizontal Career Runway & Extraction Gauges |
 | :---: | :---: |
-| ![Design 4 Hero](screenshots/design4_oryzo_coaster.png) | ![Design 4 Scrolled](screenshots/design4_oryzo_coaster_scrolled.png) |
+| ![Design 1 Hero](screenshots/coffee_design1_espresso_lab.png) | ![Design 1 Scrolled](screenshots/coffee_design1_espresso_lab_scrolled.png) |
 
-#### Visual Identity
-- **Typography**: Clean, punchy Sans-Serif + Monospaced Telemetry (`RATING & REVIEWS CUSTOM REVIEWS [ 364 ] ★★★★★ [ 4.9/5 ]`).
-- **Color Palette**: Dark espresso (`#140e0a`), warm roasted caramel (`#ea580c`), milk cream (`#f7efe6`).
-- **Content Flow**:
-  - Left: `"Hollywood is not ready for an MLE this cinematic."` — Jamie R., AI Influencer
-  - Left: `"My agent pipeline? If you want it, I'll let you have it. Look for it! I gathered 170M records together in one place!"` — Gol D. Roger
-  - Left: `"I deployed the wearable clinical agent mode. I achieved... zero latency and 20,890 lives improved."` — Jules M.
-  - Right: High-resolution media showcase cards for Korn Ferry, ACE Software, and Kratin LLC.
+#### Visual Identity & Design System
+- **Palette**: Deep Roasted Espresso (`#0c0a09`), Warm Amber / Crema Gold (`#f59e0b` / `#d97706`), Steam Froth White (`#fafaf9`), Rich Walnut Wood (`#1c1917`).
+- **Typography**: Space Grotesk / Inter Display for bold roast headers + JetBrains Mono for barista extraction telemetry.
+- **3D Centerpiece**: High-polygon 3D ceramic mug with hollow chamber, dark liquid espresso, golden crema meniscus, and 85 animated steam particles floating upward with sinusoidal curl.
+- **Interactive Bean Stream**: 135 roasted beans flowing gently left-to-right across $[-36, +36]$. Deflects outward when the mouse cursor approaches.
+- **Horizontal Scroll Runway**:
+  - Vertical scroll smoothly glides the candidate's career cards horizontally:
+    1. **Korn Ferry**: Machine Learning Engineer (Nov 2025–Present) — ResearchFox 170M+ candidate profiles, LLM Job Classifier, Salary Prediction Engine, Datadog/Arize AX.
+    2. **ACE Software Solutions**: AI Solutions Engineer (Nov 2024–Nov 2025) — Autonomous banking swarms with CrewAI & LangGraph on Amazon Bedrock, MCP servers.
+    3. **Kratin LLC**: AI/ML Engineer (Jan 2023–Nov 2024) — Real-time Speech-to-Text clinical agent for 20,890+ patients, RAG & Neo4j graph pipeline.
+    4. **GH Raisoni College of Engineering**: B.Tech CSE (2020–2024) — **9.3 CGPA (Summa Cum Laude)**, Top 1% rank.
+- **Interactive Cupping Station**:
+  - 4 interactive extraction sliders (Extraction Yield, Agent Pressure, Latency Tolerance, Crema Density) that dynamically compute a live Brew Rating and Model Output status.
+- **Production Project Showcase**:
+  - Voice Agent Pipeline (WebSockets / STT-LLM-TTS / 85ms).
+  - Multi-Agent Financial Swarm (Amazon Bedrock / CrewAI / pgvector).
+  - Stitchit iOS Mobile Intelligence (CoreML / Swift / FastViT).
 
 ---
 
-### Design 2: Casino Royale (Theme: Casino & Poker)
+### Design 2: Caffeine Overclocked (Developer Fuel Cyber-Roast)
+*Autonomous Agent Architecture Fueled by High-Octane Roast*
 
-> **Creative Concept**: High-roller Monte Carlo casino table. Projects and career achievements are dealt as winning hands.  
-> **Key Mechanics**: Heavy 3D gold-embossed casino chip tumbling down the center, cascading river of gold chips and dice that scatter on cursor brush, luxury playing card cards (Royal Flush, Ace of Spades).
+> **Concept**: The raw, gritty, late-night engineering aesthetic. Coffee as the biochemical fuel powering terminal commands, multi-agent swarms, and high-throughput production infrastructure.
 
-| Hero Viewport with Gold Chip & baize | Scrolled View with Playing Cards Flanking |
+| Hero Viewport: Takeaway Cup, Heat Sleeve & Developer Terminal | Scrolled View: Production Conveyor Runway & 5x Certifications |
 | :---: | :---: |
-| ![Design 2 Hero](screenshots/design2_casino_royale.png) | ![Design 2 Scrolled](screenshots/design2_casino_royale_scrolled.png) |
+| ![Design 2 Hero](screenshots/coffee_design2_caffeine_overclocked.png) | ![Design 2 Scrolled](screenshots/coffee_design2_caffeine_overclocked_scrolled.png) |
 
-#### Visual Identity
-- **Typography**: Classic Serif Headline (`UBAID GHANTE`) + Monospaced Chip Stats.
-- **Color Palette**: Velvet baize green (`#06140e`), gold bullion (`#f59e0b`), neon scarlet.
-- **Content Flow**:
-  - The Royal Flush: Korn Ferry 170M+ Profiles Multi-Agent Orchestration.
-  - The Ace of Spades: ACE Software Autonomous Banking MCP Servers over Amazon Bedrock.
-  - The King of Diamonds: Kratin Healthcare Speech-to-Text Clinical Voice Telemetry (20,890 Patients).
-  - The Golden Jackpot: 9.3 CGPA Summa Cum Laude & 5x IBM/Google Certifications.
+#### Visual Identity & Design System
+- **Palette**: Pitch Black Roastery (`#0a0806`), High-Octane Orange (`#f97316`), Terminal Amber (`#fbbf24`), Smoked Carbon (`#18181b`).
+- **Typography**: Monospace Code Matrix (JetBrains Mono / Fira Code) with bold industrial technical headers.
+- **3D Centerpiece**: 3D Kraft paper takeaway cup with ribbed brown heat sleeve, drinking lid opening, and rising vertical steam plume.
+- **Interactive Bean Stream**: Dark-roasted beans flowing along a low-frequency conveyor line, tumbling when brushed by cursor coordinates.
+- **Horizontal Production Conveyor (Scroll-Left on Scroll Down)**:
+  - Sticky viewport translating industrial telemetry cards horizontally:
+    - `01 / KORN FERRY CORE RUNTIME`: 170M+ candidate knowledge graph, Tableau MCP integration, Arize AX agent evaluation.
+    - `02 / ACE FINANCIAL CLUSTER`: Bedrock-hosted multi-agent swarms, autonomous ledger auditing, pgvector indexing.
+    - `03 / KRATIN CLINICAL ENGINE`: 20,890 lymphedema patient cohort, dual RASA + RAG diagnostic voice bot.
+    - `04 / ACADEMIC KERNEL`: GH Raisoni B.Tech CSE, 9.3 CGPA, Academic Excellence Citation.
+- **5x IBM & Google Certifications Board (Jan 2026)**:
+  - Google: Deploying Generative AI on Vertex AI
+  - Google: Foundations of AI & Vector Search
+  - IBM: Generative AI Engineering & Multi-Agent Swarms
+  - IBM: Enterprise LLMs & Prompt Optimization
+  - IBM: Cloud AI Production Pipelines
+- **Terminal Brew Monitor & Contact Shell**:
+  - Live command prompt style contact form (`ubaid@coffee-terminal:~$ mail --to ubaidghante@gmail.com`).
 
 ---
 
-### Design 1: Space Odyssey (Theme: Space)
+### Design 3: Artisanal Crema (Luxury Editorial Cafe)
+*Precision Craftsmanship, Single-Origin Intelligence & Elegant Typography*
 
-> **Creative Concept**: Interstellar space station mission. The candidate is an AI flight systems architect traversing deep space.  
-> **Key Mechanics**: Authentic 3D Astronaut Helmet (`DamagedHelmet.glb`) tumbling in zero gravity down the center, floating asteroid debris belt that deflects on cursor gravity, mission telemetry HUD.
+> **Concept**: A luxurious, Michelin-caliber specialty cafe aesthetic. Understated warmth, elegant editorial serif typography, and tactile craftsmanship reflecting senior engineering maturity.
 
-| Hero Viewport with Astronaut Helmet | Scrolled View with Mission Telemetry |
+| Hero Viewport: Layered Cortado Glass, Froth Meniscus & Soft Stream | Scrolled View: Editorial Horizontal Career Gallery & Colophon |
 | :---: | :---: |
-| ![Design 1 Hero](screenshots/design1_space_odyssey.png) | ![Design 1 Scrolled](screenshots/design1_space_odyssey_scrolled.png) |
+| ![Design 3 Hero](screenshots/coffee_design3_artisanal_crema.png) | ![Design 3 Scrolled](screenshots/coffee_design3_artisanal_crema_scrolled.png) |
 
-#### Visual Identity
-- **Typography**: Bold Sans Display + Monospaced Telemetry (`TRAJECTORY: 42% AU`).
-- **Color Palette**: Deep space void (`#030712`), neon cyan (`#22d3ee`), starlight white.
-- **Content Flow**:
-  - Mission 01: Korn Ferry 170M+ Orbital Telemetry.
-  - Mission 02: ACE Banking Agent Swarms.
-  - Mission 03: Kratin 20,890 Patient Deep Probe.
-  - Mission 04: Flight Crew Credentials (9.3 CGPA & 5x Certifications).
-
----
-
-### Design 3: Cyber Arcana (Theme: Cards & Tarot)
-
-> **Creative Concept**: Cyberpunk mystical tarot deck. Projects are Major Arcana cards drawn by destiny.  
-> **Key Mechanics**: 3D thick holographic tarot card with gold edges tumbling down the center, river of floating golden card suits (♠, ♥, ♦, ♣) scattering on cursor proximity.
-
-| Hero Viewport with 3D Tarot Card | Scrolled View with Arcana Prophecies |
-| :---: | :---: |
-| ![Design 3 Hero](screenshots/design3_cyber_tarot.png) | ![Design 3 Scrolled](screenshots/design3_cyber_tarot_scrolled.png) |
-
-#### Visual Identity
-- **Typography**: Ornate Classical Serif + Roman Numerals.
-- **Color Palette**: Mystic obsidian (`#07060b`), radiant gold foil (`#eab308`), deep amethyst.
-- **Content Flow**:
-  - Arcana I: The Magician (Korn Ferry Multi-Agent Systems).
-  - Arcana II: The Hierophant (ACE Banking MCP Protocols).
-  - Arcana III: The Alchemist (Kratin Healthcare Speech-to-Text).
-  - Arcana IV: The Star (9.3 CGPA & IBM Deep Learning Mastery).
+#### Visual Identity & Design System
+- **Palette**: Roasted Mocha Dark (`#17120e`), Oat Milk Silk (`#f5ede2`), Warm Cinnamon (`#c27803`), Burnished Gold (`#d4af37`).
+- **Typography**: Editorial Serif Display (Playfair / Cormorant style) paired with clean geometric grotesque for body and micro-labels.
+- **3D Centerpiece**: Minimalist flared ceramic cortado cup with rich espresso gradient, steamed micro-foam top, and delicate vapor trails.
+- **Interactive Bean Stream**: Relaxed, floating beans with subtle rotational momentum and soft elastic cursor dispersal.
+- **Editorial Horizontal Career Slide**:
+  - Pinned horizontal slide exhibiting career chapters with curated pull-quotes and authentic technical accomplishments:
+    - *Chapter I: The Distributed Graph* — Korn Ferry (170M+ Profiles, LLM Classifier).
+    - *Chapter II: The Autonomous Agent* — ACE Software Solutions (Bedrock Swarms & MCPs).
+    - *Chapter III: The Clinical Voice* — Kratin LLC (20,890 Patients Speech-to-Text).
+    - *Chapter IV: Summa Cum Laude* — GH Raisoni B.Tech CSE (9.3 CGPA).
+- **Cupping Scorecard Matrix**:
+  - Sensory analysis breakdown: Aroma (Distributed Architecture), Body (Production Scale), Acidity (Multi-Agent Reasoning), Balance (Latency & Cost Optimization).
+- **Artisanal Project Collection & Editorial Colophon**:
+  - Multi-card gallery highlighting Ubaid's GitHub, LinkedIn, and email with bespoke typography.
 
 ---
 
-### Design 5: Lusion Cinema (Theme: Lusion.co Movie Frames)
+## Technical Architecture & Engineering Solutions
 
-> **Creative Concept**: A true cinematic film. Fullscreen scene diving, laser vector lines animating across the viewport, minimal text, maximum scale.  
-> **Key Mechanics**: Rotating 3D Primary Ion Drive engine (`PrimaryIonDrive.glb`), dynamic laser lines framing the screen on scroll, full-screen frame transitions.
+### 1. Parametric 3D Coffee Bean Geometry & Texture (`coffeeAssets.ts`)
+```typescript
+// Custom bean deformation: asymmetrical ellipsoid with longitudinal crease
+const geometry = new THREE.SphereGeometry(0.55, 32, 24);
+const pos = geometry.attributes.position;
+for (let i = 0; i < pos.count; i++) {
+  let x = pos.getX(i) * 1.5;
+  let y = pos.getY(i) * 0.95;
+  let z = pos.getZ(i) * 0.75;
+  // Longitudinal fissure (groove) on front face (z > 0)
+  if (z > 0.05) {
+    const distFromCenterline = Math.abs(x);
+    if (distFromCenterline < 0.28) {
+      const creaseDepth = Math.cos((distFromCenterline / 0.28) * (Math.PI / 2)) * 0.22;
+      z -= creaseDepth;
+    }
+  }
+  pos.setXYZ(i, x, y, z);
+}
+```
+Paired with a 512×512 procedural canvas texture featuring dark roasted gradients, radial fiber grain, and a deep brown fissure seam.
 
-| Hero Viewport with Laser Lines & Ion Drive | Scrolled View with Fullscreen Film Frames |
-| :---: | :---: |
-| ![Design 5 Hero](screenshots/design5_lusion_cinema.png) | ![Design 5 Scrolled](screenshots/design5_lusion_cinema_scrolled.png) |
+### 2. Seamless Off-Screen Stream Cycling (`RealisticCoffeeBeanStream.tsx`)
+- Camera view width at $Z=20$ is roughly $[-16, +16]$.
+- Stream bounds are set to $[-36, +36]$:
+  ```typescript
+  if (b.x > 36) {
+    b.x = -36; // Re-enters 20 units outside the left screen boundary
+    b.y = b.baseY + (Math.random() - 0.5) * 4;
+  }
+  ```
+- Result: **Zero visible popping or resetting**. The stream appears truly infinite.
 
-#### Visual Identity
-- **Typography**: Ultra-Heavy Display Sans (`UBAID GHANTE`) + Cinematic HUD.
-- **Color Palette**: Pure cinema black (`#000000`), laser cyan, stark white.
-- **Content Flow**:
-  - Frame 01: 170M+ Profiles Orchestrated in Real Time.
-  - Frame 02: Autonomous Swarms & Banking MCP Cores.
-  - Frame 03: 20,890 Patients Speech Clinical Telemetry.
-  - Frame 04: Summa Cum Laude 9.3 Top 1% Distinction.
+### 3. Procedural Rising Steam Particles (`CoffeeMug3DCanvas.tsx`)
+- 85 billowed steam particles with additive blending (`THREE.AdditiveBlending`).
+- Individual vertical velocity ($0.035$ to $0.065$) combined with sinusoidal lateral wobble:
+  $$\Delta x = \sin(t \times 2.0 + \text{phase}) \times 0.015$$
+- Opacity smoothly fades to zero as particles rise above the mug rim ($Y > 3.5$), creating an authentic hot coffee vapor plume.
 
----
-
-### Design 6: Neon Arcade Collider (Theme: Playable Pinball & Arcade)
-
-> **Creative Concept**: 1980s Tokyo cyberpunk arcade cabinet. Scrolling tumbles a heavy chrome pinball through scoring bumpers.  
-> **Key Mechanics**: Tumbling 3D chrome pinball, floating neon arcade tokens swarm, live score counter that increments with scroll multipliers (170M PTS, x10 MULTIPLIER).
-
-| Hero Viewport with Pinball & Score | Scrolled View with Stage Cleared Cards |
-| :---: | :---: |
-| ![Design 6 Hero](screenshots/design6_neon_arcade.png) | ![Design 6 Scrolled](screenshots/design6_neon_arcade_scrolled.png) |
-
-#### Visual Identity
-- **Typography**: Retro-Modern Arcade Sans + Digital Scoreboard Monospace.
-- **Color Palette**: Cyberpunk dark purple (`#090214`), hot magenta (`#ec4899`), neon cyan (`#06b6d4`).
-- **Content Flow**:
-  - Stage 01: Korn Ferry Agentic Multi-Swarms (170M+ PTS).
-  - Stage 02: ACE Banking MCP Server (100% Combo).
-  - Stage 03: Kratin Voice AI & Health Graphs (20,890 Lives).
-  - Stage 04: Hall of Fame (9.3 CGPA & 5x Certified).
-
----
-
-## Comparative Matrix
-
-| Theme | Centerpiece 3D Asset | Swarm Particle Physics | Scroll Mechanics | Visual Vibe |
-| :--- | :--- | :--- | :--- | :--- |
-| **#1 Space Odyssey** | `DamagedHelmet.glb` (Astronaut Helmet) | 120x Rocky Asteroids | Orbital gravity tumble + HUD telemetry | Deep Space / Apollo / Interstellar |
-| **#2 Casino Royale** | 3D Gold Casino Chip | 110x Poker Chips & Dice | Chip roll & wobble + Card deal reveal | Velvet green baize & gold bullion |
-| **#3 Cyber Arcana** | 3D Holographic Tarot Card | 120x Card Suits & Shards | Card spline fan + Arcana reveal | Mystic obsidian & gold filigree |
-| **#4 Oryzo Coaster & Beans** | 3D Procedural Cork Coaster | 160x Roasted Coffee Beans | Vertical coaster tumble + 5-star review split | Warm espresso, caramel & cream |
-| **#5 Lusion Cinema** | `PrimaryIonDrive.glb` (Ion Engine) | 90x Laser Shards | Laser lines drawing on screen + Fullscreen frames | Pure black cinema void & laser cyan |
-| **#6 Neon Arcade Collider** | 3D Chrome Pinball Token | 120x Neon Arcade Tokens | Pinball drop + Score multiplier increments | Tokyo cyberpunk arcade & neon glow |
+### 4. Horizontal Scroll-Left Runway (`HorizontalScrollRunway.tsx`)
+- Uses a `300vh` outer container with a `100vh sticky` viewport.
+- As the user scrolls through the 300vh height:
+  $$\text{progress} = \frac{-\text{rect.top}}{\text{offsetHeight} - \text{innerHeight}}$$
+  $$\text{translateX} = -\text{progress} \times 65\%$$
+- Once horizontal progress reaches 100%, vertical scrolling naturally resumes into subsequent sections. Exactly replicates the motion demonstrated in `Screen Recording 2026-09-14 at 1.49.08 AM.mov`.
 
 ---
 
-## Production Build & Branch Verification
+## Verification & Build Validation
 
-- Dev server running on `http://localhost:5173/web-portfolio/`.
-- All 6 themes compile cleanly (`tsc -b && vite build` passed with 0 errors).
-- Resilient Three.js fallback handling on all canvases ensures rock-solid performance across mobile and desktop devices.
+- **TypeScript Compilation & Vite Build**: Passed with 0 errors (`tsc -b && vite build` completed in 1.42s).
+- **Puppeteer Headless Visual Capture**: Rendered and captured 6 high-definition screenshots across all 3 designs in both hero viewports and scrolled horizontal runways:
+  - `screenshots/coffee_design1_espresso_lab.png`
+  - `screenshots/coffee_design1_espresso_lab_scrolled.png`
+  - `screenshots/coffee_design2_caffeine_overclocked.png`
+  - `screenshots/coffee_design2_caffeine_overclocked_scrolled.png`
+  - `screenshots/coffee_design3_artisanal_crema.png`
+  - `screenshots/coffee_design3_artisanal_crema_scrolled.png`
+- **Active Dev Server**: Accessible on `http://localhost:5173/web-portfolio/`.

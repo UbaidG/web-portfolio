@@ -27,12 +27,9 @@ async function capture() {
   });
 
   const designs = [
-    { id: 1, name: "design1_space_odyssey.png", label: "Space Odyssey (Theme: Space)" },
-    { id: 2, name: "design2_casino_royale.png", label: "Casino Royale (Theme: Casino & Poker)" },
-    { id: 3, name: "design3_cyber_tarot.png", label: "Cyber Arcana (Theme: Cards & Tarot)" },
-    { id: 4, name: "design4_oryzo_coaster.png", label: "Oryzo Coaster & Beans (Theme: Oryzo.ai)" },
-    { id: 5, name: "design5_lusion_cinema.png", label: "Lusion Cinema (Theme: Lusion.co)" },
-    { id: 6, name: "design6_neon_arcade.png", label: "Neon Arcade Collider (Theme: Playable Pinball)" },
+    { id: 1, name: "coffee_design1_espresso_lab.png", label: "The Espresso Lab (Modern Roastery)" },
+    { id: 2, name: "coffee_design2_caffeine_overclocked.png", label: "Caffeine Overclocked (Cyber Roast Terminal)" },
+    { id: 3, name: "coffee_design3_artisanal_crema.png", label: "Artisanal Crema (Luxury Editorial Cafe)" },
   ];
 
   for (const d of designs) {
