@@ -1,9 +1,9 @@
 export interface ExperienceItem {
+  id: string;
   company: string;
   role: string;
   period: string;
-  location: string;
-  type: string;
+  location?: string;
   tech: string[];
   summary: string;
   highlights: string[];
@@ -18,11 +18,8 @@ export interface ProjectItem {
   tech: string[];
   description: string;
   github?: string;
-  live?: string;
   linkLabel?: string;
   category: "Agentic AI" | "Computer Vision" | "MLOps & Data" | "Health AI";
-  stats?: { label: string; value: string };
-  gradient: string;
 }
 
 export interface EducationItem {
@@ -30,7 +27,6 @@ export interface EducationItem {
   degree: string;
   period: string;
   score: string;
-  badge?: string;
 }
 
 export interface CertificationItem {
@@ -39,94 +35,148 @@ export interface CertificationItem {
   date: string;
 }
 
+export interface ProofMetric {
+  value: string;
+  label: string;
+  context: string;
+}
+
+const resumeUrl = `${import.meta.env.BASE_URL}Aug2026LatexResumeMinimal.pdf`;
+
 export const PORTFOLIO_DATA = {
   personal: {
     name: "Ubaid Ghante",
     role: "Machine Learning Engineer",
-    secondaryRole: "Autonomous Agents · MLOps · Speech & Vision Systems",
+    secondaryRole: "Agentic AI · MLOps · Real-time Voice Systems",
     email: "ughante@gmail.com",
     phone: "+919284876115",
-    location: "Remote / India",
-    linkedin: "https://linkedin.com/in/ubaid-ghante",
-    github: "https://github.com/Ubaid-Ghante",
-    resumePdf: `${import.meta.env.BASE_URL}Aug2026LatexResumeMinimal.pdf`,
-    resumeUrl: `${import.meta.env.BASE_URL}Aug2026LatexResumeMinimal.pdf`,
+    linkedinUrl: "https://linkedin.com/in/ubaid-ghante",
+    githubUrl: "https://github.com/Ubaid-Ghante",
+    resumeUrl,
     shortBio:
-      "Machine Learning Engineer with 3+ years architecting production-grade agentic workflows, autonomous systems, and large-scale MLOps pipelines serving 170M+ users. Specializing in multi-agent orchestration (LangGraph, CrewAI, MCP), real-time multimodal voice systems, and enterprise LLM infrastructure.",
-    stats: [
-      { value: "170M+", label: "User Profiles in Production", detail: "Talent Suite & Agent Workflows" },
-      { value: "3+ Years", label: "Production AI Experience", detail: "End-to-end ML & Agentic Systems" },
-      { value: "40%", label: "Process Latency Reduction", detail: "RAG & LLM Enterprise Pipelines" },
-      { value: "9.3", label: "B.Tech CGPA", detail: "Computer Science & Engineering" },
-    ],
+      "Machine Learning Engineer building production agentic workflows, real-time voice systems, and scalable ML infrastructure.",
   },
+
+  proofMetrics: [
+    {
+      value: "170M+",
+      label: "user profiles",
+      context: "Korn Ferry / ResearchFox",
+    },
+    {
+      value: "40%",
+      label: "process-time reduction",
+      context: "RAG and LLM applications",
+    },
+    {
+      value: "20,890+",
+      label: "patients",
+      context: "Lymphedema health-progression model",
+    },
+    {
+      value: "9.3",
+      label: "CGPA",
+      context: "Computer Science and Engineering",
+    },
+    {
+      value: "2",
+      label: "engineers led",
+      context: "ACE Software Solutions",
+    },
+  ] as ProofMetric[],
 
   experiences: [
     {
+      id: "korn-ferry",
       company: "Korn Ferry (ResearchFox)",
       role: "Machine Learning Engineer",
       period: "Nov 2025 — Present",
       location: "Remote",
-      type: "Full-Time",
-      tech: ["LangGraph", "FastAPI", "Docker", "Kubernetes", "Datadog", "Arize AX", "Tableau MCP", "TabPy"],
-      summary:
-        "Architecting production agentic workflows and ML predictive engines serving over 170M+ user profiles across Korn Ferry's Talent Suite.",
-      highlights: [
-        "Built Job Classifier Agent Workflow with inbuilt ML models + GenAI Response + Chat Interface for global talent acquisition teams.",
-        "Engineered Machine Learning models to Predict Salary Estimates based on historic data with very sparse data points, unlocking key capabilities in Talent Suite Product.",
-        "Developed Tableau MCP and TabPy Server with integrated LangGraph flows and OpenAI SKILLs to enhance Dashboards by embedding real-time multi-step analytical reasoning.",
-        "Architected scalable MLOps pipelines using FastAPI, Docker, Kubernetes, and GitHub Actions, ensuring robust AI Observability via Datadog and Arize AX.",
-        "Managing POCs and scalable production microservices with 170M+ user profiles.",
+      tech: [
+        "LangGraph",
+        "FastAPI",
+        "Docker",
+        "Kubernetes",
+        "Datadog",
+        "Arize AX",
+        "Tableau MCP",
+        "TabPy",
       ],
-      metrics: "170M+ Profiles · Enterprise Talent Suite",
+      summary:
+        "Building ML and agent workflows for Korn Ferry's Talent Suite, working with more than 170M user profiles.",
+      highlights: [
+        "Building a Job Classifier Agent Workflow combining inbuilt ML models, generative AI responses, and a chat interface for talent acquisition teams.",
+        "Built salary-estimation models from historic data with sparse data points for the Talent Suite product.",
+        "Worked on Tableau MCP and TabPy Server with integrated LangGraph flows and OpenAI skills for dashboard analysis.",
+        "Architected MLOps pipelines with FastAPI, Docker, Kubernetes, and GitHub Actions, with Datadog and Arize AX observability.",
+      ],
+      metrics: "170M+ user profiles",
     },
     {
+      id: "ace",
       company: "ACE Software Solutions (India) Pvt Ltd",
       role: "Machine Learning Engineer",
       period: "Nov 2024 — Nov 2025",
       location: "Remote",
-      type: "Full-Time",
-      tech: ["CrewAI", "LangChain", "LangGraph", "n8n", "Amazon Bedrock", "HuggingFace", "OpenAI", "Ollama", "MCP"],
-      summary:
-        "Developed production-grade agentic workflows and banking compliance systems while leading engineering sub-teams.",
-      highlights: [
-        "Developed production-grade agentic workflows using CrewAI, LangChain, LangGraph, and n8n integrated with Amazon Bedrock, HuggingFace, OpenAI, and Ollama.",
-        "Designed and deployed custom Model Context Protocol (MCP) Servers to handle complex multi-step reasoning queries in banking, fraud detection, and regulatory compliance.",
-        "Built and deployed scalable pipelines using Flask / FastAPI + Docker for every project with zero downtime CI/CD.",
-        "Operated both as high-velocity single contributor and technical lead mentoring junior engineers.",
+      tech: [
+        "CrewAI",
+        "LangChain",
+        "LangGraph",
+        "n8n",
+        "Amazon Bedrock",
+        "HuggingFace",
+        "OpenAI",
+        "Ollama",
+        "MCP",
       ],
-      metrics: "Led Team of 2 · Custom MCP Architecture",
+      summary:
+        "Developed production-grade agentic workflows and banking/compliance systems while leading a team of two.",
+      highlights: [
+        "Developed agentic workflows with CrewAI, LangChain, LangGraph, and n8n across Amazon Bedrock, HuggingFace, OpenAI, and Ollama.",
+        "Designed and developed MCP servers for complex queries in banking and compliance.",
+        "Built and deployed scalable Flask and FastAPI pipelines with Docker.",
+        "Worked as a single contributor and led a team of two engineers.",
+      ],
+      metrics: "Team of 2 led",
     },
     {
+      id: "kratin-data-scientist",
       company: "Kratin LLC",
       role: "Data Scientist",
       period: "Aug 2023 — Nov 2024",
       location: "Remote",
-      type: "Full-Time",
-      tech: ["Azure Speech AI", "Azure OpenAI", "RASA", "GPT", "Llama2", "RAG", "NER", "Time-Series ML"],
-      summary:
-        "Implemented high-accuracy speech AI systems, enterprise RAG applications, and predictive healthcare models.",
-      highlights: [
-        "Implemented real-time Speech-to-Text with intent mapping (RASA) using Azure Speech AI and fine-tuned Azure OpenAI models, enhancing voice command accuracy.",
-        "Leveraged LLMs (GPT, Llama2) to automate clinical workflows and developed enterprise RAG and NER applications, cutting process turnaround time by 40%.",
-        "Engineered a clinical time-series ML model to predict patient health progression, enabling early lymphedema diagnosis for 20,890+ patients using SOTA prediction techniques.",
+      tech: [
+        "Azure Speech AI",
+        "Azure OpenAI",
+        "RASA",
+        "GPT",
+        "Llama2",
+        "RAG",
+        "NER",
+        "Time-Series ML",
       ],
-      metrics: "20,890+ Patients Diagnosed · 40% Speedup",
+      summary:
+        "Built speech AI, enterprise RAG, NER, and healthcare time-series systems.",
+      highlights: [
+        "Implemented Speech-to-Text with RASA intent mapping using Azure Speech AI and fine-tuned Azure OpenAI models.",
+        "Used GPT and Llama2 to automate tasks and develop RAG and NER applications, reducing process time by 40%.",
+        "Created a time-series ML model to predict patient health progression for early lymphedema diagnosis across 20,890+ patients.",
+      ],
+      metrics: "40% process-time reduction · 20,890+ patients",
     },
     {
+      id: "kratin-junior",
       company: "Kratin LLC",
       role: "Junior Data Scientist",
       period: "Jan 2023 — Jul 2023",
-      location: "Remote / On-site",
-      type: "Internship & Associate",
       tech: ["Neo4j", "Graph Databases", "Cypher", "Constraint Programming", "Python"],
       summary:
-        "Graph data modeling, relationship analytics, and algorithmic workforce optimization at scale.",
+        "Worked on graph data modeling and workforce optimization algorithms.",
       highlights: [
-        "Constructed and managed graph databases (Neo4j) using Cypher to uncover and analyze multi-hop data relationships, significantly boosting insight retrieval speed.",
-        "Designed and implemented a constraint programming scheduler algorithm for workforce time optimization, streamlining operational shift efficiency.",
+        "Constructed and managed Neo4j graph databases with Cypher to analyze complex data relationships.",
+        "Designed a constraint-programming scheduler algorithm for workforce time optimization.",
       ],
-      metrics: "Graph Database Engine · Shift Scheduler",
+      metrics: "Graph databases · Workforce optimization",
     },
   ] as ExperienceItem[],
 
@@ -134,191 +184,155 @@ export const PORTFOLIO_DATA = {
     {
       id: "voice-agent",
       title: "Voice Agent Pipeline",
-      subtitle: "Ultra-Low Latency Multimodal Conversational Agent",
-      tagline: "Real-time speech pipeline combining LiveKit, Deepgram STT, OpenAI LLM, and Cartesia TTS.",
-      tech: ["Python", "LiveKit", "Deepgram", "OpenAI", "Cartesia", "HuggingFace", "WebRTC"],
+      subtitle: "Customizable real-time voice interaction system",
+      tagline:
+        "A modular pipeline connecting speech recognition, language models, and speech synthesis.",
+      tech: ["Python", "LiveKit", "Deepgram", "OpenAI", "Cartesia", "HuggingFace"],
       description:
-        "Architected an end-to-end, ultra-low latency voice agent pipeline integrating Deepgram (STT), OpenAI (LLM), and Cartesia (TTS). Incorporated open-source audio models for End-Of-Utterance (EOU) detection and Voice Activity Detection (VAD). Built with full customizable preprocessing/postprocessing audio hooks.",
+        "Architected a customizable voice agent pipeline integrating Deepgram for speech-to-text, OpenAI for language understanding, and Cartesia for text-to-speech. Added open-source models for end-of-utterance detection and voice activity detection, with preprocessing and postprocessing hooks.",
       github: "https://github.com/Ubaid-Ghante",
-      linkLabel: "GitHub Repository",
+      linkLabel: "GitHub profile",
       category: "Agentic AI",
-      stats: { label: "Latency", value: "< 320ms" },
-      gradient: "from-amber-500/20 via-orange-500/10 to-rose-500/20",
     },
     {
       id: "stitchit",
-      title: "Stitchit (iOS App)",
-      subtitle: "Computer Vision Anti-Content Theft & Recommendation System",
-      tagline: "Full-stack iOS application powered by PANNs and Swin Transformer for deep video similarity.",
-      tech: ["Python", "Flask", "Swift", "AWS", "Neo4j", "Docker", "Swin Transformer", "PANNs"],
+      title: "Stitchit",
+      subtitle: "iOS content-protection and recommendation system",
+      tagline:
+        "A full-stack iOS application using audio and video embeddings to detect content theft.",
+      tech: ["Python", "Flask", "Swift", "AWS", "Neo4j", "Docker", "PANNs", "Swin Transformer"],
       description:
-        "Engineered a full-stack iOS platform to detect and prevent digital content theft using state-of-the-art computer vision models (PANNs audio embeddings + Swin Transformer video spatio-temporal features) to compute pairwise cosine video similarity. Implemented user-specific AI bubbles via Neo4j graph database for contextual personalization.",
+        "Developed a full-stack iOS app to prevent content theft using PANNs and Swin Transformer models to calculate video similarity. Implemented user-specific AI bubbles with Neo4j for personalization and content recommendation.",
       github: "https://github.com/Ubaid-Ghante",
-      linkLabel: "TestFlight Preview",
+      linkLabel: "GitHub profile",
       category: "Computer Vision",
-      stats: { label: "Architecture", value: "Swin + Neo4j" },
-      gradient: "from-purple-500/20 via-indigo-500/10 to-cyan-500/20",
     },
     {
       id: "genai-dashboard",
       title: "Gen AI Dashboard",
-      subtitle: "Text-to-SQL + Auto-Visualization Engine with PHI/PII Masking",
-      tagline: "Secure enterprise analytics chatbot translating natural language to optimized SQL.",
-      tech: ["Python", "Flask", "OpenAI", "RASA", "HuggingFace NER", "SQL", "Plotly"],
+      subtitle: "Text-to-SQL and automated visualization",
+      tagline:
+        "An enterprise chatbot that turns natural-language questions into useful, privacy-aware analytics.",
+      tech: ["Python", "Flask", "OpenAI", "RASA", "HuggingFace NER", "SQL"],
       description:
-        "Engineered an enterprise conversational analytics system that translates complex natural language queries into optimized SQL, automatically determines and renders best-fit visual charts, and intercepts PHI/PII data via an onboard HuggingFace NER transformer to guarantee zero privacy leakages.",
+        "Engineered a chatbot that translates user queries into optimized SQL, automatically selects best-fit visualizations, and masks PHI/PII using a HuggingFace NER model.",
       github: "https://github.com/Ubaid-Ghante",
-      linkLabel: "GitHub Repository",
+      linkLabel: "GitHub profile",
       category: "MLOps & Data",
-      stats: { label: "Security", value: "Real-time PHI Masking" },
-      gradient: "from-teal-500/20 via-emerald-500/10 to-cyan-500/20",
     },
     {
       id: "rag-chatbot",
-      title: "Clinical RAG Chatbot",
-      subtitle: "Specialized Medical Knowledge Retrieval Engine",
-      tagline: "High-precision vector retrieval and semantic caching for clinician decision support.",
-      tech: ["Python", "Flask", "Azure OpenAI", "RASA", "CosmosDB", "Vector Search"],
+      title: "RAG Chatbot",
+      subtitle: "Specialized clinical knowledge retrieval",
+      tagline:
+        "A clinician-facing assistant built around intent mapping, caching, and vector search.",
+      tech: ["Python", "Flask", "Azure OpenAI", "RASA", "CosmosDB"],
       description:
-        "Constructed a verified high-accuracy Retrieval-Augmented Generation chatbot utilizing intent mapping (RASA), intelligent semantic cache tiers, and dense vector search across medical literature to answer clinician queries with precise source attribution.",
+        "Built a high-accuracy RAG chatbot with RASA intent mapping, caching, and vector search to answer clinician questions from a specialized knowledge base.",
       github: "https://github.com/Ubaid-Ghante",
-      linkLabel: "GitHub Repository",
-      category: "Agentic AI",
-      stats: { label: "Accuracy", value: "Semantic Verification" },
-      gradient: "from-blue-500/20 via-sky-500/10 to-indigo-500/20",
+      linkLabel: "GitHub profile",
+      category: "Health AI",
     },
     {
       id: "clinician-note",
       title: "Clinician Note Analyzer",
-      subtitle: "GraphRAG Patient Personalizer",
-      tagline: "Automated medical chart summarization using transformer NER and knowledge graph linking.",
+      subtitle: "Patient personalizer AI",
+      tagline: "NER and GraphRAG for summarization and preference grouping.",
       tech: ["NER", "GraphRAG", "Neo4j", "Python", "spaCy"],
       description:
-        "Developed an assistive AI that digests dense unstructured clinician notes, identifies medical entities, symptoms, and dosages via fine-tuned NER, and constructs dynamic GraphRAG linkages for fast preference grouping and longitudinal patient tracking.",
+        "Patient personalizer AI using NER and GraphRAG for summarization and preference grouping.",
       github: "https://github.com/Ubaid-Ghante",
-      linkLabel: "GitHub Repository",
+      linkLabel: "GitHub profile",
       category: "Health AI",
-      stats: { label: "Engine", value: "GraphRAG" },
-      gradient: "from-rose-500/20 via-pink-500/10 to-violet-500/20",
     },
     {
       id: "patient-progression",
-      title: "Patient Health Progression (LSTM)",
-      subtitle: "Lymphedema Early Warning Neural Network",
-      tagline: "Time-series deep learning model predicting LDex trigger points in 20,890+ hospice patients.",
+      title: "Patient Health Progression",
+      subtitle: "Lymphedema early-warning model",
+      tagline: "Time-series prediction for LDex trigger points.",
       tech: ["PyTorch", "LSTM", "Python", "Time-Series ML", "Scikit-Learn"],
       description:
-        "Pioneered an LSTM recurrent neural network model to forecast critical LDex trigger thresholds in patients at risk of chronic lymphedema, resulting in early interventions across an active cohort of 20,890+ individuals.",
+        "LSTM and time-series model predicting LDex trigger points for patients with lymphedema.",
       github: "https://github.com/Ubaid-Ghante",
-      linkLabel: "GitHub Repository",
+      linkLabel: "GitHub profile",
       category: "Health AI",
-      stats: { label: "Cohort", value: "20,890+ Patients" },
-      gradient: "from-emerald-500/20 via-amber-500/10 to-teal-500/20",
     },
   ] as ProjectItem[],
 
   otherProjects: [
     {
       name: "SmartTextArea",
-      desc: "AI-enhanced text component with integrated mic, summarizer, and live dictation powered by Azure AI services.",
+      desc: "AI-enhanced text component with microphone input, summarizer, and live dictation using Azure AI services.",
       tech: "Azure AI · React · Web Audio",
     },
     {
       name: "Workforce Optimization",
-      desc: "Constraint programming algorithm for optimal workforce shift scheduling at scale.",
+      desc: "Constraint-programming algorithm for workforce shift scheduling.",
       tech: "Constraint Programming · Python",
     },
     {
       name: "Tableau MCP Server",
-      desc: "Model Context Protocol server connecting Claude/GPT reasoning directly to Tableau Dashboards via TabPy.",
-      tech: "MCP Protocol · TabPy · Python",
+      desc: "Model Context Protocol server connecting LLM reasoning to Tableau dashboards via TabPy.",
+      tech: "MCP · TabPy · Python",
     },
   ],
 
   education: [
     {
-      school: "Shri Guru Gobind Singhji Institute of Engineering and Technology (SGGSIE&T)",
+      school: "Shri Guru Gobind Singhji Institute of Engineering and Technology",
       degree: "Bachelor of Technology in Computer Science and Engineering",
       period: "2019 — 2023",
-      score: "CGPA: 9.3 / 10.0",
-      badge: "Graduated with High Honors",
+      score: "CGPA: 9.3",
     },
     {
       school: "Sant Tukaram National Model School",
-      degree: "Senior Secondary Education (CBSE Board)",
+      degree: "Senior Secondary Education · CBSE Board",
       period: "2017 — 2019",
       score: "84.6%",
     },
   ] as EducationItem[],
 
   skills: {
-    "Programming Languages": [
-      "Python",
-      "SQL",
-      "NoSQL",
-      "Cypher",
-      "JavaScript",
-      "Java",
-      "C",
-      "C++",
-      "HTML/CSS",
-    ],
-    "ML & Generative AI": [
-      "LLMs (OpenAI, Llama2, Claude)",
-      "RAG & GraphRAG",
-      "Agentic Workflows",
+    Programming: ["Python", "SQL", "NoSQL", "Cypher", "JavaScript", "Java", "C", "C++", "HTML/CSS"],
+    "ML & AI": [
+      "LLMs (OpenAI, Llama2)",
+      "RAG",
+      "NER",
       "LangChain",
       "CrewAI",
       "LangGraph",
-      "MCP (Model Context Protocol)",
       "PyTorch",
       "TensorFlow",
       "scikit-learn",
-      "HuggingFace",
+      "Pandas",
       "spaCy",
       "RASA",
-      "Pandas",
+      "HuggingFace",
     ],
-    "Cloud, MLOps & Observability": [
+    "Cloud & Tools": [
       "AWS (Bedrock, AgentCore, ECR, CloudWatch)",
       "Azure (AI Services, Data Factory)",
       "Docker",
+      "Git",
+      "GCP",
+      "Neo4j",
+      "Weights & Biases",
+      "Apache Spark",
       "Kubernetes",
       "Datadog",
       "Arize AX",
-      "Neo4j",
-      "Git & GitHub Actions",
-      "Weights & Biases",
-      "Apache Spark",
-      "GCP",
     ],
-    "Frameworks & Protocols": [
-      "FastAPI",
-      "Flask",
-      "Streamlit",
-      "n8n",
-      "Angular",
-      "React",
-      "A2A Protocols",
-      "LiveKit WebRTC",
-    ],
-    "Engineering Practices": [
-      "Project Scoping",
-      "Stakeholder Alignment",
-      "Agile / Scrum",
-      "AI Safety & PHI/PII Masking",
-      "Low-Latency Streaming",
-    ],
+    Frameworks: ["Flask", "FastAPI", "Streamlit", "Angular", "n8n", "MCP", "A2A"],
+    Practices: ["Project Management", "Stakeholder Management", "Project Scoping", "Agile Methodology", "PHI/PII Masking", "Real-time Voice Systems"],
   },
 
   certifications: [
     { name: "Machine Learning with Python", issuer: "IBM", date: "Jan 2026" },
     { name: "Introduction to Deep Learning & Neural Networks with Keras", issuer: "IBM", date: "Jan 2026" },
-    { name: "Deep Learning with Keras and TensorFlow", issuer: "IBM", date: "Jan 2026" },
     { name: "Foundations of Project Management", issuer: "Google", date: "Jan 2026" },
+    { name: "Deep Learning with Keras and TensorFlow", issuer: "IBM", date: "Jan 2026" },
     { name: "Project Initiation: Starting a Successful Project", issuer: "Google", date: "Jan 2026" },
   ] as CertificationItem[],
 };
 
 export const portfolioData = PORTFOLIO_DATA;
-

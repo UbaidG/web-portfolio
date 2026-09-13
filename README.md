@@ -1,25 +1,25 @@
-# Portfolio — Pavan Kushnure
+# Ubaid Ghante — Origin Study
 
-Personal portfolio site built with React, TypeScript, Vite, Tailwind CSS, and Framer Motion.
+A coffee-themed portfolio for Ubaid Ghante, Machine Learning Engineer. It is
+built with React, TypeScript, Vite, Three.js, and a resume-verified content
+model.
 
-## Setup
+## Local development
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Build & Deploy
+## Checks
 
 ```bash
+npm run lint
 npm run build
 ```
 
-Deployed to GitHub Pages via GitHub Actions on push to `main`.
+Origin Study visual QA captures are generated with:
 
-## Tech Stack
-
-- **React** + **TypeScript** + **Vite**
-- **Tailwind CSS** — styling
-- **Framer Motion** — animations
-- **Lucide React** — icons
+```bash
+node scripts/capture_designs.mjs
+```

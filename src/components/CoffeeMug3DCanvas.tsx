@@ -1,25 +1,41 @@
-import React, { useEffect, useRef } from 'react';
-import * as THREE from 'three';
-import { createCoffeeMugGroup, createTakeawayCupGroup } from '../utils/coffeeAssets';
+import React, { useEffect, useRef, useState } from "react";
+import * as THREE from "three";
+import { usePrefersReducedMotion } from "../hooks/useMotionPreference";
+import { createCoffeeStillLife } from "../utils/coffeeAssets";
 
 interface CoffeeMug3DCanvasProps {
-  type?: 'ceramic_mug' | 'takeaway_cup';
-  scrollProgress?: number;
+  progress?: number;
   className?: string;
-  sizeMultiplier?: number;
+}
+
+function disposeScene(scene: THREE.Scene): void {
+  scene.traverse((object) => {
+    if (!(object instanceof THREE.Mesh) && !(object instanceof THREE.Points)) {
+      return;
+    }
+
+    object.geometry.dispose();
+    const material = object.material;
+    const materials = Array.isArray(material) ? material : [material];
+    materials.forEach((entry) => {
+      Object.values(entry).forEach((value) => {
+        if (value instanceof THREE.Texture) value.dispose();
+      });
+      entry.dispose();
+    });
+  });
 }
 
 export const CoffeeMug3DCanvas: React.FC<CoffeeMug3DCanvasProps> = ({
-  type = 'ceramic_mug',
-  scrollProgress = 0,
-  className = 'w-full h-full',
-  sizeMultiplier = 1.0,
+  progress = 0,
+  className = "coffee-scene",
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef(scrollProgress);
-  scrollRef.current = scrollProgress;
+  const progressRef = useRef(progress);
+  const reducedMotion = usePrefersReducedMotion();
+  const [fallback, setFallback] = useState(false);
 
-  const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
+  progressRef.current = progress;
 
   useEffect(() => {
     const container = containerRef.current;
@@ -27,111 +43,147 @@ export const CoffeeMug3DCanvas: React.FC<CoffeeMug3DCanvasProps> = ({
 
     let renderer: THREE.WebGLRenderer;
     try {
-      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        powerPreference: "high-performance",
+      });
     } catch {
+      setFallback(true);
       return;
     }
 
-    const width = container.clientWidth || 500;
-    const height = container.clientHeight || 500;
-
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    container.appendChild(renderer.domElement);
-
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
-    camera.position.set(0, 1.2, 7.2);
+    const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+    camera.position.set(0, 0.9, 9);
+    camera.lookAt(0, 0.55, 0);
 
-    // Warm Ambient and Studio Rim Lights
-    const ambientLight = new THREE.AmbientLight(0xfff7ed, 1.5);
-    scene.add(ambientLight);
+    const rendererPixelRatio = Math.min(window.devicePixelRatio, 1.65);
+    renderer.setPixelRatio(rendererPixelRatio);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.02;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFShadowMap;
+    container.appendChild(renderer.domElement);
+    renderer.domElement.setAttribute("aria-hidden", "true");
 
-    const keyLight = new THREE.DirectionalLight(0xffedd5, 3.5);
-    keyLight.position.set(8, 10, 8);
-    scene.add(keyLight);
+    const ambient = new THREE.HemisphereLight(
+      0xfff4e7,
+      0x22130e,
+      1.8,
+    );
+    scene.add(ambient);
 
-    const warmRim = new THREE.DirectionalLight(0xd97706, 2.5);
-    warmRim.position.set(-8, -4, -4);
-    scene.add(warmRim);
+    const key = new THREE.DirectionalLight(0xffe7cb, 3.8);
+    key.position.set(4, 7, 6);
+    key.castShadow = true;
+    key.shadow.mapSize.set(1024, 1024);
+    key.shadow.camera.near = 0.5;
+    key.shadow.camera.far = 18;
+    key.shadow.camera.left = -4;
+    key.shadow.camera.right = 4;
+    key.shadow.camera.top = 5;
+    key.shadow.camera.bottom = -4;
+    scene.add(key);
 
-    const fillLight = new THREE.PointLight(0xfef3c7, 1.8, 12);
-    fillLight.position.set(0, 4, 3);
-    scene.add(fillLight);
+    const rim = new THREE.PointLight(0xffa45f, 5, 12, 2);
+    rim.position.set(-3, 1.4, -2.5);
+    scene.add(rim);
 
-    const rootGroup = new THREE.Group();
-    scene.add(rootGroup);
+    const root = new THREE.Group();
+    root.position.set(-0.28, -0.08, 0);
+    root.scale.setScalar(0.78);
+    scene.add(root);
 
-    // Create Cup Object
-    const { group: mugGroup, updateSteam } = type === 'ceramic_mug' ? createCoffeeMugGroup() : createTakeawayCupGroup();
-    mugGroup.scale.setScalar(sizeMultiplier * 1.15);
-    mugGroup.position.set(0, -0.4, 0);
-    rootGroup.add(mugGroup);
+    const stillLife = createCoffeeStillLife();
+    root.add(stillLife.group);
 
-    // Pointer move listener
-    const onMouseMove = (e: MouseEvent) => {
+    const pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    const onPointerMove = (event: PointerEvent) => {
       const rect = container.getBoundingClientRect();
-      const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const ny = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-      mouseRef.current.targetX = nx * 0.6;
-      mouseRef.current.targetY = ny * 0.6;
+      pointer.targetX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      pointer.targetY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
     };
+    const onPointerLeave = () => {
+      pointer.targetX = 0;
+      pointer.targetY = 0;
+    };
+    container.addEventListener("pointermove", onPointerMove);
+    container.addEventListener("pointerleave", onPointerLeave);
 
-    window.addEventListener('mousemove', onMouseMove);
+    let visible = true;
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+    });
+    observer.observe(container);
 
-    // Animation Loop
-    let animId: number;
-    let clock = new THREE.Clock();
+    const resize = () => {
+      const width = Math.max(1, container.clientWidth);
+      const height = Math.max(1, container.clientHeight);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height, false);
+    };
+    resize();
+    window.addEventListener("resize", resize);
 
+    const timer = new THREE.Timer();
+    timer.connect(document);
+    let animationFrame = 0;
     const animate = () => {
-      animId = requestAnimationFrame(animate);
-      const elapsed = clock.getElapsedTime();
+      animationFrame = window.requestAnimationFrame((timestamp) => {
+        timer.update(timestamp);
+        animate();
+      });
+      if (!visible) return;
 
-      // Update Steam particles
-      updateSteam(elapsed);
+      const delta = Math.min(timer.getDelta(), 0.05);
+      const time = timer.getElapsed();
+      const sceneProgress = progressRef.current;
 
-      // Smooth mouse lerp
-      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.05;
-      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.05;
+      pointer.x = THREE.MathUtils.damp(pointer.x, pointer.targetX, 4.5, delta);
+      pointer.y = THREE.MathUtils.damp(pointer.y, pointer.targetY, 4.5, delta);
 
-      const p = scrollRef.current;
+      const rotationTarget = sceneProgress * Math.PI * 0.9 + pointer.x * 0.16;
+      root.rotation.y = THREE.MathUtils.damp(root.rotation.y, rotationTarget, 3.6, delta);
+      root.rotation.x = THREE.MathUtils.damp(
+        root.rotation.x,
+        0.03 - pointer.y * 0.08 + sceneProgress * 0.1,
+        3.6,
+        delta,
+      );
+      root.position.y = -0.22 + (reducedMotion ? 0 : Math.sin(time * 0.65) * 0.035);
 
-      // Realistic 3D Mug rotation on scroll + mouse tilt
-      // Mug rotates gently to reveal interior coffee liquid and handle
-      rootGroup.rotation.x = 0.38 + p * Math.PI * 1.6 + mouseRef.current.y * 0.35 + Math.sin(elapsed * 0.8) * 0.04;
-      rootGroup.rotation.y = 0.45 + p * Math.PI * 2.8 + mouseRef.current.x * 0.45 + Math.cos(elapsed * 0.7) * 0.04;
-      rootGroup.rotation.z = Math.sin(p * Math.PI * 2) * 0.25 + mouseRef.current.x * 0.15;
-
-      // Gentle floating bob
-      rootGroup.position.y = Math.sin(elapsed * 1.6) * 0.08;
-
+      stillLife.update(time, delta, reducedMotion);
       renderer.render(scene, camera);
     };
-
     animate();
 
-    const handleResize = () => {
-      if (!container) return;
-      const w = container.clientWidth || 500;
-      const h = container.clientHeight || 500;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-    };
-
-    window.addEventListener('resize', handleResize);
-
     return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('resize', handleResize);
-      if (renderer.domElement.parentNode) {
-        renderer.domElement.parentNode.removeChild(renderer.domElement);
-      }
+      window.cancelAnimationFrame(animationFrame);
+      observer.disconnect();
+      window.removeEventListener("resize", resize);
+      container.removeEventListener("pointermove", onPointerMove);
+      container.removeEventListener("pointerleave", onPointerLeave);
+      timer.dispose();
+      disposeScene(scene);
       renderer.dispose();
+      if (renderer.domElement.parentNode === container) {
+        container.removeChild(renderer.domElement);
+      }
     };
-  }, [type, sizeMultiplier]);
+  }, [reducedMotion]);
 
-  return <div ref={containerRef} className={className} />;
+  return (
+    <div ref={containerRef} className={className}>
+      {fallback && (
+        <div className="coffee-scene__fallback" aria-hidden="true">
+          <span className="coffee-scene__fallback-cup" />
+          <span className="coffee-scene__fallback-handle" />
+          <span className="coffee-scene__fallback-saucer" />
+        </div>
+      )}
+    </div>
+  );
 };

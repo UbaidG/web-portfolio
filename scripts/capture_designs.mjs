@@ -3,71 +3,71 @@ import fs from "fs";
 import path from "path";
 
 const CHROME_PATH = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const OUTPUT_DIR = path.resolve("./screenshots");
-const ARTIFACTS_DIR = "/Users/ubaidghante/.gemini/antigravity-ide/brain/a5d60a67-db0e-498e-b097-7a6dac47be35";
+const OUTPUT_DIR = path.resolve("./screenshots/origin-study");
+const BASE_URL = "http://localhost:5173/web-portfolio/";
 
-if (!fs.existsSync(OUTPUT_DIR)) {
-  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+const viewports = [
+  { name: "desktop", width: 1440, height: 960 },
+  { name: "mobile", width: 390, height: 844 },
+];
+
+const checkpoints = [
+  { name: "hero", progress: 0 },
+  { name: "mid", progress: 0.45 },
+  { name: "end", progress: 0.84 },
+];
+
+function wait(milliseconds) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
 
 async function capture() {
-  console.log("Launching Chrome at:", CHROME_PATH);
+  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+
   const browser = await puppeteer.launch({
     executablePath: CHROME_PATH,
     headless: "new",
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
       "--use-gl=angle",
       "--use-angle=swiftshader",
-      "--window-size=1440,960",
     ],
-    defaultViewport: { width: 1440, height: 960 },
   });
 
-  const designs = [
-    { id: 1, name: "coffee_design1_espresso_lab.png", label: "The Espresso Lab (Modern Roastery)" },
-    { id: 2, name: "coffee_design2_caffeine_overclocked.png", label: "Caffeine Overclocked (Cyber Roast Terminal)" },
-    { id: 3, name: "coffee_design3_artisanal_crema.png", label: "Artisanal Crema (Luxury Editorial Cafe)" },
-  ];
-
-  for (const d of designs) {
-    console.log(`\nCapturing Design #${d.id} (${d.label})...`);
+  for (const viewport of viewports) {
     const page = await browser.newPage();
-    const url = `http://localhost:5173/web-portfolio/?v=${d.id}`;
-    
-    await page.goto(url, { waitUntil: "networkidle0", timeout: 30000 });
-    // Allow Three.js and animations to settle
-    await new Promise((r) => setTimeout(r, 2500));
+    await page.setViewport(viewport);
+    await page.goto(BASE_URL, {
+      waitUntil: "networkidle0",
+      timeout: 30000,
+    });
+    await wait(1600);
 
-    // Capture Hero / Top fold
-    const outPath = path.join(OUTPUT_DIR, d.name);
-    await page.screenshot({ path: outPath, type: "png" });
-    console.log(`Saved screenshot to: ${outPath}`);
+    for (const checkpoint of checkpoints) {
+      await page.evaluate((progress) => {
+        document.documentElement.style.scrollBehavior = "auto";
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        window.scrollTo(0, Math.max(0, maxScroll * progress));
+      }, checkpoint.progress);
+      await wait(700);
 
-    // Copy to artifacts dir for embedding in markdown
-    const artifactPath = path.join(ARTIFACTS_DIR, d.name);
-    fs.copyFileSync(outPath, artifactPath);
-    console.log(`Copied to artifacts dir: ${artifactPath}`);
-
-    // Capture a scrolled fold view for deep evaluation
-    await page.evaluate(() => window.scrollBy({ top: 900, behavior: "instant" }));
-    await new Promise((r) => setTimeout(r, 1200));
-    const scrolledName = d.name.replace(".png", "_scrolled.png");
-    const scrolledPath = path.join(OUTPUT_DIR, scrolledName);
-    await page.screenshot({ path: scrolledPath, type: "png" });
-    fs.copyFileSync(scrolledPath, path.join(ARTIFACTS_DIR, scrolledName));
-    console.log(`Saved scrolled view to: ${scrolledPath}`);
+      const filename = `origin-study-${viewport.name}-${checkpoint.name}.png`;
+      await page.screenshot({
+        path: path.join(OUTPUT_DIR, filename),
+        type: "png",
+      });
+      console.log(`Captured ${filename}`);
+    }
 
     await page.close();
   }
 
   await browser.close();
-  console.log("\nAll 6 designs successfully captured!");
+  console.log(`Saved Origin Study captures to ${OUTPUT_DIR}`);
 }
 
-capture().catch((err) => {
-  console.error("Screenshot capture error:", err);
+capture().catch((error) => {
+  console.error("Screenshot capture error:", error);
   process.exit(1);
 });

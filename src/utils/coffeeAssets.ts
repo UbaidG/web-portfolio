@@ -1,288 +1,256 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 
-/**
- * Procedural 3D Coffee Assets: Realistic Coffee Beans, Ceramic Mugs, Steam Particles & Cups
- */
-
-// 1. Realistic 3D Coffee Bean Geometry with Organic Crease
-export function createRealisticCoffeeBeanGeometry(): THREE.BufferGeometry {
-  const geom = new THREE.SphereGeometry(0.55, 36, 28);
-  const pos = geom.attributes.position;
-  const v = new THREE.Vector3();
-
-  for (let i = 0; i < pos.count; i++) {
-    v.fromBufferAttribute(pos, i);
-
-    // Elongate into typical coffee bean oval ratio (length ~ 1.5x width)
-    v.y *= 1.48;
-    // Flatten thickness (Z-axis)
-    v.z *= 0.65;
-
-    // Organic slight curve along Y axis (bean is slightly banana/kidney curved)
-    v.x += Math.sin(v.y * 1.8) * 0.06;
-
-    // Signature longitudinal crease along the front face (Z > 0)
-    if (v.z > -0.05) {
-      // S-curved center fissure
-      const fissureCenter = Math.sin(v.y * 2.2) * 0.05;
-      const distFromFissure = Math.abs(v.x - fissureCenter);
-
-      if (distFromFissure < 0.22) {
-        // Deep indentation into the bean body
-        const depth = (0.22 - distFromFissure) * 1.6;
-        const longitudinalFade = Math.cos((v.y / 0.8) * (Math.PI / 2));
-        v.z -= Math.max(0, depth * Math.max(0, longitudinalFade));
-      } else if (distFromFissure < 0.32) {
-        // Slight raised lip flanking the fissure
-        const lip = (0.32 - distFromFissure) * 0.12;
-        v.z += lip;
-      }
-    }
-
-    // Slightly taper tips
-    const tipFactor = 1.0 - Math.pow(Math.abs(v.y) / 0.82, 2.5) * 0.3;
-    v.x *= tipFactor;
-    v.z *= tipFactor;
-
-    pos.setXYZ(i, v.x, v.y, v.z);
-  }
-
-  geom.computeVertexNormals();
-  return geom;
+interface CoffeePalette {
+  cup: number;
+  cupHighlight: number;
+  saucer: number;
+  coffee: number;
+  crema: number;
+  steam: number;
+  shadow: string;
 }
 
-// 2. Realistic Roasted Coffee Bean Procedural Texture
-export function createCoffeeBeanTexture(): THREE.CanvasTexture {
-  const canvas = document.createElement('canvas');
-  canvas.width = 512;
-  canvas.height = 512;
-  const ctx = canvas.getContext('2d')!;
+const palette: CoffeePalette = {
+  cup: 0xd8c5b0,
+  cupHighlight: 0xf3e7d7,
+  saucer: 0xb69a7b,
+  coffee: 0x25120d,
+  crema: 0xb86b3e,
+  steam: 0xfff5e9,
+  shadow: "rgba(38, 20, 12, 0.28)",
+};
 
-  // Deep dark roasted espresso base
-  ctx.fillStyle = '#26140d';
-  ctx.fillRect(0, 0, 512, 512);
+function createSoftShadowTexture(color: string): THREE.CanvasTexture {
+  const canvas = document.createElement("canvas");
+  canvas.width = 256;
+  canvas.height = 128;
+  const context = canvas.getContext("2d");
+  if (!context) return new THREE.CanvasTexture(canvas);
 
-  // Roasted micro-grain and oil sheen variations
-  for (let i = 0; i < 15000; i++) {
-    const x = Math.random() * 512;
-    const y = Math.random() * 512;
-    const r = Math.random() * 1.8 + 0.4;
-    const tone = Math.random();
-
-    if (tone < 0.35) {
-      ctx.fillStyle = 'rgba(15, 7, 4, 0.4)'; // Dark char pore
-    } else if (tone < 0.7) {
-      ctx.fillStyle = 'rgba(64, 34, 20, 0.35)'; // Mid roasted brown
-    } else {
-      ctx.fillStyle = 'rgba(110, 68, 42, 0.2)'; // Warm caramel highlight
-    }
-
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  // Dark center crease streak across the texture
-  const grad = ctx.createLinearGradient(0, 0, 512, 0);
-  grad.addColorStop(0, 'rgba(0,0,0,0)');
-  grad.addColorStop(0.44, 'rgba(10, 4, 2, 0.6)');
-  grad.addColorStop(0.5, 'rgba(5, 2, 1, 0.95)');
-  grad.addColorStop(0.56, 'rgba(10, 4, 2, 0.6)');
-  grad.addColorStop(1, 'rgba(0,0,0,0)');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, 512, 512);
+  const gradient = context.createRadialGradient(128, 64, 4, 128, 64, 128);
+  gradient.addColorStop(0, color);
+  gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, canvas.width, canvas.height);
 
   const texture = new THREE.CanvasTexture(canvas);
-  texture.wrapS = THREE.RepeatWrapping;
-  texture.wrapT = THREE.RepeatWrapping;
+  texture.colorSpace = THREE.SRGBColorSpace;
   return texture;
 }
 
-// 3. Realistic 3D Ceramic Coffee Mug with Coffee Liquid and Handle
-export function createCoffeeMugGroup(): { group: THREE.Group; updateSteam: (time: number) => void } {
-  const group = new THREE.Group();
+function createSteamTexture(): THREE.CanvasTexture {
+  const canvas = document.createElement("canvas");
+  canvas.width = 64;
+  canvas.height = 64;
+  const context = canvas.getContext("2d");
+  if (!context) return new THREE.CanvasTexture(canvas);
 
-  // Ceramic Mug Glaze Material
-  const mugMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0x221a15, // Dark matte espresso ceramic
-    roughness: 0.22,
-    metalness: 0.05,
-    clearcoat: 0.9,
-    clearcoatRoughness: 0.12,
-  });
+  const gradient = context.createRadialGradient(32, 32, 2, 32, 32, 32);
+  gradient.addColorStop(0, "rgba(255,255,255,0.55)");
+  gradient.addColorStop(0.45, "rgba(255,255,255,0.2)");
+  gradient.addColorStop(1, "rgba(255,255,255,0)");
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, 64, 64);
 
-  // Mug Body (Outer Cylinder)
-  const outerGeom = new THREE.CylinderGeometry(1.4, 1.2, 2.5, 48);
-  const outerMesh = new THREE.Mesh(outerGeom, mugMaterial);
-  group.add(outerMesh);
-
-  // Mug Interior Hollow (Inner Cylinder)
-  const innerGeom = new THREE.CylinderGeometry(1.28, 1.1, 2.38, 48);
-  const innerMat = new THREE.MeshPhysicalMaterial({
-    color: 0x18120e,
-    roughness: 0.3,
-    metalness: 0.05,
-  });
-  const innerMesh = new THREE.Mesh(innerGeom, innerMat);
-  innerMesh.position.y = 0.1;
-  group.add(innerMesh);
-
-  // Curved Handle (Torus)
-  const handleGeom = new THREE.TorusGeometry(0.72, 0.18, 20, 36, Math.PI * 0.95);
-  const handleMesh = new THREE.Mesh(handleGeom, mugMaterial);
-  handleMesh.position.set(1.42, 0.05, 0);
-  handleMesh.rotation.z = -Math.PI / 2;
-  group.add(handleMesh);
-
-  // Coffee Liquid Surface with Crema Ring
-  const liquidGeom = new THREE.CircleGeometry(1.24, 48);
-  const liquidMat = new THREE.MeshStandardMaterial({
-    color: 0x1f1109, // Dark rich coffee
-    roughness: 0.15,
-    metalness: 0.2,
-  });
-  const liquidMesh = new THREE.Mesh(liquidGeom, liquidMat);
-  liquidMesh.rotation.x = -Math.PI / 2;
-  liquidMesh.position.y = 0.95;
-  group.add(liquidMesh);
-
-  // Golden Crema Swirl on top of coffee
-  const cremaGeom = new THREE.RingGeometry(0.65, 1.23, 36);
-  const cremaMat = new THREE.MeshBasicMaterial({
-    color: 0xb57c48,
-    transparent: true,
-    opacity: 0.65,
-    side: THREE.DoubleSide,
-  });
-  const cremaMesh = new THREE.Mesh(cremaGeom, cremaMat);
-  cremaMesh.rotation.x = -Math.PI / 2;
-  cremaMesh.position.y = 0.955;
-  group.add(cremaMesh);
-
-  // Rising Steam Particle System
-  const steamCount = 65;
-  const steamGeom = new THREE.BufferGeometry();
-  const steamPositions = new Float32Array(steamCount * 3);
-  const steamOffsets = new Float32Array(steamCount);
-  const steamSpeeds = new Float32Array(steamCount);
-
-  for (let i = 0; i < steamCount; i++) {
-    const angle = Math.random() * Math.PI * 2;
-    const r = Math.random() * 0.7;
-    steamPositions[i * 3 + 0] = Math.cos(angle) * r;
-    steamPositions[i * 3 + 1] = 1.0 + Math.random() * 2.5; // Y height above cup
-    steamPositions[i * 3 + 2] = Math.sin(angle) * r;
-    steamOffsets[i] = Math.random() * Math.PI * 2;
-    steamSpeeds[i] = 0.012 + Math.random() * 0.012;
-  }
-
-  steamGeom.setAttribute('position', new THREE.BufferAttribute(steamPositions, 3));
-
-  const steamMat = new THREE.PointsMaterial({
-    color: 0xf5ede4,
-    size: 0.28,
-    transparent: true,
-    opacity: 0.35,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false,
-  });
-
-  const steamParticles = new THREE.Points(steamGeom, steamMat);
-  group.add(steamParticles);
-
-  const updateSteam = (time: number) => {
-    const pos = steamGeom.attributes.position;
-    for (let i = 0; i < steamCount; i++) {
-      let y = pos.getY(i);
-      y += steamSpeeds[i];
-
-      // Organic wavy sway as steam ascends
-      const offset = steamOffsets[i];
-      const x = Math.sin(time * 1.5 + offset + y * 2.0) * (0.15 + (y - 1.0) * 0.2);
-      const z = Math.cos(time * 1.2 + offset + y * 1.8) * (0.15 + (y - 1.0) * 0.2);
-
-      // Reset when particle floats too high
-      if (y > 3.6) {
-        y = 1.0;
-      }
-
-      pos.setXYZ(i, x, y, z);
-    }
-    pos.needsUpdate = true;
-  };
-
-  return { group, updateSteam };
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
 }
 
-// 4. Realistic 3D Specialty Takeaway Coffee Cup with Lid & Sleeve
-export function createTakeawayCupGroup(): { group: THREE.Group; updateSteam: (time: number) => void } {
-  const group = new THREE.Group();
+function createLathedCupGeometry(): THREE.LatheGeometry {
+  const profile = [
+    new THREE.Vector2(0.7, -1.02),
+    new THREE.Vector2(0.87, -0.98),
+    new THREE.Vector2(1.01, -0.68),
+    new THREE.Vector2(1.09, 0.77),
+    new THREE.Vector2(1.06, 0.98),
+    new THREE.Vector2(0.94, 1.04),
+    new THREE.Vector2(0.84, 0.88),
+    new THREE.Vector2(0.79, -0.62),
+    new THREE.Vector2(0.64, -0.88),
+  ];
+  return new THREE.LatheGeometry(profile, 64);
+}
 
-  // Cup Body
-  const cupGeom = new THREE.CylinderGeometry(1.3, 0.95, 2.8, 48);
-  const cupMat = new THREE.MeshStandardMaterial({
-    color: 0x1c1714, // Dark kraft matte paper
-    roughness: 0.7,
-  });
-  const cupMesh = new THREE.Mesh(cupGeom, cupMat);
-  group.add(cupMesh);
+function createSteam(
+  color: number,
+): { points: THREE.Points; update: (time: number, delta: number) => void } {
+  const count = 36;
+  const positions = new Float32Array(count * 3);
+  const phases = new Float32Array(count);
+  const speeds = new Float32Array(count);
 
-  // Ribbed Cardboard Heat Sleeve in the middle
-  const sleeveGeom = new THREE.CylinderGeometry(1.24, 1.06, 1.2, 48);
-  const sleeveMat = new THREE.MeshStandardMaterial({
-    color: 0x966848, // Warm ribbed cardboard kraft
-    roughness: 0.85,
-  });
-  const sleeveMesh = new THREE.Mesh(sleeveGeom, sleeveMat);
-  sleeveMesh.position.y = 0.05;
-  group.add(sleeveMesh);
-
-  // Drinking Lid with sipping aperture
-  const lidGeom = new THREE.CylinderGeometry(1.36, 1.34, 0.35, 48);
-  const lidMat = new THREE.MeshStandardMaterial({
-    color: 0x0f0b09, // Matte black lid
-    roughness: 0.3,
-  });
-  const lidMesh = new THREE.Mesh(lidGeom, lidMat);
-  lidMesh.position.y = 1.55;
-  group.add(lidMesh);
-
-  // Subtle steam from sipping hole
-  const steamCount = 35;
-  const steamGeom = new THREE.BufferGeometry();
-  const steamPositions = new Float32Array(steamCount * 3);
-  const steamSpeeds = new Float32Array(steamCount);
-
-  for (let i = 0; i < steamCount; i++) {
-    steamPositions[i * 3 + 0] = (Math.random() - 0.5) * 0.25;
-    steamPositions[i * 3 + 1] = 1.7 + Math.random() * 2.0;
-    steamPositions[i * 3 + 2] = (Math.random() - 0.5) * 0.25;
-    steamSpeeds[i] = 0.015 + Math.random() * 0.015;
+  for (let index = 0; index < count; index += 1) {
+    const angle = Math.random() * Math.PI * 2;
+    const radius = Math.random() * 0.5;
+    positions[index * 3] = Math.cos(angle) * radius;
+    positions[index * 3 + 1] = 1.02 + Math.random() * 2.25;
+    positions[index * 3 + 2] = Math.sin(angle) * radius * 0.55;
+    phases[index] = Math.random() * Math.PI * 2;
+    speeds[index] = 0.18 + Math.random() * 0.12;
   }
 
-  steamGeom.setAttribute('position', new THREE.BufferAttribute(steamPositions, 3));
-  const steamMat = new THREE.PointsMaterial({
-    color: 0xf5ede4,
-    size: 0.22,
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  const material = new THREE.PointsMaterial({
+    color,
+    size: 0.23,
+    map: createSteamTexture(),
     transparent: true,
-    opacity: 0.4,
-    blending: THREE.AdditiveBlending,
+    opacity: 0.42,
     depthWrite: false,
+    blending: THREE.NormalBlending,
+    sizeAttenuation: true,
   });
-  const steam = new THREE.Points(steamGeom, steamMat);
-  group.add(steam);
+  const points = new THREE.Points(geometry, material);
 
-  const updateSteam = (time: number) => {
-    const pos = steamGeom.attributes.position;
-    for (let i = 0; i < steamCount; i++) {
-      let y = pos.getY(i) + steamSpeeds[i];
-      const x = Math.sin(time * 2 + y) * 0.15;
-      const z = Math.cos(time * 1.5 + y) * 0.15;
-      if (y > 3.8) y = 1.7;
-      pos.setXYZ(i, x, y, z);
+  return {
+    points,
+    update: (time, delta) => {
+      const position = geometry.getAttribute("position") as THREE.BufferAttribute;
+      for (let index = 0; index < count; index += 1) {
+        let y = position.getY(index) + speeds[index] * delta;
+        if (y > 3.55) y = 1.02 + Math.random() * 0.22;
+
+        const phase = phases[index];
+        const height = y - 1;
+        const sway = 0.08 + height * 0.12;
+        position.setXYZ(
+          index,
+          Math.sin(time * 0.75 + phase + y * 1.7) * sway,
+          y,
+          Math.cos(time * 0.6 + phase + y * 1.3) * sway * 0.5,
+        );
+      }
+      position.needsUpdate = true;
+    },
+  };
+}
+
+export function createCoffeeStillLife(): {
+  group: THREE.Group;
+  update: (time: number, delta: number, reducedMotion: boolean) => void;
+} {
+  const group = new THREE.Group();
+
+  const ceramicMaterial = new THREE.MeshPhysicalMaterial({
+    color: palette.cup,
+    roughness: 0.2,
+    metalness: 0,
+    clearcoat: 0.72,
+    clearcoatRoughness: 0.18,
+  });
+  const rimMaterial = new THREE.MeshPhysicalMaterial({
+    color: palette.cupHighlight,
+    roughness: 0.18,
+    clearcoat: 0.8,
+    clearcoatRoughness: 0.14,
+  });
+  const saucerMaterial = new THREE.MeshStandardMaterial({
+    color: palette.saucer,
+    roughness: 0.48,
+  });
+  const coffeeMaterial = new THREE.MeshPhysicalMaterial({
+    color: palette.coffee,
+    roughness: 0.12,
+    metalness: 0.12,
+    clearcoat: 0.65,
+    clearcoatRoughness: 0.08,
+  });
+  const cremaMaterial = new THREE.MeshBasicMaterial({
+    color: palette.crema,
+    transparent: true,
+    opacity: 0.74,
+    side: THREE.DoubleSide,
+  });
+
+  const saucer = new THREE.Mesh(
+    new THREE.CylinderGeometry(1.62, 1.75, 0.12, 64),
+    saucerMaterial,
+  );
+  saucer.position.y = -1.1;
+  saucer.castShadow = true;
+  saucer.receiveShadow = true;
+  group.add(saucer);
+
+  const saucerRim = new THREE.Mesh(
+    new THREE.TorusGeometry(1.32, 0.055, 12, 64),
+    rimMaterial,
+  );
+  saucerRim.rotation.x = Math.PI / 2;
+  saucerRim.position.y = -1.02;
+  group.add(saucerRim);
+
+  const cup = new THREE.Mesh(createLathedCupGeometry(), ceramicMaterial);
+  cup.castShadow = true;
+  cup.receiveShadow = true;
+  group.add(cup);
+
+  const rim = new THREE.Mesh(
+    new THREE.TorusGeometry(1.005, 0.085, 18, 64),
+    rimMaterial,
+  );
+  rim.rotation.x = Math.PI / 2;
+  rim.position.y = 0.99;
+  group.add(rim);
+
+  const handle = new THREE.Mesh(
+    new THREE.TorusGeometry(0.72, 0.13, 18, 64, Math.PI * 1.36),
+    ceramicMaterial,
+  );
+  handle.rotation.z = -Math.PI / 2;
+  handle.position.set(1.03, -0.02, 0);
+  handle.castShadow = true;
+  group.add(handle);
+
+  const coffee = new THREE.Mesh(
+    new THREE.CircleGeometry(0.89, 64),
+    coffeeMaterial,
+  );
+  coffee.rotation.x = -Math.PI / 2;
+  coffee.position.y = 0.97;
+  group.add(coffee);
+
+  const cremaOuter = new THREE.Mesh(
+    new THREE.TorusGeometry(0.72, 0.06, 14, 64),
+    cremaMaterial,
+  );
+  cremaOuter.rotation.x = Math.PI / 2;
+  cremaOuter.position.y = 0.982;
+  group.add(cremaOuter);
+
+  const cremaInner = new THREE.Mesh(
+    new THREE.TorusGeometry(0.42, 0.035, 12, 48),
+    cremaMaterial,
+  );
+  cremaInner.rotation.x = Math.PI / 2;
+  cremaInner.position.y = 0.985;
+  group.add(cremaInner);
+
+  const shadowTexture = createSoftShadowTexture(palette.shadow);
+  const shadow = new THREE.Mesh(
+    new THREE.PlaneGeometry(4.5, 2.25),
+    new THREE.MeshBasicMaterial({
+      map: shadowTexture,
+      transparent: true,
+      depthWrite: false,
+    }),
+  );
+  shadow.rotation.x = -Math.PI / 2;
+  shadow.position.set(0, -1.17, 0.1);
+  group.add(shadow);
+
+  const steam = createSteam(palette.steam);
+  group.add(steam.points);
+
+  const update = (time: number, delta: number, reducedMotion: boolean) => {
+    if (!reducedMotion) {
+      steam.update(time, delta);
+      saucerRim.rotation.z = Math.sin(time * 0.16) * 0.012;
+      cremaOuter.rotation.z = time * 0.04;
+      cremaInner.rotation.z = -time * 0.065;
     }
-    pos.needsUpdate = true;
   };
 
-  return { group, updateSteam };
+  return { group, update };
 }
