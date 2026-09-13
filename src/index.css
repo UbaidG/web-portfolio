@@ -157,3 +157,154 @@ body {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255, 120, 73, 0.15), rgba(167, 139, 250, 0.15), transparent);
 }
+
+/* ═══════════════════════════════════════════
+   DESIGN SYSTEM UTILITIES FOR 6 MOTIFS
+   ═══════════════════════════════════════════ */
+
+/* DESIGN 1: KINETIC ATELIER */
+.kinetic-skew {
+  transform: skewY(var(--skew-angle, 0deg));
+  transition: transform 0.15s ease-out;
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+  color: transparent;
+}
+.text-stroke-hover:hover {
+  -webkit-text-stroke: 1px transparent;
+  color: #ff5500;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 25s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* DESIGN 2: NEURAL CYBER TERMINAL */
+.cyber-scanline {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 255, 157, 0.04) 50%,
+    rgba(0, 255, 157, 0.04)
+  );
+  background-size: 100% 4px;
+}
+
+.cyber-glow-emerald {
+  text-shadow: 0 0 12px rgba(0, 255, 157, 0.6), 0 0 24px rgba(0, 255, 157, 0.2);
+}
+
+.cyber-glow-cyan {
+  text-shadow: 0 0 12px rgba(0, 229, 255, 0.6), 0 0 24px rgba(0, 229, 255, 0.2);
+}
+
+.cyber-grid {
+  background-image: 
+    linear-gradient(rgba(0, 255, 157, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 157, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* DESIGN 3: SWISS MODERNIST BLUEPRINT */
+.blueprint-grid {
+  background-color: #0b111e;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+}
+
+.cad-crosshair {
+  position: relative;
+}
+.cad-crosshair::before,
+.cad-crosshair::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 255, 255, 0.2);
+}
+.cad-crosshair::before {
+  top: -8px;
+  bottom: -8px;
+  left: 0;
+  width: 1px;
+}
+.cad-crosshair::after {
+  left: -8px;
+  right: -8px;
+  top: 0;
+  height: 1px;
+}
+
+/* DESIGN 4: ETHEREAL AURORA */
+.aurora-glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.aurora-gradient-border {
+  position: relative;
+}
+.aurora-gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(244, 114, 182, 0.4), rgba(129, 140, 248, 0.3), rgba(45, 212, 191, 0.4));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* DESIGN 5: BRAUN ANALOG ARCHIVE */
+.analog-chassis {
+  background-color: #121110;
+  border: 1px solid #292825;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.crt-screen {
+  position: relative;
+  background-color: #0d0c0a;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.9);
+}
+
+.crt-screen::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+}
+
+/* DESIGN 6: SPATIAL HOLO-GALLERY */
+.gallery-spotlight {
+  background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+}
+
+.plinth-shadow {
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.9), 0 0 60px 0 rgba(255, 255, 255, 0.03);
+}

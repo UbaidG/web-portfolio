@@ -7,6 +7,12 @@ export default {
         display: ['"Plus Jakarta Sans"', "sans-serif"],
         body: ['"Karla"', "sans-serif"],
         serif: ['"Newsreader"', "serif"],
+        syne: ['"Syne"', "sans-serif"],
+        grotesk: ['"Space Grotesk"', "sans-serif"],
+        mono: ['"JetBrains Mono"', "monospace"],
+        blueprint: ['"Space Mono"', "monospace"],
+        vintage: ['"DM Mono"', "monospace"],
+        luxury: ['"Cormorant Garamond"', "serif"],
       },
       colors: {
         surface: {
