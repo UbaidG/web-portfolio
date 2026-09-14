@@ -4,12 +4,16 @@ import { ContactFooter } from "../components/ContactFooter";
 import { PortfolioHeader } from "../components/PortfolioHeader";
 import { ProofStrip } from "../components/ProofStrip";
 import { ProjectCard } from "../components/ProjectCard";
+import { useHorizontalScroll } from "../hooks/useHorizontalScroll";
 import { useScrollProgress } from "../hooks/useScrollProgress";
 import { portfolioData } from "../data/portfolioData";
 
 export const CoffeeDesign1EspressoLab: React.FC = () => {
   const heroRef = useRef<HTMLElement>(null);
+  const experienceRef = useRef<HTMLElement>(null);
+  const experienceTrackRef = useRef<HTMLDivElement>(null);
   const sceneProgress = useScrollProgress(heroRef);
+  useHorizontalScroll(experienceRef, experienceTrackRef);
   const projects = portfolioData.projects.slice(0, 4);
 
   return (
@@ -85,47 +89,59 @@ export const CoffeeDesign1EspressoLab: React.FC = () => {
           </div>
         </section>
 
-        <section className="origin-experience section-shell" id="experience">
-          <div className="section-heading">
-            <p className="eyebrow">Experience / selected chapters</p>
-            <h2>From graph data to agent systems.</h2>
-            <p>
-              A chronological look at the problems, tools, and teams behind
-              the work.
-            </p>
-          </div>
+        <section
+          className="origin-experience section-shell"
+          id="experience"
+          ref={experienceRef}
+        >
+          <div className="origin-experience__sticky">
+            <div className="section-heading origin-experience__heading">
+              <p className="eyebrow">Experience / selected chapters</p>
+              <h2>From graph data to agent systems.</h2>
+              <p>
+                A chronological look at the problems, tools, and teams behind
+                the work.
+              </p>
+              <div className="origin-experience__cue" aria-hidden="true">
+                <span>Scroll to explore</span>
+                <span>→ → →</span>
+              </div>
+            </div>
 
-          <div className="origin-experience__list">
-            {portfolioData.experiences.map((experience, index) => (
-              <article className="origin-chapter" key={experience.id}>
-                <div className="origin-chapter__number">
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <span className="origin-chapter__rule" />
-                </div>
-                <div className="origin-chapter__body">
-                  <div className="origin-chapter__meta">
-                    <span>{experience.period}</span>
-                    {experience.location && <span>{experience.location}</span>}
-                  </div>
-                  <h3>{experience.company}</h3>
-                  <p className="origin-chapter__role">{experience.role}</p>
-                  <p className="origin-chapter__summary">{experience.summary}</p>
-                  <ul>
-                    {experience.highlights.slice(0, 3).map((highlight) => (
-                      <li key={highlight}>{highlight}</li>
-                    ))}
-                  </ul>
-                  <div className="origin-chapter__tech">
-                    {experience.tech.slice(0, 6).map((technology) => (
-                      <span key={technology}>{technology}</span>
-                    ))}
-                  </div>
-                </div>
-                <strong className="origin-chapter__metric">
-                  {experience.metrics}
-                </strong>
-              </article>
-            ))}
+            <div className="origin-experience__viewport">
+              <div className="origin-experience__list" ref={experienceTrackRef}>
+                {portfolioData.experiences.map((experience, index) => (
+                  <article className="origin-chapter" key={experience.id}>
+                    <div className="origin-chapter__number">
+                      <span>{String(index + 1).padStart(2, "0")}</span>
+                      <span className="origin-chapter__rule" />
+                    </div>
+                    <div className="origin-chapter__body">
+                      <div className="origin-chapter__meta">
+                        <span>{experience.period}</span>
+                        {experience.location && <span>{experience.location}</span>}
+                      </div>
+                      <h3>{experience.company}</h3>
+                      <p className="origin-chapter__role">{experience.role}</p>
+                      <p className="origin-chapter__summary">{experience.summary}</p>
+                      <ul>
+                        {experience.highlights.slice(0, 3).map((highlight) => (
+                          <li key={highlight}>{highlight}</li>
+                        ))}
+                      </ul>
+                      <div className="origin-chapter__tech">
+                        {experience.tech.slice(0, 6).map((technology) => (
+                          <span key={technology}>{technology}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <strong className="origin-chapter__metric">
+                      {experience.metrics}
+                    </strong>
+                  </article>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 

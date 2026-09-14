@@ -526,27 +526,96 @@ button {
 }
 
 .origin-experience {
-  padding-top: 8rem;
-  padding-bottom: 9rem;
+  position: relative;
+  min-height: 100vh;
   border-top: 1px solid rgba(42, 27, 21, 0.18);
+}
+
+.origin-experience__sticky {
+  position: sticky;
+  top: 0;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5.5rem 0 2.5rem;
+  overflow: hidden;
+}
+
+.origin-experience__heading {
+  flex: 0 0 auto;
+}
+
+.origin-experience__cue {
+  display: flex;
+  max-width: 21rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(42, 27, 21, 0.24);
+  color: #a8522d;
+  font-family: "DM Mono", monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.origin-experience__viewport {
+  min-width: 0;
+  margin-top: 2.5rem;
+  overflow: hidden;
 }
 
 .origin-experience__list {
-  margin-top: 5rem;
+  display: flex;
+  width: max-content;
+  gap: 1.25rem;
+  padding-right: 8vw;
+  will-change: transform;
 }
 
 .origin-chapter {
+  position: relative;
   display: grid;
-  grid-template-columns: 4rem minmax(0, 1fr) minmax(12rem, 0.3fr);
-  gap: 1.75rem;
-  padding: 2.5rem 0;
-  border-top: 1px solid rgba(42, 27, 21, 0.18);
+  flex: 0 0 min(72vw, 53rem);
+  min-height: min(48vh, 32rem);
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 1.25rem;
+  padding: 1.75rem;
+  border: 1px solid rgba(42, 27, 21, 0.2);
+  background: rgba(255, 243, 226, 0.16);
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease;
+}
+
+.origin-chapter:hover {
+  border-color: rgba(168, 82, 45, 0.52);
+  background: rgba(255, 243, 226, 0.32);
+}
+
+.origin-chapter:first-child {
+  border-left: 1px solid rgba(42, 27, 21, 0.2);
 }
 
 .origin-chapter:last-child {
-  border-bottom: 1px solid rgba(42, 27, 21, 0.18);
+  border-bottom: 1px solid rgba(42, 27, 21, 0.2);
 }
 
+.origin-chapter__body {
+  min-width: 0;
+}
+
+.origin-chapter__metric {
+  grid-column: 2;
+  justify-self: start;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(42, 27, 21, 0.2);
+}
+
+/* The experience rail owns the chapter layout on desktop. */
 .origin-chapter__number {
   display: flex;
   flex-direction: column;
@@ -556,8 +625,9 @@ button {
 }
 
 .origin-chapter__rule {
+  flex: 1;
   width: 1px;
-  height: 4rem;
+  height: auto;
   background: currentColor;
   opacity: 0.35;
 }
@@ -629,20 +699,19 @@ button {
 
 .origin-chapter__metric {
   align-self: start;
-  justify-self: end;
-  max-width: 12rem;
-  padding-top: 0.2rem;
+  max-width: 16rem;
   color: #a8522d;
   font-family: "DM Mono", monospace;
   font-size: 0.65rem;
   font-weight: 500;
   line-height: 1.5;
-  text-align: right;
+  text-align: left;
   text-transform: uppercase;
 }
 
 .origin-chapter__tech,
 .project-card__tech {
+  max-width: 36rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
@@ -814,10 +883,43 @@ button {
 }
 
 .contact-footer {
+  position: relative;
+  min-height: 38rem;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 2rem;
   padding: 7rem max(1.25rem, calc((100vw - 80rem) / 2)) 2rem;
+  overflow: hidden;
+}
+
+.contact-footer > :not(.bean-stream-canvas) {
+  position: relative;
+  z-index: 1;
+}
+
+.bean-stream-canvas {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+}
+
+.bean-stream-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.bean-stream-canvas__fallback {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 28% 44%, rgba(139, 67, 29, 0.28), transparent 18%),
+    radial-gradient(ellipse at 72% 58%, rgba(99, 41, 18, 0.24), transparent 20%);
+  opacity: 0.65;
 }
 
 .contact-footer__copy h2 {
@@ -828,6 +930,10 @@ button {
   font-weight: 500;
   letter-spacing: -0.095em;
   line-height: 0.84;
+}
+
+.contact-footer__copy {
+  pointer-events: none;
 }
 
 .contact-footer__copy > p:last-child {
@@ -865,12 +971,31 @@ button {
 }
 
 .contact-footer--origin {
-  background: #2a1b15;
-  color: #eadbc9;
+  background: #100b08;
+  color: #f3e6d8;
 }
 
 .contact-footer--origin .eyebrow {
-  color: #e1a35f;
+  color: #d97745;
+}
+
+.contact-footer--origin .button--solid {
+  background: #6c321c;
+  color: #f7e7d5;
+}
+
+.contact-footer--origin .button--solid:hover {
+  background: #8b4426;
+}
+
+.contact-footer--origin .button--quiet {
+  border-color: rgba(243, 230, 216, 0.32);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .bean-stream-canvas {
+    pointer-events: none;
+  }
 }
 
 :focus-visible {
@@ -917,13 +1042,60 @@ button {
     gap: 2rem;
   }
 
+  .origin-experience {
+    min-height: auto;
+    padding-top: 8rem;
+    padding-bottom: 9rem;
+  }
+
+  .origin-experience__sticky {
+    position: static;
+    min-height: auto;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .origin-experience__viewport {
+    margin-top: 5rem;
+    overflow: visible;
+  }
+
+  .origin-experience__list {
+    display: block;
+    width: auto;
+    padding-right: 0;
+    transform: none !important;
+  }
+
   .origin-chapter {
+    min-height: auto;
     grid-template-columns: 3rem minmax(0, 1fr);
+    padding: 2.5rem 0;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .origin-chapter:first-child {
+    border-left: 0;
+  }
+
+  .origin-chapter:last-child {
+    border-bottom: 1px solid rgba(42, 27, 21, 0.18);
+  }
+
+  .origin-chapter__rule {
+    flex: none;
+    height: 4rem;
   }
 
   .origin-chapter__metric {
     grid-column: 2;
     justify-self: start;
+    margin-top: 1rem;
+    padding-top: 0.2rem;
+    border-top: 0;
     text-align: left;
   }
 }

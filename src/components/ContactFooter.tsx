@@ -1,4 +1,5 @@
 import React from "react";
+import { CoffeeBeanStreamCanvas } from "./CoffeeBeanStreamCanvas";
 import { portfolioData } from "../data/portfolioData";
 
 interface ContactFooterProps {
@@ -9,6 +10,7 @@ export const ContactFooter: React.FC<ContactFooterProps> = ({
   eyebrow = "Open to thoughtful systems work",
 }) => (
   <footer className="contact-footer contact-footer--origin" id="contact">
+    <CoffeeBeanStreamCanvas />
     <div className="contact-footer__copy">
       <p className="eyebrow">{eyebrow}</p>
       <h2>Let&apos;s make the next system useful.</h2>
