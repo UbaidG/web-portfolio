@@ -14,7 +14,7 @@ export const CoffeeDesign1EspressoLab: React.FC = () => {
 
   return (
     <div className="portfolio portfolio--origin" id="top">
-      <PortfolioHeader edition="Origin study / 01" />
+      <PortfolioHeader />
 
       <main>
         <section className="origin-hero" ref={heroRef} aria-labelledby="origin-title">
@@ -53,10 +53,6 @@ export const CoffeeDesign1EspressoLab: React.FC = () => {
             </div>
 
             <div className="origin-hero__object" aria-label="A ceramic coffee cup in a studio still life">
-              <div className="scene-caption">
-                <span>Still life / 01</span>
-                <span>Scroll to turn</span>
-              </div>
               <CoffeeMug3DCanvas progress={sceneProgress} />
               <div className="origin-hero__object-note">
                 <span className="origin-hero__object-line" />
@@ -65,10 +61,6 @@ export const CoffeeDesign1EspressoLab: React.FC = () => {
             </div>
 
             <p className="origin-hero__side-note">Ubaid Ghante / ML + AI</p>
-          </div>
-          <div className="scroll-cue" aria-hidden="true">
-            <span>Scroll to continue</span>
-            <span className="scroll-cue__arrow">↓</span>
           </div>
         </section>
 

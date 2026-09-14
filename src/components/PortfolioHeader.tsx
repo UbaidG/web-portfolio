@@ -2,7 +2,7 @@ import React from "react";
 import { portfolioData } from "../data/portfolioData";
 
 interface PortfolioHeaderProps {
-  edition: string;
+  edition?: string;
 }
 
 const links = [
@@ -20,7 +20,7 @@ export const PortfolioHeader: React.FC<PortfolioHeaderProps> = ({
       <span className="site-brand__name">Ubaid Ghante</span>
     </a>
 
-    <span className="site-header__edition">{edition}</span>
+    {edition ? <span className="site-header__edition">{edition}</span> : null}
 
     <nav className="site-nav" aria-label="Primary navigation">
       {links.map((link) => (
