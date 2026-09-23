@@ -50,7 +50,7 @@ export const PORTFOLIO_DATA = {
     secondaryRole: "Agentic AI · MLOps · Real-time Voice Systems",
     email: "ughante@gmail.com",
     phone: "+919284876115",
-    linkedinUrl: "https://linkedin.com/in/ubaid-ghante",
+    linkedinUrl: "https://www.linkedin.com/in/ubaid-ghante-72a350193/",
     githubUrl: "https://github.com/Ubaid-Ghante",
     resumeUrl,
     shortBio:
