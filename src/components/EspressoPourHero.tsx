@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { portfolioData } from "../data/portfolioData";
+import { COFFEE_OVERFLOW_VIDEO_SPEC } from "../data/videoPromptSpec";
 
 interface EspressoPourHeroProps {
   onOpenVideoSpec?: () => void;
@@ -13,8 +14,10 @@ export const EspressoPourHero: React.FC<EspressoPourHeroProps> = ({
   const [hasVideo, setHasVideo] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  const frames = COFFEE_OVERFLOW_VIDEO_SPEC.keyframes;
+
   useEffect(() => {
-    // Check if user has uploaded a custom video file
+    // Check if user has dropped in a custom video
     const testVideo = document.createElement("video");
     testVideo.src = `${import.meta.env.BASE_URL}designs/coffee-overflow.mp4`;
     testVideo.oncanplay = () => setHasVideo(true);
@@ -28,12 +31,12 @@ export const EspressoPourHero: React.FC<EspressoPourHeroProps> = ({
       const windowHeight = window.innerHeight;
       const totalDist = rect.height - windowHeight;
       if (totalDist <= 0) return;
-      
+
       const current = -rect.top;
       const progress = Math.min(Math.max(current / totalDist, 0), 1);
       setScrollProgress(progress);
 
-      // If video exists, sync video time to scroll progress
+      // If video exists, sync video scrubbing with scroll progress
       if (videoRef.current && videoRef.current.duration) {
         videoRef.current.currentTime = progress * videoRef.current.duration;
       }
@@ -44,43 +47,55 @@ export const EspressoPourHero: React.FC<EspressoPourHeroProps> = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [hasVideo]);
 
-  // Calculate liquid fill and overflow dynamics based on scroll
-  const cupScale = 1 + scrollProgress * 0.12;
-  const overflowOpacity = Math.min(Math.max((scrollProgress - 0.25) / 0.45, 0), 1);
-  const liquidCascadeHeight = Math.max((scrollProgress - 0.4) / 0.6, 0); // 0 to 1
-  const textRevealOpacity = Math.min(Math.max((scrollProgress - 0.45) / 0.35, 0), 1);
-  const textTranslateY = (1 - textRevealOpacity) * 40;
+  // Frame interpolation based on scroll progress across 4 keyframes:
+  // 0.0 - 0.25: Frame 1 (Teapot Pour)
+  // 0.25 - 0.50: Frame 2 (Filled to Brim)
+  // 0.50 - 0.75: Frame 3 (Overflow Begins)
+  // 0.75 - 1.00: Frame 4 (Pan Down & White Stone Cascade)
+  const currentFrameIdx = Math.min(Math.floor(scrollProgress * 4), 3);
+
+  // Pan down motion effect: Camera translates down only in phases 3 and 4
+  const panDownTranslateY = scrollProgress > 0.55
+    ? (scrollProgress - 0.55) * 120
+    : 0;
+
+  // Text manifesto reveal when coffee reaches bottom of white stone
+  const textRevealOpacity = Math.min(Math.max((scrollProgress - 0.55) / 0.35, 0), 1);
+  const textTranslateY = (1 - textRevealOpacity) * 30;
 
   return (
-    <section className="espresso-pour-hero" ref={containerRef}>
+    <section className="espresso-pour-hero white-stone-theme" ref={containerRef}>
       <div className="espresso-pour-sticky">
-        {/* Ambient Warm Coffee Lighting */}
+        {/* Soft high-key morning daylight ambient glow */}
         <div
-          className="espresso-ambient-glow"
+          className="espresso-ambient-glow white-glow"
           style={{
-            opacity: 0.6 + scrollProgress * 0.4,
-            transform: `scale(${1 + scrollProgress * 0.3})`,
+            opacity: 0.85,
+            transform: `scale(${1 + scrollProgress * 0.15})`,
           }}
         />
 
-        {/* Hero Copy (Initial State) */}
+        {/* Initial Hero Headline (Fades out gently as you scroll) */}
         <div
-          className="espresso-hero-initial-copy"
+          className="espresso-hero-initial-copy white-stone-copy"
           style={{
             opacity: Math.max(1 - scrollProgress * 2.2, 0),
-            transform: `translateY(${-scrollProgress * 80}px)`,
+            transform: `translateY(${-scrollProgress * 60}px)`,
+            pointerEvents: scrollProgress > 0.35 ? "none" : "auto",
           }}
         >
-          <div className="espresso-hero-badge">
-            <span className="badge-pulse" />
-            <span>Machine Learning Engineer · Real-Time Systems</span>
+          <div className="espresso-hero-badge white-stone-badge">
+            <span className="badge-pulse amber-pulse" />
+            <span>Machine Learning Engineer · Single-Origin AI</span>
           </div>
-          <h1 className="espresso-hero-title">
+
+          <h1 className="espresso-hero-title dark-text">
             Precision extraction.
             <br />
             <em>Dependable intelligence.</em>
           </h1>
-          <p className="espresso-hero-sub">
+
+          <p className="espresso-hero-sub dark-sub">
             {portfolioData.personal.shortBio}
           </p>
 
@@ -89,7 +104,7 @@ export const EspressoPourHero: React.FC<EspressoPourHeroProps> = ({
               Say hello <span aria-hidden="true">↗</span>
             </a>
             <a
-              className="espresso-btn-secondary"
+              className="espresso-btn-secondary dark-secondary"
               href={portfolioData.personal.resumeUrl}
               target="_blank"
               rel="noreferrer"
@@ -98,131 +113,139 @@ export const EspressoPourHero: React.FC<EspressoPourHeroProps> = ({
             </a>
           </div>
 
-          <div className="espresso-scroll-cue">
-            <span>Scroll to extract & overflow</span>
-            <div className="scroll-needle">
+          <div className="espresso-scroll-cue dark-cue">
+            <span>Scroll to watch teapot pour, brim fill & white stone cascade</span>
+            <div className="scroll-needle white-needle">
               <span
-                className="scroll-needle-pip"
+                className="scroll-needle-pip amber-pip"
                 style={{ transform: `translateY(${scrollProgress * 24}px)` }}
               />
             </div>
           </div>
         </div>
 
-        {/* Cup Centerpiece / Video Stage */}
+        {/* 4-Frame White Stone Visual Stage */}
         <div
-          className="espresso-cup-stage"
+          className="espresso-cup-stage white-stone-stage"
           style={{
-            transform: `translate(-50%, -50%) scale(${cupScale})`,
+            transform: `translate(-50%, calc(-50% - ${panDownTranslateY}px))`,
           }}
         >
           {hasVideo ? (
             <video
               ref={videoRef}
-              src="/designs/coffee-overflow.mp4"
+              src={`${import.meta.env.BASE_URL}designs/coffee-overflow.mp4`}
               muted
               playsInline
               preload="auto"
               className="espresso-stage-video"
             />
           ) : (
-            <div className="espresso-stage-composite">
-              {/* Start Frame: 95% filled crema cup */}
+            <div className="espresso-stage-composite white-composite">
+              {/* Frame 1: Teapot Pour */}
               <img
-                src={`${import.meta.env.BASE_URL}designs/espresso-start.jpg`}
-                alt="Espresso cup with crema at the brim"
-                className="espresso-frame-img start-frame"
-                style={{ opacity: 1 - overflowOpacity }}
-              />
-
-              {/* End Frame: Espresso overflowing and cascading */}
-              <img
-                src={`${import.meta.env.BASE_URL}designs/espresso-overflow.jpg`}
-                alt="Espresso overflowing over ceramic cup"
-                className="espresso-frame-img overflow-frame"
-                style={{ opacity: overflowOpacity }}
-              />
-
-              {/* Liquid Gloss Sheen Highlight */}
-              <div
-                className="espresso-liquid-shimmer"
+                src={frames[0].imageUrl}
+                alt="Teapot pouring coffee into white ceramic cup"
+                className="espresso-frame-img"
                 style={{
-                  opacity: Math.sin(scrollProgress * Math.PI) * 0.8,
+                  opacity: scrollProgress <= 0.25 ? 1 : Math.max(1 - (scrollProgress - 0.25) * 5, 0),
+                }}
+              />
+
+              {/* Frame 2: Filled to Brim (Meniscus Dome) */}
+              <img
+                src={frames[1].imageUrl}
+                alt="Coffee filled right to the brim of the cup"
+                className="espresso-frame-img"
+                style={{
+                  opacity:
+                    scrollProgress > 0.2 && scrollProgress <= 0.55
+                      ? Math.min((scrollProgress - 0.2) * 5, 1) * Math.max(1 - (scrollProgress - 0.5) * 5, 0)
+                      : 0,
+                }}
+              />
+
+              {/* Frame 3: Overflow Begins onto White Stone */}
+              <img
+                src={frames[2].imageUrl}
+                alt="Coffee overflowing cup rim onto white stone"
+                className="espresso-frame-img"
+                style={{
+                  opacity:
+                    scrollProgress > 0.48 && scrollProgress <= 0.75
+                      ? Math.min((scrollProgress - 0.48) * 5, 1) * Math.max(1 - (scrollProgress - 0.7) * 5, 0)
+                      : 0,
+                }}
+              />
+
+              {/* Frame 4: Camera Pan Down & Cascading down Fluted White Stone */}
+              <img
+                src={frames[3].imageUrl}
+                alt="Camera panned down tracking coffee cascading down white stone plinth into white floor"
+                className="espresso-frame-img"
+                style={{
+                  opacity: scrollProgress > 0.68 ? Math.min((scrollProgress - 0.68) * 5, 1) : 0,
                 }}
               />
             </div>
           )}
 
-          {/* Machine Telemetry Tag */}
-          <div
-            className="espresso-telemetry-tag"
-            style={{ opacity: Math.max(1 - scrollProgress * 1.5, 0.2) }}
-          >
+          {/* Phase Telemetry Tag */}
+          <div className="espresso-telemetry-tag white-telemetry">
             <div className="telemetry-item">
-              <span className="telemetry-label">PRESSURE</span>
-              <span className="telemetry-val">9.0 BAR</span>
+              <span className="telemetry-label">PHASE</span>
+              <span className="telemetry-val">0{currentFrameIdx + 1} // 04</span>
             </div>
             <div className="telemetry-sep" />
             <div className="telemetry-item">
-              <span className="telemetry-label">EXTRACTION</span>
+              <span className="telemetry-label">CAMERA</span>
               <span className="telemetry-val">
-                {(scrollProgress * 100).toFixed(0)}%
+                {scrollProgress > 0.55 ? "PANNING DOWN ▾" : "LOCKED AT EYE LEVEL"}
               </span>
             </div>
           </div>
         </div>
 
-        {/* Liquid Flood Curtain - Fills the section from the cup downwards */}
+        {/* Revealed Manifesto Text & Proof Metrics Over White Stone Floor */}
         <div
-          className="espresso-liquid-flood-curtain"
-          style={{
-            transform: `scaleY(${liquidCascadeHeight})`,
-            transformOrigin: "bottom center",
-          }}
-        >
-          <div className="liquid-flood-surface-wave" />
-        </div>
-
-        {/* Text and Proof Metrics Emerging Behind/Inside the Liquid Cascade */}
-        <div
-          className="espresso-revealed-manifesto"
+          className="espresso-revealed-manifesto white-stone-manifesto"
           style={{
             opacity: textRevealOpacity,
             transform: `translate(-50%, calc(-50% + ${textTranslateY}px))`,
             pointerEvents: textRevealOpacity > 0.4 ? "auto" : "none",
           }}
         >
-          <div className="manifesto-eyebrow">
+          <div className="manifesto-eyebrow dark-eyebrow">
             <span>EXTRACTION COMPLETE · STAGE 01</span>
-            <span className="manifesto-bar" />
+            <span className="manifesto-bar dark-bar" />
           </div>
 
-          <h2 className="manifesto-headline">
+          <h2 className="manifesto-headline dark-headline">
             "From sparse data points to systems that hold their shape in production."
           </h2>
 
-          <p className="manifesto-lead">
+          <p className="manifesto-lead dark-lead">
             Like dialing in the perfect espresso grind, building reliable AI requires
             fine-grained telemetry, disciplined prompt graphs, and low-latency infrastructure.
           </p>
 
           {/* Proof Metrics Row */}
-          <div className="manifesto-proof-metrics">
+          <div className="manifesto-proof-metrics white-proof-metrics">
             {portfolioData.proofMetrics.map((metric) => (
-              <div className="manifesto-metric-card" key={metric.label}>
+              <div className="manifesto-metric-card white-metric-card" key={metric.label}>
                 <span className="metric-number">{metric.value}</span>
-                <span className="metric-tag">{metric.label}</span>
-                <span className="metric-desc">{metric.context}</span>
+                <span className="metric-tag dark-metric-tag">{metric.label}</span>
+                <span className="metric-desc dark-metric-desc">{metric.context}</span>
               </div>
             ))}
           </div>
 
           {onOpenVideoSpec && (
             <button
-              className="manifesto-spec-link"
+              className="manifesto-spec-link dark-spec-link"
               onClick={onOpenVideoSpec}
             >
-              <span>Want to render this background as real AI video? View Camera & Lighting Prompt Spec →</span>
+              <span>View 4-Frame White Stone Camera & Pan-Down Video Prompts →</span>
             </button>
           )}
         </div>

@@ -16,7 +16,7 @@ export const PromptSpecModal: React.FC<PromptSpecModalProps> = ({
   if (!isOpen) return null;
 
   const handleCopyPrompt = () => {
-    navigator.clipboard.writeText(spec.promptText);
+    navigator.clipboard.writeText(spec.masterPromptText);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
@@ -30,12 +30,14 @@ export const PromptSpecModal: React.FC<PromptSpecModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="prompt-modal-panel"
+        className="prompt-modal-panel prompt-modal-panel--v2"
         onClick={(e) => e.stopPropagation()}
       >
         <header className="prompt-modal-header">
           <div>
-            <span className="prompt-modal-badge">Video & Asset Direction</span>
+            <span className="prompt-modal-badge">
+              4-Frame Video & Camera Direction (White Stone & Pan Down)
+            </span>
             <h2 id="spec-modal-title">{spec.title}</h2>
           </div>
           <button
@@ -50,75 +52,89 @@ export const PromptSpecModal: React.FC<PromptSpecModalProps> = ({
         <div className="prompt-modal-content">
           <p className="prompt-modal-concept">{spec.concept}</p>
 
-          {/* Keyframes Comparison */}
-          <div className="prompt-modal-keyframes">
-            <div className="keyframe-card">
-              <div className="keyframe-tag">Start Frame (0.0s)</div>
-              <img
-                src={spec.startFrameUrl}
-                alt="Start frame of espresso cup"
-                className="keyframe-img"
-              />
-              <p className="keyframe-desc">{spec.startFrameDescription}</p>
+          {/* 4-Frame Sequence Showcase */}
+          <div className="prompt-modal-four-frames">
+            <div className="four-frames-header">
+              <span className="frames-heading">4 Keyframe Stills Sequence</span>
+              <span className="frames-note">
+                Static camera during fill (Frames 1-2) → Pan-down initiates ONLY on stone flow (Frames 3-4)
+              </span>
             </div>
-            <div className="keyframe-arrow">→</div>
-            <div className="keyframe-card">
-              <div className="keyframe-tag">End Frame (5.0s / Cascade)</div>
-              <img
-                src={spec.endFrameUrl}
-                alt="End frame of overflowing espresso"
-                className="keyframe-img"
-              />
-              <p className="keyframe-desc">{spec.endFrameDescription}</p>
+
+            <div className="four-frames-grid">
+              {spec.keyframes.map((frame) => (
+                <div className="four-frame-card" key={frame.number}>
+                  <div className="four-frame-top">
+                    <span className="frame-num-pill">Frame 0{frame.number}</span>
+                    <span className="frame-time-pill">{frame.timecode}</span>
+                  </div>
+                  <div className="four-frame-img-box">
+                    <img
+                      src={frame.imageUrl}
+                      alt={frame.phase}
+                      className="four-frame-img"
+                    />
+                  </div>
+                  <h4 className="four-frame-phase">{frame.phase}</h4>
+                  <p className="four-frame-desc">{frame.description}</p>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* Master Prompt Box */}
           <div className="prompt-box-section">
             <div className="prompt-box-header">
-              <span className="prompt-box-label">Master Prompt (Copy & Paste for Video AI)</span>
+              <div>
+                <span className="prompt-box-label">
+                  New Improved Master Prompt (White Stone + Synchronized Pan Down)
+                </span>
+                <span className="prompt-box-sub">
+                  Copy & paste into Sora, Runway Gen-3, Kling 1.5, or Luma Dream Machine
+                </span>
+              </div>
               <button
                 className={`prompt-copy-btn ${copied ? "copied" : ""}`}
                 onClick={handleCopyPrompt}
               >
-                {copied ? "✓ Copied to Clipboard" : "Copy Prompt"}
+                {copied ? "✓ Copied to Clipboard" : "Copy Master Prompt"}
               </button>
             </div>
-            <pre className="prompt-text-block">{spec.promptText}</pre>
+            <pre className="prompt-text-block">{spec.masterPromptText}</pre>
           </div>
 
           {/* Technical Specs Grid */}
           <div className="prompt-specs-grid">
             <div className="spec-card">
-              <h4>🎥 Camera & Optics</h4>
+              <h4>🎥 Camera & Synchronized Pan-Down</h4>
               <ul>
                 <li><strong>Lens:</strong> {spec.cameraSetup.lens}</li>
                 <li><strong>Focal Length:</strong> {spec.cameraSetup.focalLength}</li>
                 <li><strong>Aperture:</strong> {spec.cameraSetup.aperture}</li>
-                <li><strong>Angle:</strong> {spec.cameraSetup.angle}</li>
-                <li><strong>Motion:</strong> {spec.cameraSetup.motion}</li>
-                <li><strong>Capture:</strong> {spec.cameraSetup.framerate}</li>
+                <li><strong>Initial Angle:</strong> {spec.cameraSetup.angle}</li>
+                <li><strong>Pan-Down Rule:</strong> {spec.cameraSetup.panDownMotion}</li>
+                <li><strong>Capture Speed:</strong> {spec.cameraSetup.framerate}</li>
               </ul>
             </div>
 
             <div className="spec-card">
-              <h4>💡 Studio Lighting</h4>
+              <h4>💡 High-Key Studio Lighting</h4>
               <ul>
                 <li><strong>Key Light:</strong> {spec.lightingSetup.keyLight}</li>
-                <li><strong>Rim Light:</strong> {spec.lightingSetup.rimLight}</li>
+                <li><strong>Fill Light:</strong> {spec.lightingSetup.fillLight}</li>
                 <li><strong>Ambient Fill:</strong> {spec.lightingSetup.ambient}</li>
-                <li><strong>Temperature:</strong> {spec.lightingSetup.temperature}</li>
+                <li><strong>Color Temp:</strong> {spec.lightingSetup.temperature}</li>
                 <li><strong>Atmosphere:</strong> {spec.lightingSetup.volumetric}</li>
               </ul>
             </div>
 
             <div className="spec-card">
-              <h4>🎨 Art & Room Direction</h4>
+              <h4>🏛️ White Stone & Website Transition</h4>
               <ul>
-                <li><strong>Plinth Surface:</strong> {spec.environmentAesthetics.surface}</li>
-                <li><strong>Backdrop:</strong> {spec.environmentAesthetics.backdrop}</li>
-                <li><strong>Ceramicware:</strong> {spec.environmentAesthetics.propDetails}</li>
-                <li><strong>Compatible Engines:</strong> {spec.suggestedTools.join(", ")}</li>
+                <li><strong>Plinth Surface:</strong> {spec.environmentAesthetics.plinthSurface}</li>
+                <li><strong>Teapot:</strong> {spec.environmentAesthetics.teapot}</li>
+                <li><strong>Cup:</strong> {spec.environmentAesthetics.cup}</li>
+                <li><strong>Seamless White:</strong> {spec.environmentAesthetics.websiteTransition}</li>
               </ul>
             </div>
           </div>

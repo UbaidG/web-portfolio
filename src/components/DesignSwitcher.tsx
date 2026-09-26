@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PromptSpecModal } from "./PromptSpecModal";
 
-export type DesignOption = "espresso" | "roastery" | "kyoto";
+export type DesignOption = "espresso" | "roastery";
 
 interface DesignSwitcherProps {
   currentDesign: DesignOption;
@@ -28,8 +28,6 @@ export const DesignSwitcher: React.FC<DesignSwitcherProps> = ({
         onSelectDesign("espresso");
       } else if (e.key === "2") {
         onSelectDesign("roastery");
-      } else if (e.key === "3") {
-        onSelectDesign("kyoto");
       } else if (e.key.toLowerCase() === "p") {
         setIsModalOpen((prev) => !prev);
       }
@@ -43,20 +41,14 @@ export const DesignSwitcher: React.FC<DesignSwitcherProps> = ({
     {
       id: "espresso",
       num: "01",
-      label: "Espresso Extraction",
-      badge: "Liquid Pour",
+      label: "White Stone Pour",
+      badge: "4-Frame Cascade",
     },
     {
       id: "roastery",
       num: "02",
       label: "Specialty Roastery",
-      badge: "Loftylab Frames",
-    },
-    {
-      id: "kyoto",
-      num: "03",
-      label: "Kyoto Cold Drip",
-      badge: "Precision Lab",
+      badge: "Lofty Lab Frames",
     },
   ];
 
@@ -92,10 +84,10 @@ export const DesignSwitcher: React.FC<DesignSwitcherProps> = ({
             <button
               className="prompt-spec-trigger-btn"
               onClick={() => setIsModalOpen(true)}
-              title="Open video generation prompts and camera directions (Shortcut: P)"
+              title="Open 4-frame video prompt specification and pan-down camera rules (Shortcut: P)"
             >
               <span className="video-icon">🎬</span>
-              <span>Video & Prompt Spec</span>
+              <span>4-Frame Video Spec</span>
             </button>
           </div>
         </div>
