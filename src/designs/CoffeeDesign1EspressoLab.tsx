@@ -1,75 +1,31 @@
 import React, { useRef } from "react";
-import { CoffeeMug3DCanvas } from "../components/CoffeeMug3DCanvas";
+import { EspressoPourHero } from "../components/EspressoPourHero";
 import { ContactFooter } from "../components/ContactFooter";
 import { PortfolioHeader } from "../components/PortfolioHeader";
-import { ProofStrip } from "../components/ProofStrip";
 import { ProjectCard } from "../components/ProjectCard";
 import { useHorizontalScroll } from "../hooks/useHorizontalScroll";
-import { useScrollProgress } from "../hooks/useScrollProgress";
+import { useLenis } from "../hooks/useLenis";
 import { portfolioData } from "../data/portfolioData";
 
 export const CoffeeDesign1EspressoLab: React.FC = () => {
-  const heroRef = useRef<HTMLElement>(null);
+  // Initialize Lenis smooth scroll
+  useLenis(true);
+
   const experienceRef = useRef<HTMLElement>(null);
   const experienceTrackRef = useRef<HTMLDivElement>(null);
-  const sceneProgress = useScrollProgress(heroRef);
   useHorizontalScroll(experienceRef, experienceTrackRef);
-  const projects = portfolioData.projects.slice(0, 4);
+
+  const projects = portfolioData.projects;
 
   return (
-    <div className="portfolio portfolio--origin" id="top">
+    <div className="portfolio portfolio--espresso" id="top">
       <PortfolioHeader />
 
       <main>
-        <section className="origin-hero" ref={heroRef} aria-labelledby="origin-title">
-          <div className="origin-hero__inner">
-            <div className="origin-hero__copy">
-              <p className="eyebrow">Machine learning engineer · field notes</p>
-              <h1 id="origin-title">
-                Systems with
-                <em>good grounds.</em>
-              </h1>
-              <p className="origin-hero__lede">
-                Production agentic workflows, real-time voice systems, and ML
-                infrastructure built with care for the details that make them
-                dependable.
-              </p>
-              <div className="hero-actions">
-                <a className="button button--solid" href={`mailto:${portfolioData.personal.email}`}>
-                  Say hello <span aria-hidden="true">↗</span>
-                </a>
-                <a
-                  className="button button--outline"
-                  href={portfolioData.personal.resumeUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Read the resume <span aria-hidden="true">↗</span>
-                </a>
-              </div>
-              <div className="origin-hero__signature">
-                <span>01</span>
-                <p>
-                  From sparse data points to systems that hold their shape in
-                  production.
-                </p>
-              </div>
-            </div>
+        {/* Design 1 Signature: The Espresso Pour Hero with liquid overflow and revealed text */}
+        <EspressoPourHero />
 
-            <div className="origin-hero__object" aria-label="A ceramic coffee cup in a studio still life">
-              <CoffeeMug3DCanvas progress={sceneProgress} />
-              <div className="origin-hero__object-note">
-                <span className="origin-hero__object-line" />
-                <span>Small rituals. Serious systems.</span>
-              </div>
-            </div>
-
-            <p className="origin-hero__side-note">Ubaid Ghante / ML + AI</p>
-          </div>
-        </section>
-
-        <ProofStrip />
-
+        {/* Section 02: Introduction & Engineering Philosophy */}
         <section className="origin-introduction section-shell" id="about">
           <div className="origin-introduction__label">
             <span>About the work</span>
@@ -89,6 +45,7 @@ export const CoffeeDesign1EspressoLab: React.FC = () => {
           </div>
         </section>
 
+        {/* Section 03: Selected Chapters / Experience */}
         <section
           className="origin-experience section-shell"
           id="experience"
@@ -103,7 +60,7 @@ export const CoffeeDesign1EspressoLab: React.FC = () => {
                 the work.
               </p>
               <div className="origin-experience__cue" aria-hidden="true">
-                <span>Scroll to explore</span>
+                <span>Scroll horizontally</span>
                 <span>→ → →</span>
               </div>
             </div>
@@ -125,19 +82,21 @@ export const CoffeeDesign1EspressoLab: React.FC = () => {
                       <p className="origin-chapter__role">{experience.role}</p>
                       <p className="origin-chapter__summary">{experience.summary}</p>
                       <ul>
-                        {experience.highlights.slice(0, 3).map((highlight) => (
+                        {experience.highlights.map((highlight) => (
                           <li key={highlight}>{highlight}</li>
                         ))}
                       </ul>
                       <div className="origin-chapter__tech">
-                        {experience.tech.slice(0, 6).map((technology) => (
+                        {experience.tech.map((technology) => (
                           <span key={technology}>{technology}</span>
                         ))}
                       </div>
                     </div>
-                    <strong className="origin-chapter__metric">
-                      {experience.metrics}
-                    </strong>
+                    {experience.metrics && (
+                      <strong className="origin-chapter__metric">
+                        {experience.metrics}
+                      </strong>
+                    )}
                   </article>
                 ))}
               </div>
@@ -145,6 +104,7 @@ export const CoffeeDesign1EspressoLab: React.FC = () => {
           </div>
         </section>
 
+        {/* Section 04: Selected Projects / The Menu */}
         <section className="origin-work section-shell" id="work">
           <div className="section-heading section-heading--row">
             <div>
@@ -152,7 +112,7 @@ export const CoffeeDesign1EspressoLab: React.FC = () => {
               <h2>Useful things, made carefully.</h2>
             </div>
             <p>
-              A few systems spanning voice, vision, analytics, and clinical
+              Systems spanning voice AI, medical computer vision, graph neural networks, and clinical
               retrieval.
             </p>
           </div>
@@ -163,6 +123,7 @@ export const CoffeeDesign1EspressoLab: React.FC = () => {
           </div>
         </section>
 
+        {/* Section 05: Education & Certifications */}
         <section className="origin-education section-shell">
           <div className="origin-education__heading">
             <p className="eyebrow">Training / continued practice</p>
