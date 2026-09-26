@@ -47,20 +47,19 @@ export const EspressoPourHero: React.FC<EspressoPourHeroProps> = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [hasVideo]);
 
-  // Frame interpolation based on scroll progress across 4 keyframes:
-  // 0.0 - 0.25: Frame 1 (Teapot Pour)
-  // 0.25 - 0.50: Frame 2 (Filled to Brim)
-  // 0.50 - 0.75: Frame 3 (Overflow Begins)
-  // 0.75 - 1.00: Frame 4 (Pan Down & White Stone Cascade)
-  const currentFrameIdx = Math.min(Math.floor(scrollProgress * 4), 3);
+  // Frame interpolation based on scroll progress across 9 keyframes:
+  // Frames 1-3: Teapot Pour, Brim Fill, Ledge Overflow (Static camera)
+  // Frames 4-8: Pan Down tracking cascading crema down white marble
+  // Frame 9: Pure white canvas with thick coffee dripping in top right corner
+  const currentFrameIdx = Math.min(Math.floor(scrollProgress * frames.length), frames.length - 1);
 
-  // Pan down motion effect: Camera translates down only in phases 3 and 4
-  const panDownTranslateY = scrollProgress > 0.55
-    ? (scrollProgress - 0.55) * 120
+  // Pan down motion effect: Camera translates down starting at Phase 4 (stone cascade)
+  const panDownTranslateY = scrollProgress > 0.33
+    ? (scrollProgress - 0.33) * 70
     : 0;
 
-  // Text manifesto reveal when coffee reaches bottom of white stone
-  const textRevealOpacity = Math.min(Math.max((scrollProgress - 0.55) / 0.35, 0), 1);
+  // Text manifesto reveal when coffee settles into pure white Frame 9
+  const textRevealOpacity = Math.min(Math.max((scrollProgress - 0.72) / 0.25, 0), 1);
   const textTranslateY = (1 - textRevealOpacity) * 30;
 
   return (
@@ -124,7 +123,7 @@ export const EspressoPourHero: React.FC<EspressoPourHeroProps> = ({
           </div>
         </div>
 
-        {/* 4-Frame White Stone Visual Stage */}
+        {/* 9-Frame Visual Stage */}
         <div
           className="espresso-cup-stage white-stone-stage"
           style={{
@@ -142,65 +141,41 @@ export const EspressoPourHero: React.FC<EspressoPourHeroProps> = ({
             />
           ) : (
             <div className="espresso-stage-composite white-composite">
-              {/* Frame 1: Teapot Pour */}
-              <img
-                src={frames[0].imageUrl}
-                alt="Teapot pouring coffee into white ceramic cup"
-                className="espresso-frame-img"
-                style={{
-                  opacity: scrollProgress <= 0.25 ? 1 : Math.max(1 - (scrollProgress - 0.25) * 5, 0),
-                }}
-              />
-
-              {/* Frame 2: Filled to Brim (Meniscus Dome) */}
-              <img
-                src={frames[1].imageUrl}
-                alt="Coffee filled right to the brim of the cup"
-                className="espresso-frame-img"
-                style={{
-                  opacity:
-                    scrollProgress > 0.2 && scrollProgress <= 0.55
-                      ? Math.min((scrollProgress - 0.2) * 5, 1) * Math.max(1 - (scrollProgress - 0.5) * 5, 0)
-                      : 0,
-                }}
-              />
-
-              {/* Frame 3: Overflow Begins onto White Stone */}
-              <img
-                src={frames[2].imageUrl}
-                alt="Coffee overflowing cup rim onto white stone"
-                className="espresso-frame-img"
-                style={{
-                  opacity:
-                    scrollProgress > 0.48 && scrollProgress <= 0.75
-                      ? Math.min((scrollProgress - 0.48) * 5, 1) * Math.max(1 - (scrollProgress - 0.7) * 5, 0)
-                      : 0,
-                }}
-              />
-
-              {/* Frame 4: Camera Pan Down & Cascading down Fluted White Stone */}
-              <img
-                src={frames[3].imageUrl}
-                alt="Camera panned down tracking coffee cascading down white stone plinth into white floor"
-                className="espresso-frame-img"
-                style={{
-                  opacity: scrollProgress > 0.68 ? Math.min((scrollProgress - 0.68) * 5, 1) : 0,
-                }}
-              />
+              {frames.map((frame, idx) => {
+                const progressVal = scrollProgress * (frames.length - 1);
+                const dist = Math.abs(progressVal - idx);
+                const opacity = Math.max(0, 1 - dist);
+                return (
+                  <img
+                    key={frame.number}
+                    src={frame.imageUrl}
+                    alt={frame.phase}
+                    className="espresso-frame-img"
+                    style={{
+                      opacity,
+                      transition: "opacity 90ms linear",
+                    }}
+                  />
+                );
+              })}
             </div>
           )}
 
           {/* Phase Telemetry Tag */}
           <div className="espresso-telemetry-tag white-telemetry">
             <div className="telemetry-item">
-              <span className="telemetry-label">PHASE</span>
-              <span className="telemetry-val">0{currentFrameIdx + 1} // 04</span>
+              <span className="telemetry-label">KEYFRAME</span>
+              <span className="telemetry-val">0{currentFrameIdx + 1} // 09</span>
             </div>
             <div className="telemetry-sep" />
             <div className="telemetry-item">
               <span className="telemetry-label">CAMERA</span>
               <span className="telemetry-val">
-                {scrollProgress > 0.55 ? "PANNING DOWN ▾" : "LOCKED AT EYE LEVEL"}
+                {currentFrameIdx < 3
+                  ? "STATIC AT EYE LEVEL"
+                  : currentFrameIdx < 8
+                  ? "PANNING DOWN ▾"
+                  : "LOCKED ON PURE WHITE"}
               </span>
             </div>
           </div>
@@ -245,7 +220,7 @@ export const EspressoPourHero: React.FC<EspressoPourHeroProps> = ({
               className="manifesto-spec-link dark-spec-link"
               onClick={onOpenVideoSpec}
             >
-              <span>View 4-Frame White Stone Camera & Pan-Down Video Prompts →</span>
+              <span>View 9-Frame White Stone Camera & Pan-Down Video Prompts →</span>
             </button>
           )}
         </div>

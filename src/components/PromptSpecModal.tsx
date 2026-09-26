@@ -36,7 +36,7 @@ export const PromptSpecModal: React.FC<PromptSpecModalProps> = ({
         <header className="prompt-modal-header">
           <div>
             <span className="prompt-modal-badge">
-              4-Frame Video & Camera Direction (White Stone & Pan Down)
+              9-Frame Video & Camera Direction (User Reference + 5 Continuation Frames)
             </span>
             <h2 id="spec-modal-title">{spec.title}</h2>
           </div>
@@ -52,20 +52,24 @@ export const PromptSpecModal: React.FC<PromptSpecModalProps> = ({
         <div className="prompt-modal-content">
           <p className="prompt-modal-concept">{spec.concept}</p>
 
-          {/* 4-Frame Sequence Showcase */}
+          {/* 9-Frame Sequence Showcase */}
           <div className="prompt-modal-four-frames">
             <div className="four-frames-header">
-              <span className="frames-heading">4 Keyframe Stills Sequence</span>
-              <span className="frames-note">
-                Static camera during fill (Frames 1-2) → Pan-down initiates ONLY on stone flow (Frames 3-4)
-              </span>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.5rem" }}>
+                <span className="frames-heading">9-Keyframe Cinematic Storyboard</span>
+                <span className="frames-note">
+                  Frames 1–4: User Reference Frames · Frames 5–9: Pan-Down to Pure White
+                </span>
+              </div>
             </div>
 
-            <div className="four-frames-grid">
+            <div className="four-frames-grid nine-frames-grid">
               {spec.keyframes.map((frame) => (
-                <div className="four-frame-card" key={frame.number}>
+                <div className={`four-frame-card ${frame.number === 9 ? "final-white-frame-card" : ""}`} key={frame.number}>
                   <div className="four-frame-top">
-                    <span className="frame-num-pill">Frame 0{frame.number}</span>
+                    <span className="frame-num-pill">
+                      Frame 0{frame.number} {frame.isUserReference ? "· Reference" : "· Pan-Down"}
+                    </span>
                     <span className="frame-time-pill">{frame.timecode}</span>
                   </div>
                   <div className="four-frame-img-box">
@@ -87,10 +91,10 @@ export const PromptSpecModal: React.FC<PromptSpecModalProps> = ({
             <div className="prompt-box-header">
               <div>
                 <span className="prompt-box-label">
-                  New Improved Master Prompt (White Stone + Synchronized Pan Down)
+                  New Improved Master Prompt (White Stone, Timed Pan-Down & Top-Right Dripping White Ending)
                 </span>
                 <span className="prompt-box-sub">
-                  Copy & paste into Sora, Runway Gen-3, Kling 1.5, or Luma Dream Machine
+                  Copy & paste into Sora, Runway Gen-3 Alpha, Kling AI 1.5/2.0, or Luma Dream Machine
                 </span>
               </div>
               <button
@@ -134,7 +138,7 @@ export const PromptSpecModal: React.FC<PromptSpecModalProps> = ({
                 <li><strong>Plinth Surface:</strong> {spec.environmentAesthetics.plinthSurface}</li>
                 <li><strong>Teapot:</strong> {spec.environmentAesthetics.teapot}</li>
                 <li><strong>Cup:</strong> {spec.environmentAesthetics.cup}</li>
-                <li><strong>Seamless White:</strong> {spec.environmentAesthetics.websiteTransition}</li>
+                <li><strong>Final Frame 9:</strong> {spec.environmentAesthetics.websiteTransition}</li>
               </ul>
             </div>
           </div>

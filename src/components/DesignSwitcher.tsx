@@ -42,7 +42,7 @@ export const DesignSwitcher: React.FC<DesignSwitcherProps> = ({
       id: "espresso",
       num: "01",
       label: "White Stone Pour",
-      badge: "4-Frame Cascade",
+      badge: "9-Frame Cascade",
     },
     {
       id: "roastery",
@@ -84,10 +84,10 @@ export const DesignSwitcher: React.FC<DesignSwitcherProps> = ({
             <button
               className="prompt-spec-trigger-btn"
               onClick={() => setIsModalOpen(true)}
-              title="Open 4-frame video prompt specification and pan-down camera rules (Shortcut: P)"
+              title="Open 9-frame video prompt specification and pan-down camera rules (Shortcut: P)"
             >
               <span className="video-icon">🎬</span>
-              <span>4-Frame Video Spec</span>
+              <span>9-Frame Video Spec</span>
             </button>
           </div>
         </div>
