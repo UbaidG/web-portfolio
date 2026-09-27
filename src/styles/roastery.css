@@ -1233,6 +1233,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1.5rem;
+  position: relative;
+  z-index: 0;
 }
 
 .credentials-column h3 {
@@ -1247,6 +1249,43 @@
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 18px;
   padding: 1.5rem;
+  position: relative;
+}
+
+.edu-hat {
+  position: absolute;
+  pointer-events: none;
+}
+
+.edu-hat canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.edu-hat--back {
+  z-index: -1;
+}
+
+.edu-hat--front {
+  z-index: 2;
+}
+
+@media (min-width: 900px) {
+  .lofty-credentials-grid-edu {
+    margin-top: 7rem;
+    padding-left: max(0px, calc(170px - max(1.5rem, (100vw - 960px) / 2)));
+  }
+
+  .edu-card--featured {
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 899px) {
+  .edu-hat {
+    display: none;
+  }
 }
 
 .edu-period {

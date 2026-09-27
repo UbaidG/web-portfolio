@@ -9,6 +9,7 @@ import {
   ProjectPreviewMedia,
 } from "../components/LoftyProcessSVGs";
 import { CertificateWallGallery } from "../components/CertificateWallGallery";
+import { MortarboardHat } from "../components/MortarboardHat";
 
 export const CoffeeDesign2RoasteryLofty: React.FC = () => {
   useLenis(true);
@@ -599,8 +600,12 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
           </div>
 
           <div className="lofty-credentials-grid-edu">
-            {portfolioData.education.map((item) => (
-              <div className="edu-card" key={item.school}>
+            {portfolioData.education.map((item, idx) => (
+              <div
+                className={`edu-card${idx === 0 ? " edu-card--featured" : ""}`}
+                key={item.school}
+              >
+                {idx === 0 && <MortarboardHat />}
                 <span className="edu-period">{item.period}</span>
                 <h4>{item.school}</h4>
                 <p>{item.degree}</p>
