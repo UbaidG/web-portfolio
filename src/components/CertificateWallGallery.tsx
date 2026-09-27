@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { portfolioData, CertificationItem } from "../data/portfolioData";
+import { HangingFrame } from "./HangingFrame";
 
 export const CertificateWallGallery: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>("All");
@@ -40,7 +41,7 @@ export const CertificateWallGallery: React.FC = () => {
         <h2 className="cert-wall-title">The Credentials Gallery Wall</h2>
         <p className="cert-wall-subtitle">
           Official machine learning specializations, cloud systems, and professional management degrees hung in
-          artisanal walnut frames. Hover over any frame to interact with the hanging suspension, or click to inspect.
+          artisanal walnut frames. Hover or drag any frame to feel the rope & pendulum physics, or click to inspect.
         </p>
 
         {/* Category Filter Pills */}
@@ -78,73 +79,14 @@ export const CertificateWallGallery: React.FC = () => {
         <div className="cert-wall-grid">
           {filteredCerts.map((cert, idx) => {
             const restAngle = restAngles[idx % restAngles.length];
-            const baseUrl = import.meta.env.BASE_URL;
-            const thumbUrl = cert.image ? `${baseUrl}${cert.image}` : "";
 
             return (
-              <div
-                className="cert-frame-wrapper"
+              <HangingFrame
                 key={cert.name}
-                style={{ "--rest-rot": `${restAngle}deg` } as React.CSSProperties}
-              >
-                {/* Brass Mounting Pin & Braided Hanging Cords */}
-                <div className="frame-mount">
-                  <div className="mount-nail-pin" />
-                  <div className="mount-cord cord--left" />
-                  <div className="mount-cord cord--right" />
-                </div>
-
-                {/* The Suspended Wooden Picture Frame */}
-                <div
-                  className="cert-picture-frame"
-                  onClick={() => setSelectedCert(cert)}
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`View certificate for ${cert.name}`}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      setSelectedCert(cert);
-                    }
-                  }}
-                >
-                  {/* Passe-Partout Matting */}
-                  <div className="frame-matting">
-                    {/* Inner Certificate Artwork / Preview */}
-                    <div className="frame-artwork-slot">
-                      {thumbUrl ? (
-                        <img
-                          src={thumbUrl}
-                          alt={cert.name}
-                          className="cert-thumb-img"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="cert-thumb-fallback">
-                          <span className="fallback-issuer">{cert.issuer}</span>
-                          <span className="fallback-name">{cert.name}</span>
-                        </div>
-                      )}
-                      {/* Glass Sheen Reflection */}
-                      <div className="frame-glass-sheen" />
-                      {/* Hover Hint Overlay */}
-                      <div className="frame-inspect-overlay">
-                        <span className="inspect-pill">Inspect Credential ↗</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Brass Engraved Museum Plaque */}
-                  <div className="frame-museum-plaque">
-                    <div className="plaque-top">
-                      <span className="plaque-issuer">{cert.issuer}</span>
-                      <span className="plaque-date">{cert.date}</span>
-                    </div>
-                    <h4 className="plaque-title" title={cert.name}>
-                      {cert.name}
-                    </h4>
-                  </div>
-                </div>
-              </div>
+                cert={cert}
+                restAngle={restAngle}
+                onSelect={setSelectedCert}
+              />
             );
           })}
         </div>

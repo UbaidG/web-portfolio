@@ -1419,57 +1419,76 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  perspective: 1000px;
+  touch-action: pan-y;
+  user-select: none;
 }
 
-/* Brass Hanging Pin & Braided Wire Cords */
-.frame-mount {
+/* Fixed Brass Mounting Nail on Wall (Pivot Origin) */
+.wall-mounting-nail {
   position: absolute;
-  top: -26px;
+  top: 7px;
   left: 50%;
   transform: translateX(-50%);
-  width: 160px;
-  height: 32px;
+  width: 14px;
+  height: 14px;
+  z-index: 10;
   pointer-events: none;
-  z-index: 2;
 }
 
-.mount-nail-pin {
+.nail-pin-shadow {
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 13px;
-  height: 13px;
-  background: radial-gradient(circle at 35% 35%, #fff3b8 0%, #d4af37 55%, #664906 100%);
+  top: 2px;
+  left: 0;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.6);
-  z-index: 3;
+  background: rgba(18, 12, 8, 0.4);
+  filter: blur(2px);
 }
 
-.mount-cord {
-  position: absolute;
-  top: 6px;
-  width: 1.5px;
-  height: 32px;
-  background: linear-gradient(180deg, rgba(70, 50, 35, 0.85), rgba(40, 28, 18, 0.95));
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
-  transform-origin: top center;
-  z-index: 1;
+.nail-pin-head {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff2b5 0%, #d4af37 45%, #845e0d 85%, #3d2a04 100%);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(138, 98, 14, 0.6);
 }
 
-.cord--left {
-  left: 50%;
-  transform: rotate(40deg);
-  height: 38px;
+/* The Suspended Assembly (Rigid pendulum that swings freely from nail apex) */
+.hanging-assembly {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transform-origin: 50% 14px;
+  will-change: transform, filter;
+  transition: filter 160ms ease;
+  transform-style: preserve-3d;
 }
 
-.cord--right {
-  left: 50%;
-  transform: rotate(-40deg);
-  height: 38px;
+/* SVG Suspension Cords Container */
+.suspension-cords-container {
+  width: 100%;
+  max-width: 280px;
+  height: 60px;
+  position: relative;
+  margin-bottom: -3px;
+  z-index: 4;
+  pointer-events: none;
 }
 
-/* The Suspended Wooden Picture Frame */
+.suspension-cords-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* The Solid Walnut Wooden Frame */
 .cert-picture-frame {
   width: 100%;
   background: #19120e;
@@ -1480,47 +1499,23 @@
     inset -1px -1px 0 rgba(0, 0, 0, 0.7),
     0 16px 32px rgba(25, 18, 14, 0.2),
     0 3px 8px rgba(25, 18, 14, 0.12);
-  cursor: pointer;
+  cursor: grab;
   position: relative;
   user-select: none;
-  transform-origin: 50% -26px;
-  transform: rotate(var(--rest-rot, 0deg));
   transition:
     box-shadow 320ms ease,
     border-color 320ms ease;
-  will-change: transform, box-shadow;
+  outline: none;
 }
 
-/* Interactive Pendulum Swing on Hover */
-.cert-frame-wrapper:hover .cert-picture-frame {
-  animation: pictureSwing 2.4s cubic-bezier(0.25, 1, 0.5, 1);
-  box-shadow:
-    inset 1px 1px 0 rgba(255, 255, 255, 0.25),
-    inset -1px -1px 0 rgba(0, 0, 0, 0.7),
-    0 26px 50px rgba(25, 18, 14, 0.3),
-    0 8px 18px rgba(25, 18, 14, 0.18);
-  border-color: #2b1f19;
+.cert-frame-wrapper:active .cert-picture-frame {
+  cursor: grabbing;
 }
 
-@keyframes pictureSwing {
-  0% {
-    transform: rotate(var(--rest-rot, 0deg)) translateY(0px) scale(1);
-  }
-  18% {
-    transform: rotate(calc(var(--rest-rot, 0deg) + 4.5deg)) translateY(-4px) scale(1.025);
-  }
-  38% {
-    transform: rotate(calc(var(--rest-rot, 0deg) - 3.2deg)) translateY(-3px) scale(1.025);
-  }
-  58% {
-    transform: rotate(calc(var(--rest-rot, 0deg) + 1.8deg)) translateY(-2px) scale(1.018);
-  }
-  78% {
-    transform: rotate(calc(var(--rest-rot, 0deg) - 0.8deg)) translateY(-1px) scale(1.01);
-  }
-  100% {
-    transform: rotate(var(--rest-rot, 0deg)) translateY(0px) scale(1.01);
-  }
+.frame-bevel-lip {
+  border: 2px solid #160e0a;
+  background: #231914;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* Passe-Partout Matting */
