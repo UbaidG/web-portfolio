@@ -30,9 +30,15 @@ export interface EducationItem {
 }
 
 export interface CertificationItem {
+  id?: string;
   name: string;
-  issuer: "IBM" | "Google";
+  issuer: string;
   date: string;
+  category?: "AI & ML" | "Project Management" | "Cloud & Architecture" | "Foundations";
+  image?: string;
+  pdfUrl?: string;
+  credentialUrl?: string;
+  featured?: boolean;
 }
 
 export interface ProofMetric {
@@ -327,11 +333,200 @@ export const PORTFOLIO_DATA = {
   },
 
   certifications: [
-    { name: "Machine Learning with Python", issuer: "IBM", date: "Jan 2026" },
-    { name: "Introduction to Deep Learning & Neural Networks with Keras", issuer: "IBM", date: "Jan 2026" },
-    { name: "Foundations of Project Management", issuer: "Google", date: "Jan 2026" },
-    { name: "Deep Learning with Keras and TensorFlow", issuer: "IBM", date: "Jan 2026" },
-    { name: "Project Initiation: Starting a Successful Project", issuer: "Google", date: "Jan 2026" },
+    // --- Google Project Management Specialization ---
+    {
+      id: "google-pm-spec",
+      name: "Google Project Management Professional Certificate",
+      issuer: "Google",
+      date: "Apr 2026",
+      category: "Project Management",
+      image: "certificates/thumbs/google-pm-spec.webp",
+      pdfUrl: "certificates/pdf/Courses/Google Project Management.pdf",
+      credentialUrl: "https://coursera.org/verify/professional-cert/BNHJAI1YK0HF",
+      featured: true,
+    },
+    {
+      id: "foundations-pm",
+      name: "Foundations of Project Management",
+      issuer: "Google",
+      date: "Jan 2026",
+      category: "Project Management",
+      image: "certificates/thumbs/foundations-pm.webp",
+      pdfUrl: "certificates/pdf/Courses/Foundations of Project Management.pdf",
+    },
+    {
+      id: "project-initiation",
+      name: "Project Initiation: Starting a Successful Project",
+      issuer: "Google",
+      date: "Jan 2026",
+      category: "Project Management",
+      image: "certificates/thumbs/project-initiation.webp",
+      pdfUrl: "certificates/pdf/Courses/Project Initiation Starting a Successful Project.pdf",
+    },
+    {
+      id: "project-planning",
+      name: "Project Planning: Putting It All Together",
+      issuer: "Google",
+      date: "Feb 2026",
+      category: "Project Management",
+      image: "certificates/thumbs/project-planning.webp",
+      pdfUrl: "certificates/pdf/Courses/Project Planning Putting It All Together.pdf",
+    },
+    {
+      id: "project-execution",
+      name: "Project Execution: Running the Project",
+      issuer: "Google",
+      date: "Mar 2026",
+      category: "Project Management",
+      image: "certificates/thumbs/project-execution.webp",
+      pdfUrl: "certificates/pdf/Courses/Project Execution.pdf",
+    },
+    {
+      id: "agile-pm",
+      name: "Agile Project Management",
+      issuer: "Google",
+      date: "Apr 2026",
+      category: "Project Management",
+      image: "certificates/thumbs/agile-pm.webp",
+      pdfUrl: "certificates/pdf/Courses/Agile Project Management.pdf",
+    },
+    {
+      id: "capstone-pm",
+      name: "Capstone: Applying Project Management in the Real World",
+      issuer: "Google",
+      date: "Apr 2026",
+      category: "Project Management",
+      image: "certificates/thumbs/capstone-pm.webp",
+      pdfUrl: "certificates/pdf/Courses/Capstone Applying Project Management in the Real World.pdf",
+    },
+
+    // --- AI & Machine Learning (IBM) ---
+    {
+      id: "ml-python-ibm",
+      name: "Machine Learning with Python",
+      issuer: "IBM",
+      date: "Jan 2026",
+      category: "AI & ML",
+      image: "certificates/thumbs/ml-python-ibm.webp",
+      pdfUrl: "certificates/pdf/Courses/Machine Learning with Python.pdf",
+      featured: true,
+    },
+    {
+      id: "deep-learning-keras-ibm",
+      name: "Intro to Deep Learning & Neural Networks with Keras",
+      issuer: "IBM",
+      date: "Jan 2026",
+      category: "AI & ML",
+      image: "certificates/thumbs/deep-learning-keras-ibm.webp",
+      pdfUrl: "certificates/pdf/Courses/Introduction to Deep Learning & Neural Networks with Keras.pdf",
+      featured: true,
+    },
+    {
+      id: "deep-learning-tensorflow-ibm",
+      name: "Deep Learning with Keras and TensorFlow",
+      issuer: "IBM",
+      date: "Jan 2026",
+      category: "AI & ML",
+      image: "certificates/thumbs/deep-learning-tensorflow-ibm.webp",
+      pdfUrl: "certificates/pdf/Courses/Deep Learning with Keras and Tensorflow.pdf",
+      featured: true,
+    },
+
+    // --- AWS Machine Learning & Cloud Architecture ---
+    {
+      id: "aws-intro-ml",
+      name: "Introduction to Machine Learning",
+      issuer: "AWS",
+      date: "Nov 2023",
+      category: "Cloud & Architecture",
+      image: "certificates/thumbs/aws-intro-ml.webp",
+      pdfUrl: "certificates/pdf/AWS/Introduction to Machine Learning AWS Course Completion Certificate.pdf",
+      featured: true,
+    },
+    {
+      id: "aws-sagemaker",
+      name: "Introduction to Amazon SageMaker",
+      issuer: "AWS",
+      date: "Nov 2023",
+      category: "Cloud & Architecture",
+      image: "certificates/thumbs/aws-sagemaker.webp",
+      pdfUrl: "certificates/pdf/AWS/Introduction to Amazon SageMaker AWS Course Completion Certificate.pdf",
+      featured: true,
+    },
+    {
+      id: "aws-ml-ready-org",
+      name: "Building an ML Ready Organization",
+      issuer: "AWS",
+      date: "Nov 2023",
+      category: "Cloud & Architecture",
+      image: "certificates/thumbs/aws-ml-ready-org.webp",
+      pdfUrl: "certificates/pdf/AWS/Building a Machine Learning Ready Organization AWS Course Completion Certificate.pdf",
+    },
+    {
+      id: "aws-planning-ml",
+      name: "Planning a Machine Learning Project",
+      issuer: "AWS",
+      date: "Nov 2023",
+      category: "Cloud & Architecture",
+      image: "certificates/thumbs/aws-planning-ml.webp",
+      pdfUrl: "certificates/pdf/AWS/Planning a Machine Learning Project AWS Course Completion Certificate.pdf",
+    },
+    {
+      id: "aws-ml-essentials",
+      name: "ML Essentials for Business & Technical Decision Makers",
+      issuer: "AWS",
+      date: "Nov 2023",
+      category: "Cloud & Architecture",
+      image: "certificates/thumbs/aws-ml-essentials.webp",
+      pdfUrl: "certificates/pdf/AWS/Machine Learning Essentials for Business and Technical Decision Makers AWS Course Completion Certificate.pdf",
+    },
+    {
+      id: "aws-ml-terminology",
+      name: "Machine Learning Terminology and Process",
+      issuer: "AWS",
+      date: "Nov 2023",
+      category: "Cloud & Architecture",
+      image: "certificates/thumbs/aws-ml-terminology.webp",
+      pdfUrl: "certificates/pdf/AWS/Machine Learning Terminology and Process AWS Course Completion Certificate.pdf",
+    },
+
+    // --- Core Tech, Languages & Experience ---
+    {
+      id: "python-basics-michigan",
+      name: "Programming for Everybody (Getting Started with Python)",
+      issuer: "Univ. of Michigan",
+      date: "Aug 2020",
+      category: "Foundations",
+      image: "certificates/thumbs/python-basics-michigan.webp",
+      pdfUrl: "certificates/pdf/Python basics certificate.pdf",
+    },
+    {
+      id: "html5-michigan",
+      name: "Introduction to HTML5",
+      issuer: "Univ. of Michigan",
+      date: "Mar 2021",
+      category: "Foundations",
+      image: "certificates/thumbs/html5-michigan.webp",
+      pdfUrl: "certificates/pdf/HTML Certificate.pdf",
+    },
+    {
+      id: "linkedin-learning",
+      name: "AI & Machine Learning Career Development",
+      issuer: "LinkedIn Learning",
+      date: "Jun 2022",
+      category: "Foundations",
+      image: "certificates/thumbs/linkedin-learning.webp",
+      pdfUrl: "certificates/pdf/LinkedIn Learning Certificate.pdf",
+    },
+    {
+      id: "exposys-internship",
+      name: "Data Science & ML Engineering Internship",
+      issuer: "Exposys Data Labs",
+      date: "May 2022",
+      category: "Foundations",
+      image: "certificates/thumbs/exposys-internship.webp",
+      pdfUrl: "certificates/pdf/UBAID AKHTAR GHANTE Exposys Internship.pdf",
+    },
   ] as CertificationItem[],
 };
 

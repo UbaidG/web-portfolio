@@ -1,11 +1,72 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { portfolioData } from "../data/portfolioData";
 import { useLenis } from "../hooks/useLenis";
 import { ContactFooter } from "../components/ContactFooter";
+import {
+  SourcingStickerIcon,
+  ExtractionStickerIcon,
+  CuppingStickerIcon,
+  ProjectPreviewMedia,
+} from "../components/LoftyProcessSVGs";
+import { CertificateWallGallery } from "../components/CertificateWallGallery";
 
 export const CoffeeDesign2RoasteryLofty: React.FC = () => {
   useLenis(true);
   const heroRef = useRef<HTMLElement>(null);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
+  const [deckDepths, setDeckDepths] = useState<number[]>(() =>
+    portfolioData.experiences.map(() => 0)
+  );
+
+  useEffect(() => {
+    // Respect reduced motion
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReducedMotion) return;
+
+    let ticking = false;
+    const updateDeck = () => {
+      const depths: number[] = portfolioData.experiences.map(() => 0);
+      const N = portfolioData.experiences.length;
+
+      for (let j = 1; j < N; j++) {
+        const nextCard = cardRefs.current[j];
+        if (!nextCard) continue;
+
+        const rect = nextCard.getBoundingClientRect();
+        const targetTop = 90 + j * 32;
+        const range = 260;
+        const progress = Math.max(
+          0,
+          Math.min(1, (targetTop + range - rect.top) / range)
+        );
+
+        if (progress > 0) {
+          for (let i = 0; i < j; i++) {
+            depths[i] += progress;
+          }
+        }
+      }
+
+      setDeckDepths(depths);
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateDeck);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    updateDeck();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const skillsList1 = [
     "LangGraph",
@@ -69,13 +130,15 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
             <a href="#about" className="lofty-nav-item">About</a>
             <a href="#cupping" className="lofty-nav-item">Cupping Notes</a>
             <a href="#experience" className="lofty-nav-item">Experience</a>
-            <a href="#works" className="lofty-nav-item">Selected Works</a>
+            <a href="#pipeline" className="lofty-nav-item">Pipeline</a>
+            <a href="#works" className="lofty-nav-item">Works</a>
+            <a href="#certifications" className="lofty-nav-item">Certificates</a>
           </nav>
           <a
             href={`mailto:${portfolioData.personal.email}`}
             className="lofty-nav-cta"
           >
-            Say Hello ↗
+            Say Hello <span className="btn-arrow-icon">↗</span>
           </a>
         </div>
       </header>
@@ -84,18 +147,48 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
         {/* Hero Section: Large Condensed Typography + Floating Badges */}
         <section className="lofty-hero" ref={heroRef}>
           <div className="lofty-hero-inner">
-            {/* Floating Sticker Badges */}
-            <div className="lofty-badge badge-top-left">
-              <span>⚡ 170M+ Profiles</span>
+            {/* Floating Die-Cut Sticker Badges with Spring Wobble Physics */}
+            <div
+              className="lofty-badge badge-top-left"
+              style={{ "--rot": "-6deg" } as React.CSSProperties}
+            >
+              <span className="badge-sticker-spark">⚡</span>
+              <span>170M+ Profiles</span>
             </div>
-            <div className="lofty-badge badge-top-right">
-              <span>🎓 9.3 CGPA First Class</span>
+            <div
+              className="lofty-badge badge-top-right"
+              style={{ "--rot": "5deg" } as React.CSSProperties}
+            >
+              <span className="badge-sticker-spark">🎓</span>
+              <span>9.3 CGPA First Class</span>
             </div>
-            <div className="lofty-badge badge-mid-left">
-              <span>🎙️ Real-Time Voice AI</span>
+            <div
+              className="lofty-badge badge-mid-left"
+              style={{ "--rot": "4deg" } as React.CSSProperties}
+            >
+              <span className="badge-sticker-spark">🎙️</span>
+              <span>Real-Time Voice AI</span>
             </div>
-            <div className="lofty-badge badge-mid-right">
-              <span>☕ Machine Learning Engineer</span>
+            <div
+              className="lofty-badge badge-mid-right"
+              style={{ "--rot": "-5deg" } as React.CSSProperties}
+            >
+              <span className="badge-sticker-spark">☕</span>
+              <span>Machine Learning Engineer</span>
+            </div>
+            <div
+              className="lofty-badge badge-bottom-left"
+              style={{ "--rot": "-3deg" } as React.CSSProperties}
+            >
+              <span className="badge-sticker-spark">🎯</span>
+              <span>99.2% Accuracy PHI</span>
+            </div>
+            <div
+              className="lofty-badge badge-bottom-right"
+              style={{ "--rot": "3deg" } as React.CSSProperties}
+            >
+              <span className="badge-sticker-spark">✦</span>
+              <span>Single-Origin AI</span>
             </div>
 
             <p className="lofty-hero-kicker">Machine Learning Engineer · Single-Origin AI</p>
@@ -117,7 +210,7 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
                 className="lofty-btn-solid"
                 href={`mailto:${portfolioData.personal.email}`}
               >
-                Start a Conversation ↗
+                Start a Conversation <span className="btn-arrow-icon">↗</span>
               </a>
               <a
                 className="lofty-btn-outline"
@@ -125,7 +218,7 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                View Latex Resume ↗
+                View Latex Resume <span className="btn-arrow-icon">↗</span>
               </a>
             </div>
           </div>
@@ -143,6 +236,49 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
                 fill="#ffffff"
               />
             </svg>
+          </div>
+        </section>
+
+        {/* Section: Specialty Roastery Manifesto with Inline Interactive Stickers */}
+        <section className="lofty-manifesto-section" id="about">
+          <div className="lofty-manifesto-inner">
+            <div className="lofty-tag-pill">
+              <span>☕ CRAFT PHILOSOPHY & ROAST PROFILE</span>
+            </div>
+            <h2 className="lofty-manifesto-headline">
+              WE ROAST PRODUCTION-GRADE{" "}
+              <span
+                className="lofty-inline-sticker sticker--matcha"
+                title="LangGraph & Multi-agent pipelines"
+              >
+                <span className="inline-icon">🤖</span> AGENTIC WORKFLOWS
+              </span>{" "}
+              AND STREAMING{" "}
+              <span
+                className="lofty-inline-sticker sticker--ochre"
+                title="Ultra-low latency audio inference"
+              >
+                <span className="inline-icon">🎙️</span> VOICE AI
+              </span>{" "}
+              EXTRACTED FOR{" "}
+              <span
+                className="lofty-inline-sticker sticker--espresso"
+                title="<250ms time-to-first-token"
+              >
+                <span className="inline-icon">⚡</span> SUB-250MS LATENCY
+              </span>
+              , BRINGING SINGLE-ORIGIN CRAFTSMANSHIP FROM{" "}
+              <span
+                className="lofty-inline-sticker sticker--cream"
+                title="Strict eval benchmarks and Datadog/Arize AX guardrails"
+              >
+                <span className="inline-icon">☕</span> MODEL WEIGHTS
+              </span>{" "}
+              TO SCALABLE REAL-WORLD INFRASTRUCTURE.
+            </h2>
+            <p className="lofty-manifesto-sub">
+              Hover over any sticker badge to inspect the roast profile, or scroll down to explore the production chapters.
+            </p>
           </div>
         </section>
 
@@ -230,15 +366,25 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
               const rotation = index % 2 === 0 ? "-1.2deg" : "1.2deg";
               const stickyTop = 90 + index * 32;
 
+              const depth = deckDepths[index] || 0;
+              const scale = Math.max(0.88, 1 - depth * 0.04);
+              const translateY = -depth * 10;
+              const brightness = Math.max(0.78, 1 - depth * 0.06);
+
               return (
                 <article
                   className="lofty-stacked-card"
                   key={exp.id}
+                  ref={(el) => {
+                    cardRefs.current[index] = el;
+                  }}
                   style={{
                     backgroundColor: theme.bg,
                     color: theme.color,
                     top: `${stickyTop}px`,
-                    transform: `rotate(${rotation})`,
+                    transform: `rotate(${rotation}) translateY(${translateY}px) scale(${scale})`,
+                    filter: `brightness(${brightness})`,
+                    transformOrigin: "center top",
                   }}
                 >
                   <div className="stacked-card-header">
@@ -300,6 +446,103 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
           </div>
         </section>
 
+        {/* Section: The Roasting Pipeline (3-Stage Process Grid inspired by Loftylab) */}
+        <section className="lofty-pipeline-section" id="pipeline">
+          <div className="lofty-section-header">
+            <span className="lofty-tag">THE ROASTING PIPELINE</span>
+            <h2>How we roast raw models into dependable systems.</h2>
+            <p className="lofty-section-sub">
+              A systematic 3-stage process bridging data sourcing, streaming inference, and production cupping.
+            </p>
+          </div>
+
+          <div className="lofty-pipeline-grid">
+            {/* Stage 1: Sourcing & Architecture */}
+            <div className="lofty-pipeline-card card--matcha">
+              <div className="pipeline-card-top">
+                <span className="pipeline-step-idx">01</span>
+                <span className="pipeline-phase-badge">SOURCING & GRAPH</span>
+              </div>
+              <div className="pipeline-sticker-container">
+                {/* [USER ASSET GAP 2: pipeline_sourcing.svg] */}
+                <div
+                  className="pipeline-sticker-diecut sticker-float-1"
+                  title="[ASSET GAP 2: pipeline_sourcing.svg]"
+                >
+                  <SourcingStickerIcon />
+                </div>
+              </div>
+              <div className="pipeline-card-bottom">
+                <h3 className="pipeline-title">Single-Origin Architecture</h3>
+                <p className="pipeline-desc">
+                  Curating clean training lineages, graph schemas across 170M+ profiles, and resilient DAG pipelines.
+                </p>
+                <div className="pipeline-card-tags">
+                  <span>Graph Neural Nets</span>
+                  <span>LangGraph</span>
+                  <span>Apache Spark</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Stage 2: Extraction & Latency */}
+            <div className="lofty-pipeline-card card--ochre">
+              <div className="pipeline-card-top">
+                <span className="pipeline-step-idx">02</span>
+                <span className="pipeline-phase-badge">EXTRACTION & SPEED</span>
+              </div>
+              <div className="pipeline-sticker-container">
+                {/* [USER ASSET GAP 2: pipeline_extraction.svg] */}
+                <div
+                  className="pipeline-sticker-diecut sticker-float-2"
+                  title="[ASSET GAP 2: pipeline_extraction.svg]"
+                >
+                  <ExtractionStickerIcon />
+                </div>
+              </div>
+              <div className="pipeline-card-bottom">
+                <h3 className="pipeline-title">Sub-250ms Extraction</h3>
+                <p className="pipeline-desc">
+                  Serving vLLM, WebRTC voice agents, and streaming token pipelines dialed in for real-time human conversation.
+                </p>
+                <div className="pipeline-card-tags">
+                  <span>LiveKit Voice</span>
+                  <span>vLLM Serving</span>
+                  <span>WebSocket Pipelines</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Stage 3: Cupping & Guardrails */}
+            <div className="lofty-pipeline-card card--espresso">
+              <div className="pipeline-card-top">
+                <span className="pipeline-step-idx">03</span>
+                <span className="pipeline-phase-badge">CUPPING & QUALITY</span>
+              </div>
+              <div className="pipeline-sticker-container">
+                {/* [USER ASSET GAP 2: pipeline_cupping.svg] */}
+                <div
+                  className="pipeline-sticker-diecut sticker-float-3"
+                  title="[ASSET GAP 2: pipeline_cupping.svg]"
+                >
+                  <CuppingStickerIcon />
+                </div>
+              </div>
+              <div className="pipeline-card-bottom">
+                <h3 className="pipeline-title">Observability Cupping</h3>
+                <p className="pipeline-desc">
+                  Continuous evaluation, automated hallucination detection, 99.2% PHI redaction, and Datadog/Arize AX tracing.
+                </p>
+                <div className="pipeline-card-tags">
+                  <span>Arize AX</span>
+                  <span>Datadog APM</span>
+                  <span>99.2% PHI Masking</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Section 05: Selected Work / Works Grid (Loftylab Editorial Style) */}
         <section className="lofty-works-section" id="works">
           <div className="lofty-section-header">
@@ -310,6 +553,13 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
           <div className="lofty-works-grid">
             {portfolioData.projects.map((proj, idx) => (
               <div className="lofty-work-card" key={proj.id}>
+                {/* [USER ASSET GAP 3: Project Showcase Media Slot (16:9)] */}
+                <ProjectPreviewMedia
+                  projectId={proj.id}
+                  category={proj.category}
+                  title={proj.title}
+                />
+
                 <div className="work-card-top">
                   <span className="work-category-badge">{proj.category}</span>
                   <span className="work-idx">0{idx + 1}</span>
@@ -332,7 +582,7 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
                       rel="noreferrer"
                       className="work-link-btn"
                     >
-                      {proj.linkLabel || "View Repository"} ↗
+                      {proj.linkLabel || "View Repository"} <span className="btn-arrow-icon">↗</span>
                     </a>
                   </div>
                 )}
@@ -341,40 +591,27 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
           </div>
         </section>
 
-        {/* Section 06: Education & Certifications */}
-        <section className="lofty-credentials-section">
+        {/* Section 06: Academic Foundations */}
+        <section className="lofty-credentials-section" id="education">
           <div className="lofty-section-header">
-            <span className="lofty-tag">FOUNDATIONS</span>
-            <h2>Academics and Industry Certifications.</h2>
+            <span className="lofty-tag">ACADEMIC FOUNDATIONS</span>
+            <h2>University Degrees & Scholastic Honors.</h2>
           </div>
 
-          <div className="lofty-credentials-grid">
-            <div className="credentials-column">
-              <h3>Education</h3>
-              {portfolioData.education.map((item) => (
-                <div className="edu-card" key={item.school}>
-                  <span className="edu-period">{item.period}</span>
-                  <h4>{item.school}</h4>
-                  <p>{item.degree}</p>
-                  <strong className="edu-score">{item.score}</strong>
-                </div>
-              ))}
-            </div>
-
-            <div className="credentials-column">
-              <h3>Certifications</h3>
-              <div className="cert-list">
-                {portfolioData.certifications.map((cert) => (
-                  <div className="cert-item" key={cert.name}>
-                    <span className="cert-issuer-tag">{cert.issuer}</span>
-                    <span className="cert-name">{cert.name}</span>
-                    <span className="cert-date">{cert.date}</span>
-                  </div>
-                ))}
+          <div className="lofty-credentials-grid-edu">
+            {portfolioData.education.map((item) => (
+              <div className="edu-card" key={item.school}>
+                <span className="edu-period">{item.period}</span>
+                <h4>{item.school}</h4>
+                <p>{item.degree}</p>
+                <strong className="edu-score">{item.score}</strong>
               </div>
-            </div>
+            ))}
           </div>
         </section>
+
+        {/* Section 07: The Credentials Gallery Wall (Hanging Certificates with Physical Swings) */}
+        <CertificateWallGallery />
 
         <ContactFooter eyebrow="Let's brew something great together" />
       </main>
