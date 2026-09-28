@@ -369,7 +369,7 @@ export const HangingFrame: React.FC<HangingFrameProps> = ({
 
                 {/* Subtle Hover Inspect Tag */}
                 <div className="frame-inspect-overlay">
-                  <span className="inspect-pill">Inspect Credential ↗</span>
+                  <span className="inspect-pill">View Certificate ↗</span>
                 </div>
               </div>
             </div>

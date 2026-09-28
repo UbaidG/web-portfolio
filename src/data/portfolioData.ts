@@ -60,34 +60,29 @@ export const PORTFOLIO_DATA = {
     githubUrl: "https://github.com/Ubaid-Ghante",
     resumeUrl,
     shortBio:
-      "Machine Learning Engineer building production agentic workflows, real-time voice systems, and scalable ML infrastructure.",
+      "Production agentic workflows, real-time voice systems, and scalable ML infrastructure. Currently building ML for Korn Ferry's Talent Suite.",
   },
 
   proofMetrics: [
     {
       value: "170M+",
       label: "user profiles",
-      context: "Korn Ferry / ResearchFox",
+      context: "Talent Suite ML at Korn Ferry",
     },
     {
       value: "40%",
-      label: "process-time reduction",
-      context: "RAG and LLM applications",
+      label: "less process time",
+      context: "LLM automation with RAG and NER",
     },
     {
-      value: "20,890+",
+      value: "20K+",
       label: "patients",
-      context: "Lymphedema health-progression model",
+      context: "Early lymphedema diagnosis model",
     },
     {
-      value: "9.3",
-      label: "CGPA",
-      context: "Computer Science and Engineering",
-    },
-    {
-      value: "2",
-      label: "engineers led",
-      context: "ACE Software Solutions",
+      value: "3+",
+      label: "years in ML",
+      context: "Talent, banking, and healthcare AI",
     },
   ] as ProofMetric[],
 
@@ -111,12 +106,12 @@ export const PORTFOLIO_DATA = {
       summary:
         "Building ML and agent workflows for Korn Ferry's Talent Suite, working with more than 170M user profiles.",
       highlights: [
-        "Building a Job Classifier Agent Workflow combining inbuilt ML models, generative AI responses, and a chat interface for talent acquisition teams.",
-        "Built salary-estimation models from historic data with sparse data points for the Talent Suite product.",
-        "Worked on Tableau MCP and TabPy Server with integrated LangGraph flows and OpenAI skills for dashboard analysis.",
-        "Architected MLOps pipelines with FastAPI, Docker, Kubernetes, and GitHub Actions, with Datadog and Arize AX observability.",
+        "Building a job-classifier agent that combines in-house ML models, generative AI responses, and a chat interface for talent acquisition teams.",
+        "Built salary-estimation models that work from sparse historical data, a key component of the Talent Suite product.",
+        "Connected LangGraph flows and OpenAI skills to Tableau through an MCP server and TabPy, adding complex analysis directly into dashboards.",
+        "Architected MLOps pipelines with FastAPI, Docker, Kubernetes, and GitHub Actions, monitored with Datadog and Arize AX.",
       ],
-      metrics: "170M+ user profiles",
+      metrics: "170M+ profiles",
     },
     {
       id: "ace",
@@ -136,14 +131,14 @@ export const PORTFOLIO_DATA = {
         "MCP",
       ],
       summary:
-        "Developed production-grade agentic workflows and banking/compliance systems while leading a team of two.",
+        "Built production agentic workflows and MCP servers for banking and compliance use cases.",
       highlights: [
         "Developed agentic workflows with CrewAI, LangChain, LangGraph, and n8n across Amazon Bedrock, HuggingFace, OpenAI, and Ollama.",
-        "Designed and developed MCP servers for complex queries in banking and compliance.",
-        "Built and deployed scalable Flask and FastAPI pipelines with Docker.",
-        "Worked as a single contributor and led a team of two engineers.",
+        "Designed and developed MCP servers that answer complex banking and compliance queries.",
+        "Built and deployed scalable Flask and FastAPI pipelines with Docker for every project.",
+        "Delivered as an individual contributor while leading an engineering team.",
       ],
-      metrics: "Team of 2 led",
+      metrics: "Team Lead",
     },
     {
       id: "kratin-data-scientist",
@@ -162,13 +157,13 @@ export const PORTFOLIO_DATA = {
         "Time-Series ML",
       ],
       summary:
-        "Built speech AI, enterprise RAG, NER, and healthcare time-series systems.",
+        "Built speech AI, RAG, NER, and healthcare time-series systems.",
       highlights: [
-        "Implemented Speech-to-Text with RASA intent mapping using Azure Speech AI and fine-tuned Azure OpenAI models.",
-        "Used GPT and Llama2 to automate tasks and develop RAG and NER applications, reducing process time by 40%.",
-        "Created a time-series ML model to predict patient health progression for early lymphedema diagnosis across 20,890+ patients.",
+        "Implemented speech-to-text with RASA intent mapping using Azure Speech AI and fine-tuned Azure OpenAI models, improving voice-command accuracy.",
+        "Used GPT and Llama2 to automate tasks and build RAG and NER applications, reducing process time by 40%.",
+        "Created a time-series model that predicts patient health progression, enabling early lymphedema diagnosis for 20,890+ patients.",
       ],
-      metrics: "40% process-time reduction · 20,890+ patients",
+      metrics: "40% less process time",
     },
     {
       id: "kratin-junior",
@@ -177,12 +172,12 @@ export const PORTFOLIO_DATA = {
       period: "Jan 2023 — Jul 2023",
       tech: ["Neo4j", "Graph Databases", "Cypher", "Constraint Programming", "Python"],
       summary:
-        "Worked on graph data modeling and workforce optimization algorithms.",
+        "Worked on graph data modeling and workforce scheduling algorithms.",
       highlights: [
-        "Constructed and managed Neo4j graph databases with Cypher to analyze complex data relationships.",
-        "Designed a constraint-programming scheduler algorithm for workforce time optimization.",
+        "Built and managed Neo4j graph databases with Cypher to analyze complex data relationships, speeding up insight retrieval.",
+        "Designed a constraint-programming scheduler that optimizes workforce time.",
       ],
-      metrics: "Graph databases · Workforce optimization",
+      metrics: "Workforce scheduler",
     },
   ] as ExperienceItem[],
 
@@ -243,10 +238,10 @@ export const PORTFOLIO_DATA = {
       id: "clinician-note",
       title: "Clinician Note Analyzer",
       subtitle: "Patient personalizer AI",
-      tagline: "NER and GraphRAG for summarization and preference grouping.",
+      tagline: "A patient-personalization assistant for clinical notes.",
       tech: ["NER", "GraphRAG", "Neo4j", "Python", "spaCy"],
       description:
-        "Patient personalizer AI using NER and GraphRAG for summarization and preference grouping.",
+        "Uses NER and GraphRAG to summarize clinician notes and group patients by their care preferences.",
       github: "https://github.com/Ubaid-Ghante",
       linkLabel: "GitHub profile",
       category: "Health AI",
@@ -255,10 +250,10 @@ export const PORTFOLIO_DATA = {
       id: "patient-progression",
       title: "Patient Health Progression",
       subtitle: "Lymphedema early-warning model",
-      tagline: "Time-series prediction for LDex trigger points.",
+      tagline: "An early-warning model for lymphedema.",
       tech: ["PyTorch", "LSTM", "Python", "Time-Series ML", "Scikit-Learn"],
       description:
-        "LSTM and time-series model predicting LDex trigger points for patients with lymphedema.",
+        "LSTM time-series model that predicts LDex trigger points for hospice patients with lymphedema, so clinicians can intervene earlier.",
       github: "https://github.com/Ubaid-Ghante",
       linkLabel: "GitHub profile",
       category: "Health AI",

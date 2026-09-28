@@ -20,7 +20,7 @@ export const SourcingStickerIcon: React.FC = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{ width: "54px", height: "54px" }}
-    aria-label="Single-Origin Data Sourcing and Graph Architecture"
+    aria-label="Data and system design"
   >
     {/* Chemex Pour-over outline */}
     <path
@@ -61,7 +61,7 @@ export const ExtractionStickerIcon: React.FC = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{ width: "54px", height: "54px" }}
-    aria-label="Sub-250ms Espresso Extraction & Voice Inference"
+    aria-label="Real-time AI"
   >
     {/* Espresso Portafilter Handle */}
     <rect x="10" y="32" width="22" height="7" rx="3.5" fill="#1b1411" stroke="#1b1411" strokeWidth="2" />
@@ -112,7 +112,7 @@ export const CuppingStickerIcon: React.FC = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={{ width: "54px", height: "54px" }}
-    aria-label="Quality Cupping, Observability & Guardrails"
+    aria-label="MLOps and quality"
   >
     {/* Cupping Tasting Bowl */}
     <path
@@ -158,15 +158,17 @@ interface ProjectPreviewProps {
   projectId: string;
   category: string;
   title: string;
+  tech?: string[];
 }
 
 export const ProjectPreviewMedia: React.FC<ProjectPreviewProps> = ({
   projectId,
   category,
   title,
+  tech = [],
 }) => {
   return (
-    <div className="work-preview-container" title={`[ASSET GAP 3]: Slot for ${title} 16:9 mockup`}>
+    <div className="work-preview-container" title={`${title} preview`}>
       {/* Top Header Bar with status dots */}
       <div className="preview-top-bar">
         <div className="preview-traffic-dots">
@@ -175,7 +177,7 @@ export const ProjectPreviewMedia: React.FC<ProjectPreviewProps> = ({
           <span className="dot dot--green" />
         </div>
         <span className="preview-slot-badge">
-          [ASSET GAP 3: 16:9 MOCKUP]
+          ~/{projectId}
         </span>
       </div>
 
@@ -214,8 +216,8 @@ export const ProjectPreviewMedia: React.FC<ProjectPreviewProps> = ({
             </svg>
             <div className="viz-footer-label">
               <span>● LiveKit WebRTC</span>
-              <span>16kHz Stream</span>
-              <span>&lt;240ms Latency</span>
+              <span>Deepgram STT</span>
+              <span>Cartesia TTS</span>
             </div>
           </div>
         )}
@@ -248,7 +250,7 @@ export const ProjectPreviewMedia: React.FC<ProjectPreviewProps> = ({
               <circle cx="160" cy="50" r="26" stroke="#ffffff" strokeWidth="2.5" fill="none" />
               <circle cx="160" cy="50" r="16" fill="#1b1411" />
               <text x="160" y="54" textAnchor="middle" fill="#ffffff" fontSize="10" fontWeight="bold">
-                99.4%
+                MATCH
               </text>
             </svg>
             <div className="viz-footer-label">
@@ -275,10 +277,10 @@ export const ProjectPreviewMedia: React.FC<ProjectPreviewProps> = ({
 
               <rect x="125" y="24" width="80" height="50" rx="8" fill="#e27338" />
               <text x="165" y="46" textAnchor="middle" fill="#ffffff" fontSize="9" fontWeight="bold">
-                SQL AST Gen
+                SQL Gen
               </text>
               <text x="165" y="58" textAnchor="middle" fill="rgba(255,255,255,0.85)" fontSize="7">
-                HuggingFace
+                OpenAI
               </text>
 
               <line x1="205" y1="49" x2="235" y2="49" stroke="#e27338" strokeWidth="2" />
@@ -288,7 +290,7 @@ export const ProjectPreviewMedia: React.FC<ProjectPreviewProps> = ({
                 PHI Masked
               </text>
               <text x="270" y="59" textAnchor="middle" fill="#e27338" fontSize="7">
-                99.2% Acc
+                HF NER
               </text>
             </svg>
             <div className="viz-footer-label">
@@ -316,10 +318,10 @@ export const ProjectPreviewMedia: React.FC<ProjectPreviewProps> = ({
                 <line x1="176" y1="70" x2="240" y2="50" stroke="#c4b5aa" strokeWidth="2" />
 
                 <text x="60" y="54" textAnchor="middle" fill="#ffffff" fontSize="8" fontWeight="bold">
-                  INPUT
+                  DATA
                 </text>
                 <text x="160" y="34" textAnchor="middle" fill="#ffffff" fontSize="8" fontWeight="bold">
-                  RAG
+                  MODEL
                 </text>
                 <text x="160" y="74" textAnchor="middle" fill="#ffffff" fontSize="8" fontWeight="bold">
                   EVAL
@@ -330,8 +332,9 @@ export const ProjectPreviewMedia: React.FC<ProjectPreviewProps> = ({
               </svg>
               <div className="viz-footer-label">
                 <span>● {category}</span>
-                <span>Production Architecture</span>
-                <span>Ready for 16:9 Asset</span>
+                {tech.slice(0, 2).map((t) => (
+                  <span key={t}>{t}</span>
+                ))}
               </div>
             </div>
           )}

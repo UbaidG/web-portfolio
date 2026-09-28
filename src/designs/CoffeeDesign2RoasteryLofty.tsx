@@ -70,24 +70,29 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
   }, []);
 
   const skillsList1 = [
+    "Python",
     "LangGraph",
+    "CrewAI",
     "FastAPI",
     "Docker",
     "Kubernetes",
+    "AWS Bedrock",
+    "Azure OpenAI",
     "PyTorch",
-    "vLLM",
     "Datadog",
     "Arize AX",
   ];
 
   const skillsList2 = [
     "Agentic AI",
-    "Real-time Voice Systems",
-    "Graph Neural Networks",
+    "Real-time Voice AI",
+    "RAG",
+    "MCP Servers",
+    "NER",
     "PHI/PII Masking",
-    "Apache Spark",
-    "Medical Computer Vision",
-    "RAG & Evaluation",
+    "Neo4j & GraphRAG",
+    "Time-Series ML",
+    "Computer Vision",
   ];
 
   // Card background schemes inspired by Loftylab (Ochre, Matcha, Cream, Espresso)
@@ -125,14 +130,14 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
         <div className="lofty-nav-pill">
           <a href="#top" className="lofty-nav-logo">
             <span className="logo-roast-bean">☕</span>
-            <span className="logo-brand">UG / ROASTERY</span>
+            <span className="logo-brand">UG</span>
           </a>
           <nav className="lofty-nav-links">
             <a href="#about" className="lofty-nav-item">About</a>
-            <a href="#cupping" className="lofty-nav-item">Cupping Notes</a>
             <a href="#experience" className="lofty-nav-item">Experience</a>
-            <a href="#pipeline" className="lofty-nav-item">Pipeline</a>
-            <a href="#works" className="lofty-nav-item">Works</a>
+            <a href="#approach" className="lofty-nav-item">Approach</a>
+            <a href="#works" className="lofty-nav-item">Projects</a>
+            <a href="#education" className="lofty-nav-item">Education</a>
             <a href="#certifications" className="lofty-nav-item">Certificates</a>
           </nav>
           <a
@@ -154,14 +159,14 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
               style={{ "--rot": "-6deg" } as React.CSSProperties}
             >
               <span className="badge-sticker-spark">⚡</span>
-              <span>170M+ Profiles</span>
+              <span>170M+ User Profiles</span>
             </div>
             <div
               className="lofty-badge badge-top-right"
               style={{ "--rot": "5deg" } as React.CSSProperties}
             >
               <span className="badge-sticker-spark">🎓</span>
-              <span>9.3 CGPA First Class</span>
+              <span>B.Tech CSE · 9.3 CGPA</span>
             </div>
             <div
               className="lofty-badge badge-mid-left"
@@ -175,31 +180,31 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
               style={{ "--rot": "-5deg" } as React.CSSProperties}
             >
               <span className="badge-sticker-spark">☕</span>
-              <span>Machine Learning Engineer</span>
+              <span>3+ Years Shipping ML</span>
             </div>
             <div
               className="lofty-badge badge-bottom-left"
               style={{ "--rot": "-3deg" } as React.CSSProperties}
             >
               <span className="badge-sticker-spark">🎯</span>
-              <span>99.2% Accuracy PHI</span>
+              <span>40% Less Process Time</span>
             </div>
             <div
               className="lofty-badge badge-bottom-right"
               style={{ "--rot": "3deg" } as React.CSSProperties}
             >
               <span className="badge-sticker-spark">✦</span>
-              <span>Single-Origin AI</span>
+              <span>Agentic AI & MCP</span>
             </div>
 
-            <p className="lofty-hero-kicker">Machine Learning Engineer · Single-Origin AI</p>
+            <p className="lofty-hero-kicker">Ubaid Ghante · Machine Learning Engineer</p>
 
             <h1 className="lofty-hero-headline">
-              WE ENGINEER
+              I BUILD
               <br />
-              <span className="headline-highlight">INTELLIGENCE</span>
+              <span className="headline-highlight">AI AGENTS</span>
               <br />
-              YOU CAN RELY ON
+              THAT SHIP
             </h1>
 
             <p className="lofty-hero-lede">
@@ -219,7 +224,7 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                View Latex Resume <span className="btn-arrow-icon">↗</span>
+                View Resume <span className="btn-arrow-icon">↗</span>
               </a>
             </div>
           </div>
@@ -244,52 +249,50 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
         <section className="lofty-manifesto-section" id="about">
           <div className="lofty-manifesto-inner">
             <div className="lofty-tag-pill">
-              <span>☕ CRAFT PHILOSOPHY & ROAST PROFILE</span>
+              <span>☕ ABOUT ME</span>
             </div>
             <h2 className="lofty-manifesto-headline">
-              WE ROAST PRODUCTION-GRADE{" "}
+              I DESIGN{" "}
               <span
                 className="lofty-inline-sticker sticker--matcha"
-                title="LangGraph & Multi-agent pipelines"
+                title="LangGraph, CrewAI, n8n and MCP servers"
               >
-                <span className="inline-icon">🤖</span> AGENTIC WORKFLOWS
+                <span className="inline-icon">🤖</span> AGENTIC AI
               </span>{" "}
-              AND STREAMING{" "}
+              AND REAL-TIME{" "}
               <span
                 className="lofty-inline-sticker sticker--ochre"
-                title="Ultra-low latency audio inference"
+                title="LiveKit, Deepgram, OpenAI and Cartesia"
               >
                 <span className="inline-icon">🎙️</span> VOICE AI
-              </span>{" "}
-              EXTRACTED FOR{" "}
+              </span>
+              , THEN SHIP BOTH WITH{" "}
               <span
                 className="lofty-inline-sticker sticker--espresso"
-                title="<250ms time-to-first-token"
+                title="FastAPI, Docker, Kubernetes and GitHub Actions"
               >
-                <span className="inline-icon">⚡</span> SUB-250MS LATENCY
-              </span>
-              , BRINGING SINGLE-ORIGIN CRAFTSMANSHIP FROM{" "}
+                <span className="inline-icon">⚡</span> MLOPS
+              </span>{" "}
+              AND{" "}
               <span
                 className="lofty-inline-sticker sticker--cream"
-                title="Strict eval benchmarks and Datadog/Arize AX guardrails"
+                title="Datadog and Arize AX"
               >
-                <span className="inline-icon">☕</span> MODEL WEIGHTS
+                <span className="inline-icon">📊</span> MONITORING
               </span>{" "}
-              TO SCALABLE REAL-WORLD INFRASTRUCTURE.
+              BUILT IN FROM DAY ONE.
             </h2>
             <p className="lofty-manifesto-sub">
-              Hover over any sticker badge to inspect the roast profile, or scroll down to explore the production chapters.
+              3+ years of production ML across talent intelligence, banking
+              compliance, and healthcare. I care about the unglamorous parts
+              (clean data, evaluation, monitoring) that keep AI useful after
+              launch.
             </p>
           </div>
         </section>
 
-        {/* Section 02: Cupping Notes / Double Marquee */}
-        <section className="lofty-cupping-section" id="cupping">
-          <div className="lofty-section-header">
-            <span className="lofty-tag">CUPPING NOTES & STACK</span>
-            <h2>Single-origin craft, scalable production infrastructure.</h2>
-          </div>
-
+        {/* Tech Stack Double Marquee */}
+        <section className="lofty-cupping-section" id="stack">
           {/* Row 1 Marquee */}
           <div className="lofty-marquee-track">
             <div className="lofty-marquee-inner">
@@ -311,32 +314,13 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
               ))}
             </div>
           </div>
-
-          {/* Cupping Still Feature Asset */}
-          <div className="lofty-cupping-asset-banner">
-            <div className="cupping-asset-frame">
-              <img
-                src={`${import.meta.env.BASE_URL}designs/roastery-cupping.jpg`}
-                alt="Specialty coffee cupping table and beans"
-                className="cupping-asset-img"
-              />
-              <div className="cupping-asset-overlay">
-                <span className="cupping-origin-badge">ORIGIN: PUNE, INDIA</span>
-                <p className="cupping-quote">
-                  "Production agentic workflows, real-time voice systems, and ML
-                  infrastructure built with care for the details that make them
-                  dependable."
-                </p>
-              </div>
-            </div>
-          </div>
         </section>
 
         {/* Section 03: Proof Metrics Grid (Loftylab High-Contrast Cards) */}
-        <section className="lofty-metrics-section" id="about">
+        <section className="lofty-metrics-section" id="impact">
           <div className="lofty-section-header">
-            <span className="lofty-tag">PROVEN YIELD</span>
-            <h2>Numbers measured in production, not notebooks.</h2>
+            <span className="lofty-tag">IMPACT</span>
+            <h2>Numbers from production, not notebooks.</h2>
           </div>
 
           <div className="lofty-metrics-grid">
@@ -354,10 +338,11 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
         {/* Section 04: Loftylab Pinned Stacking Cards for Experience */}
         <section className="lofty-stacking-section" id="experience">
           <div className="lofty-section-header">
-            <span className="lofty-tag">EXPERIENCE CHAPTERS</span>
-            <h2>Stacked chapters of engineering leadership.</h2>
+            <span className="lofty-tag">EXPERIENCE</span>
+            <h2>Where I've shipped ML systems.</h2>
             <p className="lofty-section-sub">
-              Scroll down to watch each production chapter stack onto the viewport.
+              Four roles across talent intelligence, banking compliance, and
+              healthcare AI since 2023.
             </p>
           </div>
 
@@ -398,7 +383,7 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
                     <div className="stacked-card-meta">
                       <span className="meta-period">{exp.period}</span>
                       {exp.location && (
-                        <span className="meta-loc">· {exp.location}</span>
+                        <span className="meta-loc"> · {exp.location}</span>
                       )}
                     </div>
                   </div>
@@ -436,7 +421,7 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
 
                     {exp.metrics && (
                       <div className="stacked-card-badge-side">
-                        <span className="badge-side-title">KEY IMPACT</span>
+                        <span className="badge-side-title">HIGHLIGHT</span>
                         <strong className="badge-side-val">{exp.metrics}</strong>
                       </div>
                     )}
@@ -447,13 +432,13 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
           </div>
         </section>
 
-        {/* Section: The Roasting Pipeline (3-Stage Process Grid inspired by Loftylab) */}
-        <section className="lofty-pipeline-section" id="pipeline">
+        {/* Section: How I Work (3-Stage Process Grid inspired by Loftylab) */}
+        <section className="lofty-pipeline-section" id="approach">
           <div className="lofty-section-header">
-            <span className="lofty-tag">THE ROASTING PIPELINE</span>
-            <h2>How we roast raw models into dependable systems.</h2>
+            <span className="lofty-tag">HOW I WORK</span>
+            <h2>From prototype to production.</h2>
             <p className="lofty-section-sub">
-              A systematic 3-stage process bridging data sourcing, streaming inference, and production cupping.
+              The three things I focus on in every ML system I build.
             </p>
           </div>
 
@@ -462,24 +447,21 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
             <div className="lofty-pipeline-card card--matcha">
               <div className="pipeline-card-top">
                 <span className="pipeline-step-idx">01</span>
-                <span className="pipeline-phase-badge">SOURCING & GRAPH</span>
+                <span className="pipeline-phase-badge">DATA & DESIGN</span>
               </div>
               <div className="pipeline-sticker-container">
                 {/* [USER ASSET GAP 2: pipeline_sourcing.svg] */}
-                <div
-                  className="pipeline-sticker-diecut sticker-float-1"
-                  title="[ASSET GAP 2: pipeline_sourcing.svg]"
-                >
+                <div className="pipeline-sticker-diecut sticker-float-1">
                   <SourcingStickerIcon />
                 </div>
               </div>
               <div className="pipeline-card-bottom">
-                <h3 className="pipeline-title">Single-Origin Architecture</h3>
+                <h3 className="pipeline-title">Get the Data Right</h3>
                 <p className="pipeline-desc">
-                  Curating clean training lineages, graph schemas across 170M+ profiles, and resilient DAG pipelines.
+                  Modeling the data and the workflow before the prompts: graph databases, agent flows, and models that hold up on sparse, real-world data.
                 </p>
                 <div className="pipeline-card-tags">
-                  <span>Graph Neural Nets</span>
+                  <span>Neo4j</span>
                   <span>LangGraph</span>
                   <span>Apache Spark</span>
                 </div>
@@ -490,26 +472,23 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
             <div className="lofty-pipeline-card card--ochre">
               <div className="pipeline-card-top">
                 <span className="pipeline-step-idx">02</span>
-                <span className="pipeline-phase-badge">EXTRACTION & SPEED</span>
+                <span className="pipeline-phase-badge">REAL-TIME AI</span>
               </div>
               <div className="pipeline-sticker-container">
                 {/* [USER ASSET GAP 2: pipeline_extraction.svg] */}
-                <div
-                  className="pipeline-sticker-diecut sticker-float-2"
-                  title="[ASSET GAP 2: pipeline_extraction.svg]"
-                >
+                <div className="pipeline-sticker-diecut sticker-float-2">
                   <ExtractionStickerIcon />
                 </div>
               </div>
               <div className="pipeline-card-bottom">
-                <h3 className="pipeline-title">Sub-250ms Extraction</h3>
+                <h3 className="pipeline-title">Build for Live Use</h3>
                 <p className="pipeline-desc">
-                  Serving vLLM, WebRTC voice agents, and streaming token pipelines dialed in for real-time human conversation.
+                  Voice pipelines, agent workflows, and MCP servers that respond fast enough for live conversations and real users.
                 </p>
                 <div className="pipeline-card-tags">
-                  <span>LiveKit Voice</span>
-                  <span>vLLM Serving</span>
-                  <span>WebSocket Pipelines</span>
+                  <span>LiveKit</span>
+                  <span>Deepgram</span>
+                  <span>MCP</span>
                 </div>
               </div>
             </div>
@@ -518,26 +497,23 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
             <div className="lofty-pipeline-card card--espresso">
               <div className="pipeline-card-top">
                 <span className="pipeline-step-idx">03</span>
-                <span className="pipeline-phase-badge">CUPPING & QUALITY</span>
+                <span className="pipeline-phase-badge">MLOPS & QUALITY</span>
               </div>
               <div className="pipeline-sticker-container">
                 {/* [USER ASSET GAP 2: pipeline_cupping.svg] */}
-                <div
-                  className="pipeline-sticker-diecut sticker-float-3"
-                  title="[ASSET GAP 2: pipeline_cupping.svg]"
-                >
+                <div className="pipeline-sticker-diecut sticker-float-3">
                   <CuppingStickerIcon />
                 </div>
               </div>
               <div className="pipeline-card-bottom">
-                <h3 className="pipeline-title">Observability Cupping</h3>
+                <h3 className="pipeline-title">Ship and Monitor</h3>
                 <p className="pipeline-desc">
-                  Continuous evaluation, automated hallucination detection, 99.2% PHI redaction, and Datadog/Arize AX tracing.
+                  Containerized deployments with CI/CD, observability from day one, and PHI/PII masked before data leaves the pipeline.
                 </p>
                 <div className="pipeline-card-tags">
+                  <span>Kubernetes</span>
                   <span>Arize AX</span>
-                  <span>Datadog APM</span>
-                  <span>99.2% PHI Masking</span>
+                  <span>PHI/PII Masking</span>
                 </div>
               </div>
             </div>
@@ -547,8 +523,8 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
         {/* Section 05: Selected Work / Works Grid (Loftylab Editorial Style) */}
         <section className="lofty-works-section" id="works">
           <div className="lofty-section-header">
-            <span className="lofty-tag">THE MENU / SELECTED WORKS</span>
-            <h2>Production AI architectures built to scale.</h2>
+            <span className="lofty-tag">SELECTED PROJECTS</span>
+            <h2>Projects across voice, vision, and health AI.</h2>
           </div>
 
           <div className="lofty-works-grid">
@@ -559,6 +535,7 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
                   projectId={proj.id}
                   category={proj.category}
                   title={proj.title}
+                  tech={proj.tech}
                 />
 
                 <div className="work-card-top">
@@ -595,8 +572,8 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
         {/* Section 06: Academic Foundations */}
         <section className="lofty-credentials-section" id="education">
           <div className="lofty-section-header">
-            <span className="lofty-tag">ACADEMIC FOUNDATIONS</span>
-            <h2>University Degrees & Scholastic Honors.</h2>
+            <span className="lofty-tag">EDUCATION</span>
+            <h2>B.Tech in Computer Science, 9.3 CGPA.</h2>
           </div>
 
           <div className="lofty-credentials-grid-edu">

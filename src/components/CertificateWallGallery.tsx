@@ -18,9 +18,9 @@ export const CertificateWallGallery: React.FC = () => {
   }, []);
 
   const categories = [
-    { label: "All Accreditations", key: "All" },
+    { label: "All", key: "All" },
     { label: "AI & Deep Learning", key: "AI & ML" },
-    { label: "Cloud & ML Systems", key: "Cloud & Architecture" },
+    { label: "AWS Machine Learning", key: "Cloud & Architecture" },
     { label: "Project Management", key: "Project Management" },
     { label: "Foundations", key: "Foundations" },
   ];
@@ -37,11 +37,11 @@ export const CertificateWallGallery: React.FC = () => {
     <section className="cert-wall-section" id="certifications">
       {/* Studio Lighting Wall Header */}
       <div className="cert-wall-header">
-        <span className="lofty-tag">ACCREDITATIONS & RECOGNITION</span>
-        <h2 className="cert-wall-title">The Credentials Gallery Wall</h2>
+        <span className="lofty-tag">CERTIFICATIONS</span>
+        <h2 className="cert-wall-title">Always learning.</h2>
         <p className="cert-wall-subtitle">
-          Official machine learning specializations, cloud systems, and professional management degrees hung in
-          artisanal walnut frames. Hover or drag any frame to feel the rope & pendulum physics, or click to inspect.
+          Coursework from IBM, Google, AWS, and the University of Michigan in machine learning, deep learning,
+          cloud ML, and project management. Click any frame to view the certificate.
         </p>
 
         {/* Category Filter Pills */}
@@ -107,7 +107,7 @@ export const CertificateWallGallery: React.FC = () => {
             <button
               className="lightbox-close-btn"
               onClick={() => setSelectedCert(null)}
-              aria-label="Close certificate inspection modal"
+              aria-label="Close certificate"
             >
               ✕
             </button>
@@ -129,7 +129,7 @@ export const CertificateWallGallery: React.FC = () => {
               {/* Certificate Details Column */}
               <div className="lightbox-details-col">
                 <span className="lightbox-category-tag">
-                  {selectedCert.category || "Official Accreditation"}
+                  {selectedCert.category || "Certificate"}
                 </span>
 
                 <h3 className="lightbox-title">{selectedCert.name}</h3>
@@ -159,7 +159,7 @@ export const CertificateWallGallery: React.FC = () => {
                       rel="noreferrer"
                       className="lofty-btn-solid"
                     >
-                      Open PDF Document <span className="btn-arrow-icon">↗</span>
+                      View PDF <span className="btn-arrow-icon">↗</span>
                     </a>
                   )}
                   {selectedCert.credentialUrl && (
