@@ -70,7 +70,7 @@ export const ContactFooter: React.FC<ContactFooterProps> = ({
           target="_blank"
           rel="noreferrer"
         >
-          github.com/Ubaid-Ghante
+          github.com/UbaidG
         </a>
         <span>© {new Date().getFullYear()} Ubaid Ghante</span>
       </div>
