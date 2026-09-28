@@ -24,11 +24,11 @@ type HeroModel = {
 };
 
 const HERO_MODELS: HeroModel[] = [
-  { id: "bolt", node: "Bolt", label: "170M+ User Profiles", x: 13.5, y: 21, size: 172, rot: -6, depth: 0.8, yaw: 0.35 },
+  { id: "bolt", node: "Bolt", label: "40% Faster Processing", x: 13.5, y: 21, size: 172, rot: -6, depth: 0.8, yaw: 0.35 },
   { id: "diploma", node: "Diploma", label: "Bachelor's Degree", x: 86.5, y: 22, size: 178, rot: 5, depth: 0.6, yaw: -0.3 },
   { id: "mic", node: "Mic", label: "Real-Time Voice AI", x: 8.5, y: 49, size: 172, rot: 4, depth: 0.5, yaw: 0.3 },
-  { id: "cup", node: "Cup", label: "3+ Years Shipping ML", x: 90.5, y: 52, size: 178, rot: -5, depth: 0.9, yaw: -0.35, pitch: 0.42 },
-  { id: "target", node: "Target", label: "40% Less Process Time", x: 18.5, y: 73, size: 152, rot: -3, depth: 1, yaw: 0.4 },
+  { id: "cup", node: "Cup", label: "4+ Years Shipping ML", x: 90.5, y: 52, size: 178, rot: -5, depth: 0.9, yaw: -0.35, pitch: 0.42 },
+  { id: "target", node: "Target", label: "170M+ Talent Profiles", x: 18.5, y: 73, size: 152, rot: -3, depth: 1, yaw: 0.4 },
   { id: "sparkle", node: "Sparkle", label: "Agentic AI & MCP", x: 80.5, y: 74, size: 142, rot: 3, depth: 0.7, yaw: -0.2 },
 ];
 

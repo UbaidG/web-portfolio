@@ -769,6 +769,76 @@
   position: relative;
 }
 
+.lofty-earlier-exp {
+  max-width: 960px;
+  margin: 5rem auto 0;
+}
+
+.earlier-exp-list {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  border-top: 1px solid rgba(35, 24, 21, 0.15);
+}
+
+.earlier-exp-row {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(35, 24, 21, 0.15);
+  color: #231815;
+}
+
+.earlier-exp-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.earlier-exp-role {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.earlier-exp-company {
+  font-size: 0.9rem;
+  color: #6d5e56;
+}
+
+.earlier-exp-period {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #c4682c;
+}
+
+.earlier-exp-desc {
+  margin: 0.6rem 0 0;
+  font-size: 0.95rem;
+  color: #4a3d36;
+}
+
+.earlier-exp-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.85rem;
+}
+
+.earlier-exp-foot .stacked-tech-chip {
+  border-color: #c4682c;
+}
+
+.earlier-exp-link {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #231815;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .lofty-stacked-card {
   position: sticky;
   border-radius: 32px;

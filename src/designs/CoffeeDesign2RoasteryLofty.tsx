@@ -292,7 +292,7 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
               BUILT IN FROM DAY ONE.
             </h2>
             <p className="lofty-manifesto-sub">
-              3+ years of production ML across talent intelligence, banking
+              4+ years of production ML and software engineering across talent intelligence, banking
               compliance, and healthcare. I care about the unglamorous parts
               (clean data, evaluation, monitoring) that keep AI useful after
               launch.
@@ -350,8 +350,9 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
             <span className="lofty-tag">EXPERIENCE</span>
             <h2>Where I've shipped ML systems.</h2>
             <p className="lofty-section-sub">
-              Four roles across talent intelligence, banking compliance, and
-              healthcare AI since 2023.
+              Four ML roles across talent intelligence, banking compliance, and
+              healthcare AI since 2023, built on software engineering work
+              since 2020.
             </p>
           </div>
 
@@ -438,6 +439,45 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
                 </article>
               );
             })}
+          </div>
+
+          <div className="lofty-earlier-exp">
+            <span className="lofty-tag">EARLIER EXPERIENCE</span>
+            <ul className="earlier-exp-list">
+              {portfolioData.earlierExperience.map((item) => (
+                <li className="earlier-exp-row" key={item.id}>
+                  <div className="earlier-exp-head">
+                    <div>
+                      <h4 className="earlier-exp-role">{item.role}</h4>
+                      <span className="earlier-exp-company">
+                        {item.company} · {item.type}
+                      </span>
+                    </div>
+                    <span className="earlier-exp-period">{item.period}</span>
+                  </div>
+                  {item.highlights && (
+                    <p className="earlier-exp-desc">{item.highlights.join(" ")}</p>
+                  )}
+                  <div className="earlier-exp-foot">
+                    <div className="stacked-tech-cloud">
+                      {item.tech.map((t) => (
+                        <span className="stacked-tech-chip" key={t}>{t}</span>
+                      ))}
+                    </div>
+                    {item.proofUrl && (
+                      <a
+                        className="earlier-exp-link"
+                        href={`${import.meta.env.BASE_URL}${item.proofUrl}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Experience letter <span className="btn-arrow-icon">↗</span>
+                      </a>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 

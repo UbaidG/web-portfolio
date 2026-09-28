@@ -10,6 +10,17 @@ export interface ExperienceItem {
   metrics?: string;
 }
 
+export interface EarlierExperienceItem {
+  id: string;
+  company: string;
+  role: string;
+  period: string;
+  type: string;
+  tech: string[];
+  highlights?: string[];
+  proofUrl?: string;
+}
+
 export interface ProjectItem {
   id: string;
   title: string;
@@ -57,7 +68,7 @@ export const PORTFOLIO_DATA = {
     email: "ughante@gmail.com",
     phone: "+919284876115",
     linkedinUrl: "https://www.linkedin.com/in/ubaid-ghante-72a350193/",
-    githubUrl: "https://github.com/Ubaid-Ghante",
+    githubUrl: "https://github.com/UbaidG",
     resumeUrl,
     shortBio:
       "Production agentic workflows, real-time voice systems, and scalable ML infrastructure. Currently building ML for Korn Ferry's Talent Suite.",
@@ -80,8 +91,8 @@ export const PORTFOLIO_DATA = {
       context: "Early lymphedema diagnosis model",
     },
     {
-      value: "3+",
-      label: "years in ML",
+      value: "4+",
+      label: "years of experience",
       context: "Talent, banking, and healthcare AI",
     },
   ] as ProofMetric[],
@@ -98,6 +109,7 @@ export const PORTFOLIO_DATA = {
         "FastAPI",
         "Docker",
         "Kubernetes",
+        "GitHub Actions",
         "Datadog",
         "Arize AX",
         "Tableau MCP",
@@ -118,7 +130,7 @@ export const PORTFOLIO_DATA = {
       company: "ACE Software Solutions (India) Pvt Ltd",
       role: "Machine Learning Engineer",
       period: "Nov 2024 — Nov 2025",
-      location: "Remote",
+      location: "Mumbai · Remote",
       tech: [
         "CrewAI",
         "LangChain",
@@ -145,7 +157,7 @@ export const PORTFOLIO_DATA = {
       company: "Kratin LLC",
       role: "Data Scientist",
       period: "Aug 2023 — Nov 2024",
-      location: "Remote",
+      location: "Hybrid",
       tech: [
         "Azure Speech AI",
         "Azure OpenAI",
@@ -162,6 +174,8 @@ export const PORTFOLIO_DATA = {
         "Implemented speech-to-text with RASA intent mapping using Azure Speech AI and fine-tuned Azure OpenAI models, improving voice-command accuracy.",
         "Used GPT and Llama2 to automate tasks and build RAG and NER applications, reducing process time by 40%.",
         "Created a time-series model that predicts patient health progression, enabling early lymphedema diagnosis for 20,890+ patients.",
+        "Led a squad and collaborated cross-functionally to ship model-backed product features.",
+        "Built RESTful APIs on top of models for easy integration, and used deep learning for predictive and causation/correlation analysis.",
       ],
       metrics: "40% less process time",
     },
@@ -170,16 +184,43 @@ export const PORTFOLIO_DATA = {
       company: "Kratin LLC",
       role: "Junior Data Scientist",
       period: "Jan 2023 — Jul 2023",
-      tech: ["Neo4j", "Graph Databases", "Cypher", "Constraint Programming", "Python"],
+      location: "On-site · Nagpur",
+      tech: ["Neo4j", "Graph Databases", "Cypher", "Constraint Programming", "Python", "PyTorch", "Darts", "Kats"],
       summary:
         "Worked on graph data modeling and workforce scheduling algorithms.",
       highlights: [
         "Built and managed Neo4j graph databases with Cypher to analyze complex data relationships, speeding up insight retrieval.",
         "Designed a constraint-programming scheduler that optimizes workforce time.",
+        "Built time-series models with PyTorch, Darts, and Kats.",
+        "Analyzed big data with Python to find patterns and trends.",
       ],
       metrics: "Workforce scheduler",
     },
   ] as ExperienceItem[],
+
+  earlierExperience: [
+    {
+      id: "exposys",
+      company: "Exposys Data Labs",
+      role: "Junior Software Engineer",
+      period: "Dec 2020 — Sep 2021",
+      type: "Full-time",
+      tech: ["Python", "PyTorch", "SQL", "REST APIs", "Backend Development", "Model Fine-tuning", "Model Evaluation"],
+      highlights: [
+        "Worked with SQL databases and built RESTful APIs.",
+        "Fine-tuned and tested AI models for performance and accuracy.",
+      ],
+      proofUrl: "certificates/pdf/UBAID AKHTAR GHANTE Exposys Exp.pdf",
+    },
+    {
+      id: "ten-labs",
+      company: "TEN: Labs",
+      role: "Web Developer Intern",
+      period: "May 2020 — Aug 2020",
+      type: "Internship",
+      tech: ["SQL", "Git", "Web Development", "Version Control"],
+    },
+  ] as EarlierExperienceItem[],
 
   projects: [
     {
@@ -191,8 +232,8 @@ export const PORTFOLIO_DATA = {
       tech: ["Python", "LiveKit", "Deepgram", "OpenAI", "Cartesia", "HuggingFace"],
       description:
         "Architected a customizable voice agent pipeline integrating Deepgram for speech-to-text, OpenAI for language understanding, and Cartesia for text-to-speech. Added open-source models for end-of-utterance detection and voice activity detection, with preprocessing and postprocessing hooks.",
-      github: "https://github.com/Ubaid-Ghante",
-      linkLabel: "GitHub profile",
+      github: "https://github.com/UbaidG/VoiceCloningPipelineServer",
+      linkLabel: "View repository",
       category: "Agentic AI",
     },
     {
@@ -204,8 +245,8 @@ export const PORTFOLIO_DATA = {
       tech: ["Python", "Flask", "Swift", "AWS", "Neo4j", "Docker", "PANNs", "Swin Transformer"],
       description:
         "Developed a full-stack iOS app to prevent content theft using PANNs and Swin Transformer models to calculate video similarity. Implemented user-specific AI bubbles with Neo4j for personalization and content recommendation.",
-      github: "https://github.com/Ubaid-Ghante",
-      linkLabel: "GitHub profile",
+      github: "https://testflight.apple.com/join/b5t9TnHc",
+      linkLabel: "Try on TestFlight",
       category: "Computer Vision",
     },
     {
@@ -217,8 +258,6 @@ export const PORTFOLIO_DATA = {
       tech: ["Python", "Flask", "OpenAI", "RASA", "HuggingFace NER", "SQL"],
       description:
         "Engineered a chatbot that translates user queries into optimized SQL, automatically selects best-fit visualizations, and masks PHI/PII using a HuggingFace NER model.",
-      github: "https://github.com/Ubaid-Ghante",
-      linkLabel: "GitHub profile",
       category: "MLOps & Data",
     },
     {
@@ -230,8 +269,6 @@ export const PORTFOLIO_DATA = {
       tech: ["Python", "Flask", "Azure OpenAI", "RASA", "CosmosDB"],
       description:
         "Built a high-accuracy RAG chatbot with RASA intent mapping, caching, and vector search to answer clinician questions from a specialized knowledge base.",
-      github: "https://github.com/Ubaid-Ghante",
-      linkLabel: "GitHub profile",
       category: "Health AI",
     },
     {
@@ -242,8 +279,6 @@ export const PORTFOLIO_DATA = {
       tech: ["NER", "GraphRAG", "Neo4j", "Python", "spaCy"],
       description:
         "Uses NER and GraphRAG to summarize clinician notes and group patients by their care preferences.",
-      github: "https://github.com/Ubaid-Ghante",
-      linkLabel: "GitHub profile",
       category: "Health AI",
     },
     {
@@ -254,8 +289,6 @@ export const PORTFOLIO_DATA = {
       tech: ["PyTorch", "LSTM", "Python", "Time-Series ML", "Scikit-Learn"],
       description:
         "LSTM time-series model that predicts LDex trigger points for hospice patients with lymphedema, so clinicians can intervene earlier.",
-      github: "https://github.com/Ubaid-Ghante",
-      linkLabel: "GitHub profile",
       category: "Health AI",
     },
   ] as ProjectItem[],
@@ -309,12 +342,15 @@ export const PORTFOLIO_DATA = {
       "spaCy",
       "RASA",
       "HuggingFace",
+      "Darts",
+      "Kats",
     ],
     "Cloud & Tools": [
       "AWS (Bedrock, AgentCore, ECR, CloudWatch)",
       "Azure (AI Services, Data Factory)",
       "Docker",
       "Git",
+      "GitHub Actions",
       "GCP",
       "Neo4j",
       "Weights & Biases",
@@ -323,7 +359,7 @@ export const PORTFOLIO_DATA = {
       "Datadog",
       "Arize AX",
     ],
-    Frameworks: ["Flask", "FastAPI", "Streamlit", "Angular", "n8n", "MCP", "A2A"],
+    Frameworks: ["Flask", "FastAPI", "Streamlit", "Angular", "n8n", "MCP", "A2A", "REST APIs"],
     Practices: ["Project Management", "Stakeholder Management", "Project Scoping", "Agile Methodology", "PHI/PII Masking", "Real-time Voice Systems"],
   },
 
@@ -337,7 +373,7 @@ export const PORTFOLIO_DATA = {
       category: "Project Management",
       image: "certificates/thumbs/google-pm-spec.webp",
       pdfUrl: "certificates/pdf/Courses/Google Project Management.pdf",
-      credentialUrl: "https://coursera.org/verify/professional-cert/BNHJAI1YK0HF",
+      credentialUrl: "https://coursera.org/verify/professional-cert/BNHJAIIYK0HF",
       featured: true,
     },
     {
@@ -348,6 +384,7 @@ export const PORTFOLIO_DATA = {
       category: "Project Management",
       image: "certificates/thumbs/foundations-pm.webp",
       pdfUrl: "certificates/pdf/Courses/Foundations of Project Management.pdf",
+      credentialUrl: "https://www.coursera.org/account/accomplishments/records/5XFF0KU96BN2",
     },
     {
       id: "project-initiation",
@@ -357,6 +394,7 @@ export const PORTFOLIO_DATA = {
       category: "Project Management",
       image: "certificates/thumbs/project-initiation.webp",
       pdfUrl: "certificates/pdf/Courses/Project Initiation Starting a Successful Project.pdf",
+      credentialUrl: "https://www.coursera.org/account/accomplishments/records/E7N5DB788KYS",
     },
     {
       id: "project-planning",
@@ -366,6 +404,7 @@ export const PORTFOLIO_DATA = {
       category: "Project Management",
       image: "certificates/thumbs/project-planning.webp",
       pdfUrl: "certificates/pdf/Courses/Project Planning Putting It All Together.pdf",
+      credentialUrl: "https://www.coursera.org/account/accomplishments/records/GVTIF8OH9YKX",
     },
     {
       id: "project-execution",
@@ -375,6 +414,7 @@ export const PORTFOLIO_DATA = {
       category: "Project Management",
       image: "certificates/thumbs/project-execution.webp",
       pdfUrl: "certificates/pdf/Courses/Project Execution.pdf",
+      credentialUrl: "https://www.coursera.org/account/accomplishments/records/LCFOXKDEMJRA",
     },
     {
       id: "agile-pm",
@@ -384,6 +424,7 @@ export const PORTFOLIO_DATA = {
       category: "Project Management",
       image: "certificates/thumbs/agile-pm.webp",
       pdfUrl: "certificates/pdf/Courses/Agile Project Management.pdf",
+      credentialUrl: "https://www.coursera.org/account/accomplishments/records/GICJ2NXXSL2S",
     },
     {
       id: "capstone-pm",
@@ -393,6 +434,7 @@ export const PORTFOLIO_DATA = {
       category: "Project Management",
       image: "certificates/thumbs/capstone-pm.webp",
       pdfUrl: "certificates/pdf/Courses/Capstone Applying Project Management in the Real World.pdf",
+      credentialUrl: "https://www.coursera.org/account/accomplishments/records/AC1EU82F74R5",
     },
 
     // --- AI & Machine Learning (IBM) ---
@@ -404,6 +446,7 @@ export const PORTFOLIO_DATA = {
       category: "AI & ML",
       image: "certificates/thumbs/ml-python-ibm.webp",
       pdfUrl: "certificates/pdf/Courses/Machine Learning with Python.pdf",
+      credentialUrl: "https://www.coursera.org/account/accomplishments/records/N6KZR6B4EFK9",
       featured: true,
     },
     {
@@ -414,6 +457,7 @@ export const PORTFOLIO_DATA = {
       category: "AI & ML",
       image: "certificates/thumbs/deep-learning-keras-ibm.webp",
       pdfUrl: "certificates/pdf/Courses/Introduction to Deep Learning & Neural Networks with Keras.pdf",
+      credentialUrl: "https://www.coursera.org/account/accomplishments/records/KQNFAXN5TSHI",
       featured: true,
     },
     {
@@ -424,6 +468,7 @@ export const PORTFOLIO_DATA = {
       category: "AI & ML",
       image: "certificates/thumbs/deep-learning-tensorflow-ibm.webp",
       pdfUrl: "certificates/pdf/Courses/Deep Learning with Keras and Tensorflow.pdf",
+      credentialUrl: "https://www.coursera.org/account/accomplishments/records/Q0SDHIWNBN5E",
       featured: true,
     },
 
@@ -494,6 +539,7 @@ export const PORTFOLIO_DATA = {
       category: "Foundations",
       image: "certificates/thumbs/python-basics-michigan.webp",
       pdfUrl: "certificates/pdf/Python basics certificate.pdf",
+      credentialUrl: "https://coursera.org/verify/4TRQTGGUNWB6",
     },
     {
       id: "html5-michigan",
@@ -503,24 +549,25 @@ export const PORTFOLIO_DATA = {
       category: "Foundations",
       image: "certificates/thumbs/html5-michigan.webp",
       pdfUrl: "certificates/pdf/HTML Certificate.pdf",
+      credentialUrl: "https://coursera.org/verify/CEL7Y7TPWJ9K",
     },
     {
       id: "linkedin-learning",
-      name: "AI & Machine Learning Career Development",
+      name: "JavaScript Essential Training",
       issuer: "LinkedIn Learning",
-      date: "Jun 2022",
+      date: "May 2021",
       category: "Foundations",
       image: "certificates/thumbs/linkedin-learning.webp",
       pdfUrl: "certificates/pdf/LinkedIn Learning Certificate.pdf",
     },
     {
-      id: "exposys-internship",
-      name: "Data Science & ML Engineering Internship",
+      id: "exposys-experience",
+      name: "Junior Software Engineer, Experience Letter",
       issuer: "Exposys Data Labs",
-      date: "May 2022",
+      date: "Sep 2021",
       category: "Foundations",
-      image: "certificates/thumbs/exposys-internship.webp",
-      pdfUrl: "certificates/pdf/UBAID AKHTAR GHANTE Exposys Internship.pdf",
+      image: "certificates/thumbs/exposys-experience.webp",
+      pdfUrl: "certificates/pdf/UBAID AKHTAR GHANTE Exposys Exp.pdf",
     },
   ] as CertificationItem[],
 };
