@@ -12,6 +12,38 @@
 }
 
 /* --------------------------------------------------------------------------
+   Scroll Companion Line
+   Sits above section backgrounds (z 3) but below hero layers (z 4+) and the
+   section content wrappers lifted below, so it reads as "behind content".
+   -------------------------------------------------------------------------- */
+.scroll-companion {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.scroll-companion__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.portfolio--roastery
+  :is(
+    .lofty-manifesto-inner,
+    .lofty-pipeline-section .lofty-section-header,
+    .lofty-pipeline-grid
+  ) {
+  position: relative;
+  z-index: 4;
+}
+
+/* --------------------------------------------------------------------------
    Floating Pill Nav Dock (Loftylab Style)
    -------------------------------------------------------------------------- */
 .lofty-nav-dock {

@@ -11,6 +11,7 @@ import {
 import { CertificateWallGallery } from "../components/CertificateWallGallery";
 import { MortarboardHat } from "../components/MortarboardHat";
 import { HeroModels } from "../components/HeroModels";
+import { ScrollCompanionLine } from "../components/ScrollCompanionLine";
 
 export const CoffeeDesign2RoasteryLofty: React.FC = () => {
   useLenis(true);
@@ -148,6 +149,8 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
           </a>
         </div>
       </header>
+
+      <ScrollCompanionLine />
 
       <main>
         {/* Hero Section: Large Condensed Typography + 3D Models */}
