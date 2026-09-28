@@ -25,5 +25,8 @@ dist-ssr
 
 .cursor
 
+# Blender autosave backups
+*.blend1
+
 # Local browser/Blender verification output
 .playwright-mcp/
