@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .cursor
+
+# Local browser/Blender verification output
+.playwright-mcp/

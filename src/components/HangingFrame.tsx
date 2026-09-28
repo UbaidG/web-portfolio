@@ -129,9 +129,10 @@ export const HangingFrame: React.FC<HangingFrameProps> = ({
 
   useEffect(() => {
     applyTransform(restAngle, 0);
+    const currentPhysics = physics.current;
     return () => {
-      if (physics.current.animId) {
-        cancelAnimationFrame(physics.current.animId);
+      if (currentPhysics.animId) {
+        cancelAnimationFrame(currentPhysics.animId);
       }
     };
   }, [restAngle, applyTransform]);

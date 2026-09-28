@@ -72,6 +72,14 @@ const WIND_RADIUS = 40;
 const WIND_STRENGTH = 0.2;
 // Keeps a fast flick to roughly a 25 degree swing.
 const MAX_WIND_SPEED = 200;
+// Scrolling moves the card under the rope; the rope feels that as inertia.
+// A pure vertical jolt only tightens or slackens the cord, so part of it is
+// turned sideways to make the swing visible.
+const SCROLL_SWAY = 0.08;
+const SCROLL_LIFT = 0.12;
+const SCROLL_SMOOTHING = 0.08;
+// Keeps a fast scroll to roughly a 12 degree swing.
+const MAX_SCROLL_SPEED = 110;
 
 const UP = new THREE.Vector3(0, 1, 0);
 const DOWN = new THREE.Vector3(0, -1, 0);
@@ -432,6 +440,7 @@ export const MortarboardHat: FC = () => {
     let disposed = false;
 
     const pointer = { x: 0, y: 0, time: 0, has: false };
+    const scroll = { top: null as number | null, speed: 0 };
     const temp = new THREE.Vector3();
     const velocity = new THREE.Vector3();
 
@@ -575,6 +584,8 @@ export const MortarboardHat: FC = () => {
 
       keyLight.target.position.set(width / 2, -height / 2, 0);
       keyLight.position.copy(keyLight.target.position).addScaledVector(LIGHT_DIRECTION, 900);
+      scroll.top = null;
+      scroll.speed = 0;
       buildChain();
     };
 
@@ -648,9 +659,39 @@ export const MortarboardHat: FC = () => {
       renderer.render(scene, camera);
     };
 
+    // The card's screen velocity is smoothed so wheel steps read as one push.
+    // Only changes in that velocity move the rope, so it lags when a scroll
+    // starts and swings back when it stops.
+    const applyScrollInertia = (delta: number) => {
+      const top = card.getBoundingClientRect().top;
+      if (scroll.top === null || delta === 0) {
+        scroll.top = top;
+        return;
+      }
+      const raw = (top - scroll.top) / delta;
+      scroll.top = top;
+      const speed = scroll.speed + (raw - scroll.speed) * (1 - Math.exp(-delta / SCROLL_SMOOTHING));
+      const change = speed - scroll.speed;
+      scroll.speed = speed;
+      if (prefersReducedMotion || particles.length < 2 || change === 0) return;
+
+      const last = particles.length - 1;
+      particles.forEach((particle, index) => {
+        if (index === 0) return;
+        const weight = index / last;
+        velocity.subVectors(particle.position, particle.previous).divideScalar(STEP);
+        const limit = Math.max(velocity.length(), MAX_SCROLL_SPEED);
+        velocity.x -= change * SCROLL_SWAY * weight;
+        velocity.y += change * SCROLL_LIFT * weight;
+        if (velocity.length() > limit) velocity.setLength(limit);
+        particle.previous.copy(particle.position).addScaledVector(velocity, -STEP);
+      });
+    };
+
     const tick = (now: number) => {
       const delta = Math.min((now - lastFrame) / 1000, 0.1);
       lastFrame = now;
+      applyScrollInertia(delta);
       if (particles.length > 1) {
         accumulator += delta;
         while (accumulator >= STEP) {
@@ -746,6 +787,8 @@ export const MortarboardHat: FC = () => {
       visible = entry.isIntersecting;
       if (visible && !frameId) {
         lastFrame = performance.now();
+        scroll.top = null;
+        scroll.speed = 0;
         frameId = window.requestAnimationFrame(tick);
       }
     });

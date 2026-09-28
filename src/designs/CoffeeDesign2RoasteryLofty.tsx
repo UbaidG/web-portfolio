@@ -10,6 +10,7 @@ import {
 } from "../components/LoftyProcessSVGs";
 import { CertificateWallGallery } from "../components/CertificateWallGallery";
 import { MortarboardHat } from "../components/MortarboardHat";
+import { HeroModels } from "../components/HeroModels";
 
 export const CoffeeDesign2RoasteryLofty: React.FC = () => {
   useLenis(true);
@@ -129,7 +130,6 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
       <header className="lofty-nav-dock">
         <div className="lofty-nav-pill">
           <a href="#top" className="lofty-nav-logo">
-            <span className="logo-roast-bean">☕</span>
             <span className="logo-brand">UG</span>
           </a>
           <nav className="lofty-nav-links">
@@ -150,53 +150,9 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
       </header>
 
       <main>
-        {/* Hero Section: Large Condensed Typography + Floating Badges */}
+        {/* Hero Section: Large Condensed Typography + 3D Models */}
         <section className="lofty-hero" ref={heroRef}>
           <div className="lofty-hero-inner">
-            {/* Floating Die-Cut Sticker Badges with Spring Wobble Physics */}
-            <div
-              className="lofty-badge badge-top-left"
-              style={{ "--rot": "-6deg" } as React.CSSProperties}
-            >
-              <span className="badge-sticker-spark">⚡</span>
-              <span>170M+ User Profiles</span>
-            </div>
-            <div
-              className="lofty-badge badge-top-right"
-              style={{ "--rot": "5deg" } as React.CSSProperties}
-            >
-              <span className="badge-sticker-spark">🎓</span>
-              <span>B.Tech CSE · 9.3 CGPA</span>
-            </div>
-            <div
-              className="lofty-badge badge-mid-left"
-              style={{ "--rot": "4deg" } as React.CSSProperties}
-            >
-              <span className="badge-sticker-spark">🎙️</span>
-              <span>Real-Time Voice AI</span>
-            </div>
-            <div
-              className="lofty-badge badge-mid-right"
-              style={{ "--rot": "-5deg" } as React.CSSProperties}
-            >
-              <span className="badge-sticker-spark">☕</span>
-              <span>3+ Years Shipping ML</span>
-            </div>
-            <div
-              className="lofty-badge badge-bottom-left"
-              style={{ "--rot": "-3deg" } as React.CSSProperties}
-            >
-              <span className="badge-sticker-spark">🎯</span>
-              <span>40% Less Process Time</span>
-            </div>
-            <div
-              className="lofty-badge badge-bottom-right"
-              style={{ "--rot": "3deg" } as React.CSSProperties}
-            >
-              <span className="badge-sticker-spark">✦</span>
-              <span>Agentic AI & MCP</span>
-            </div>
-
             <p className="lofty-hero-kicker">Ubaid Ghante · Machine Learning Engineer</p>
 
             <h1 className="lofty-hero-headline">
@@ -229,6 +185,8 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
             </div>
           </div>
 
+          <HeroModels />
+
           {/* Scalloped Wave Mask Transition (Loftylab Signature) */}
           <div className="lofty-scallop-divider" aria-hidden="true">
             <svg
@@ -249,36 +207,84 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
         <section className="lofty-manifesto-section" id="about">
           <div className="lofty-manifesto-inner">
             <div className="lofty-tag-pill">
-              <span>☕ ABOUT ME</span>
+              <span>ABOUT ME</span>
             </div>
             <h2 className="lofty-manifesto-headline">
               I DESIGN{" "}
               <span
                 className="lofty-inline-sticker sticker--matcha"
-                title="LangGraph, CrewAI, n8n and MCP servers"
+                title="LangChain, CrewAI, n8n and MCP servers"
               >
-                <span className="inline-icon">🤖</span> AGENTIC AI
+                <span className="inline-icon-group" aria-hidden="true">
+                  <img
+                    className="inline-icon"
+                    src={`${import.meta.env.BASE_URL}assets/tech-icons/langchain.svg`}
+                    alt=""
+                  />
+                  <img
+                    className="inline-icon"
+                    src={`${import.meta.env.BASE_URL}assets/tech-icons/crewai.svg`}
+                    alt=""
+                  />
+                </span>{" "}
+                AGENTIC AI
               </span>{" "}
               AND REAL-TIME{" "}
               <span
                 className="lofty-inline-sticker sticker--ochre"
-                title="LiveKit, Deepgram, OpenAI and Cartesia"
+                title="LiveKit, ElevenLabs, Deepgram, OpenAI and Cartesia"
               >
-                <span className="inline-icon">🎙️</span> VOICE AI
+                <span className="inline-icon-group" aria-hidden="true">
+                  <img
+                    className="inline-icon"
+                    src={`${import.meta.env.BASE_URL}assets/tech-icons/livekit.svg`}
+                    alt=""
+                  />
+                  <img
+                    className="inline-icon"
+                    src={`${import.meta.env.BASE_URL}assets/tech-icons/elevenlabs.svg`}
+                    alt=""
+                  />
+                </span>{" "}
+                VOICE AI
               </span>
               , THEN SHIP BOTH WITH{" "}
               <span
                 className="lofty-inline-sticker sticker--espresso"
                 title="FastAPI, Docker, Kubernetes and GitHub Actions"
               >
-                <span className="inline-icon">⚡</span> MLOPS
+                <span className="inline-icon-group" aria-hidden="true">
+                  <img
+                    className="inline-icon"
+                    src={`${import.meta.env.BASE_URL}assets/tech-icons/docker.svg`}
+                    alt=""
+                  />
+                  <img
+                    className="inline-icon"
+                    src={`${import.meta.env.BASE_URL}assets/tech-icons/kubernetes.svg`}
+                    alt=""
+                  />
+                </span>{" "}
+                MLOPS
               </span>{" "}
               AND{" "}
               <span
                 className="lofty-inline-sticker sticker--cream"
                 title="Datadog and Arize AX"
               >
-                <span className="inline-icon">📊</span> MONITORING
+                <span className="inline-icon-group" aria-hidden="true">
+                  <img
+                    className="inline-icon"
+                    src={`${import.meta.env.BASE_URL}assets/tech-icons/datadog.svg`}
+                    alt=""
+                  />
+                  <img
+                    className="inline-icon inline-icon--wide"
+                    src={`${import.meta.env.BASE_URL}assets/tech-icons/arize.svg`}
+                    alt=""
+                  />
+                </span>{" "}
+                MONITORING
               </span>{" "}
               BUILT IN FROM DAY ONE.
             </h2>
@@ -572,8 +578,7 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
         {/* Section 06: Academic Foundations */}
         <section className="lofty-credentials-section" id="education">
           <div className="lofty-section-header">
-            <span className="lofty-tag">EDUCATION</span>
-            <h2>B.Tech in Computer Science, 9.3 CGPA.</h2>
+            <h2>Education</h2>
           </div>
 
           <div className="lofty-credentials-grid-edu">

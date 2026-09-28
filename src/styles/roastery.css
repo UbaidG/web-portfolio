@@ -126,104 +126,132 @@
   z-index: 10;
 }
 
-/* Floating Die-Cut Sticker Badges (Loftylab Tactile Paper Cutout Aesthetic) */
-.lofty-badge {
+/* 3D Hero Models: scattered in the side margins, each with a sticker label */
+.hero-models-canvas {
   position: absolute;
-  padding: 0.52rem 1.1rem;
-  background: #ffffff;
-  border: 2.5px solid #ffffff;
-  border-radius: 9999px;
-  font-size: 0.76rem;
-  font-weight: 700;
-  color: #1e1613;
-  box-shadow:
-    0 3px 0 rgba(0, 0, 0, 0.08),
-    0 10px 22px rgba(30, 22, 19, 0.12);
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.hero-models-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-models {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: none;
+}
+
+.hero-model {
+  /* --s is the stage size in px at a 1440px wide viewport. */
+  --stage: min(calc(var(--s) * 0.0694vw), calc(var(--s) * 1.15px));
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  transform: translate(-50%, calc(var(--stage) * -0.5));
   pointer-events: auto;
   cursor: pointer;
   user-select: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  z-index: 15;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hero-model-stage {
+  width: var(--stage);
+  height: var(--stage);
+}
+
+.hero-model-stage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 400ms ease;
+}
+
+.hero-models.is-live .hero-model-stage img {
+  opacity: 0;
+}
+
+.hero-model-label {
+  padding: 0.5rem 1.05rem;
+  background: #ffffff;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1e1613;
+  white-space: nowrap;
+  box-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.08),
+    0 10px 22px rgba(30, 22, 19, 0.12);
+  transform: rotate(var(--rot));
   transition:
     transform 380ms cubic-bezier(0.34, 1.56, 0.64, 1),
     box-shadow 380ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  animation: floatSticker 5s ease-in-out infinite;
 }
 
-.badge-sticker-spark {
-  font-size: 0.95rem;
-  line-height: 1;
-  display: inline-block;
-  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.badge-top-left {
-  top: -2.2rem;
-  left: -1rem;
-  --rot: -6deg;
-  transform: rotate(var(--rot));
-}
-
-.badge-top-right {
-  top: -1.8rem;
-  right: -1rem;
-  --rot: 5deg;
-  transform: rotate(var(--rot));
-  animation-delay: 1.2s;
-}
-
-.badge-mid-left {
-  bottom: 2.8rem;
-  left: -3.5rem;
-  --rot: 4deg;
-  transform: rotate(var(--rot));
-  animation-delay: 2.4s;
-}
-
-.badge-mid-right {
-  bottom: 1.8rem;
-  right: -2.8rem;
-  --rot: -5deg;
-  transform: rotate(var(--rot));
-  animation-delay: 1.8s;
-}
-
-.badge-bottom-left {
-  bottom: -1rem;
-  left: 2rem;
-  --rot: -3deg;
-  transform: rotate(var(--rot));
-  animation-delay: 3s;
-}
-
-.badge-bottom-right {
-  bottom: -0.8rem;
-  right: 3rem;
-  --rot: 3deg;
-  transform: rotate(var(--rot));
-  animation-delay: 2.1s;
-}
-
-/* Spring Wobble Hover Interaction */
-.lofty-badge:hover {
-  transform: translateY(-9px) scale(1.15) rotate(calc(var(--rot, 0deg) + 5deg)) !important;
+.hero-model:hover .hero-model-label {
+  transform: translateY(-4px) scale(1.06) rotate(calc(var(--rot) + 3deg));
   box-shadow:
     0 6px 0 rgba(0, 0, 0, 0.1),
     0 18px 30px rgba(30, 22, 19, 0.2);
-  z-index: 25;
 }
 
-.lofty-badge:hover .badge-sticker-spark {
-  transform: scale(1.25) rotate(-10deg);
+@media (max-width: 1099px) {
+  .hero-models {
+    position: relative;
+    inset: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.25rem 1rem;
+    width: 100%;
+    max-width: 720px;
+    margin: 3.5rem auto 0;
+  }
+
+  .hero-model {
+    --stage: 132px;
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+  }
 }
 
-.lofty-badge:active {
-  transform: translateY(-3px) scale(1.05) rotate(var(--rot, 0deg)) !important;
-  box-shadow:
-    0 2px 0 rgba(0, 0, 0, 0.08),
-    0 6px 14px rgba(30, 22, 19, 0.14);
+@media (max-width: 640px) {
+  .hero-models {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem 0.75rem;
+    margin-top: 3rem;
+  }
+
+  .hero-model {
+    --stage: 116px;
+  }
+
+  .hero-model-label {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.7rem;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-model:hover .hero-model-label {
+    transform: rotate(var(--rot));
+  }
 }
 
 @keyframes floatSticker {
@@ -438,11 +466,23 @@
     box-shadow 320ms ease;
 }
 
-.lofty-inline-sticker .inline-icon {
-  font-size: 1em;
+.lofty-inline-sticker .inline-icon-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.12em;
   line-height: 1;
-  display: inline-block;
   transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.lofty-inline-sticker .inline-icon {
+  width: 1.05em;
+  height: 1.05em;
+  display: block;
+  object-fit: contain;
+}
+
+.lofty-inline-sticker .inline-icon--wide {
+  width: 2.45em;
 }
 
 .lofty-inline-sticker:hover {
@@ -453,7 +493,7 @@
   z-index: 10;
 }
 
-.lofty-inline-sticker:hover .inline-icon {
+.lofty-inline-sticker:hover .inline-icon-group {
   transform: scale(1.25) rotate(12deg);
 }
 
@@ -1860,10 +1900,6 @@
    Responsive Overrides
    -------------------------------------------------------------------------- */
 @media (max-width: 900px) {
-  .lofty-badge {
-    display: none;
-  }
-
   .lofty-credentials-grid {
     grid-template-columns: 1fr;
   }
