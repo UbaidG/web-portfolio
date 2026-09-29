@@ -13,13 +13,32 @@ import { MortarboardHat } from "../components/MortarboardHat";
 import { HeroModels } from "../components/HeroModels";
 import { ScrollCompanionLine } from "../components/ScrollCompanionLine";
 
+const navLinks = [
+  { href: "#about", label: "About" },
+  { href: "#experience", label: "Experience" },
+  { href: "#approach", label: "Approach" },
+  { href: "#works", label: "Projects" },
+  { href: "#education", label: "Education" },
+  { href: "#certifications", label: "Certificates" },
+];
+
 export const CoffeeDesign2RoasteryLofty: React.FC = () => {
   useLenis(true);
   const heroRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [deckDepths, setDeckDepths] = useState<number[]>(() =>
     portfolioData.experiences.map(() => 0)
   );
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [menuOpen]);
 
   useEffect(() => {
     // Respect reduced motion
@@ -28,12 +47,15 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
     ).matches;
     if (prefersReducedMotion) return;
 
+    // Must match the breakpoint where roastery.css drops the sticky deck
+    const flatDeckQuery = window.matchMedia("(max-width: 640px)");
+
     let ticking = false;
     const updateDeck = () => {
       const depths: number[] = portfolioData.experiences.map(() => 0);
       const N = portfolioData.experiences.length;
 
-      for (let j = 1; j < N; j++) {
+      for (let j = 1; j < N && !flatDeckQuery.matches; j++) {
         const nextCard = cardRefs.current[j];
         if (!nextCard) continue;
 
@@ -64,10 +86,12 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    flatDeckQuery.addEventListener("change", handleScroll);
     updateDeck();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      flatDeckQuery.removeEventListener("change", handleScroll);
     };
   }, []);
 
@@ -130,16 +154,15 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
       {/* Floating Pill Navigation Header (Loftylab Style) */}
       <header className="lofty-nav-dock">
         <div className="lofty-nav-pill">
-          <a href="#top" className="lofty-nav-logo">
+          <a href="#top" className="lofty-nav-logo" onClick={() => setMenuOpen(false)}>
             <span className="logo-brand">UG</span>
           </a>
           <nav className="lofty-nav-links">
-            <a href="#about" className="lofty-nav-item">About</a>
-            <a href="#experience" className="lofty-nav-item">Experience</a>
-            <a href="#approach" className="lofty-nav-item">Approach</a>
-            <a href="#works" className="lofty-nav-item">Projects</a>
-            <a href="#education" className="lofty-nav-item">Education</a>
-            <a href="#certifications" className="lofty-nav-item">Certificates</a>
+            {navLinks.map((link) => (
+              <a href={link.href} className="lofty-nav-item" key={link.href}>
+                {link.label}
+              </a>
+            ))}
           </nav>
           <a
             href={`mailto:${portfolioData.personal.email}`}
@@ -147,7 +170,41 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
           >
             Say Hello <span className="btn-arrow-icon">↗</span>
           </a>
+          <button
+            type="button"
+            className={`lofty-nav-toggle${menuOpen ? " is-open" : ""}`}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="lofty-mobile-menu"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span className="toggle-bar" />
+            <span className="toggle-bar" />
+          </button>
         </div>
+
+        {menuOpen && (
+          <>
+            <div
+              className="lofty-mobile-menu-backdrop"
+              onClick={() => setMenuOpen(false)}
+              aria-hidden="true"
+            />
+            <nav className="lofty-mobile-menu" id="lofty-mobile-menu">
+              {navLinks.map((link, idx) => (
+                <a
+                  href={link.href}
+                  className="lofty-mobile-menu-item"
+                  key={link.href}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <span className="mobile-menu-idx">{String(idx + 1).padStart(2, "0")}</span>
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          </>
+        )}
       </header>
 
       <ScrollCompanionLine />
@@ -209,9 +266,7 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
         {/* Section: Specialty Roastery Manifesto with Inline Interactive Stickers */}
         <section className="lofty-manifesto-section" id="about">
           <div className="lofty-manifesto-inner">
-            <div className="lofty-tag-pill">
-              <span>ABOUT ME</span>
-            </div>
+            <span className="lofty-tag">ABOUT ME</span>
             <h2 className="lofty-manifesto-headline">
               I DESIGN{" "}
               <span

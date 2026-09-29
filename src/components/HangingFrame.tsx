@@ -263,7 +263,6 @@ export const HangingFrame: React.FC<HangingFrameProps> = ({
         className="hanging-assembly"
         ref={assemblyRef}
         style={{
-          transformOrigin: "50% 14px",
           transform: `rotateZ(${displayAngle}deg)`,
         }}
       >
