@@ -2,7 +2,6 @@ import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { usePrefersReducedMotion } from "../hooks/useMotionPreference";
 
 const ANCHORS = {
-  about: "#about",
   approach: "#approach",
   footer: "#contact",
 } as const;
@@ -65,20 +64,6 @@ function loop(
 }
 
 const PIECES: LinePiece[] = [
-  {
-    id: "about",
-    colors: ["#c4521c", "#f59c5f"],
-    points: [
-      { at: "about", x: 1.05, y: 0.05 },
-      { at: "about", x: 0.9, y: 0.12 },
-      { at: "about", x: 0.84, y: 0.3 },
-      ...loop("about", 0.88, 0.45, 100, 180, false),
-      { at: "about", x: 0.7, y: 0.82 },
-      { at: "about", x: 0.35, y: 0.9 },
-      { at: "about", x: 0.1, y: 0.86 },
-      { at: "about", x: -0.06, y: 0.94 },
-    ],
-  },
   {
     id: "approach",
     colors: ["#1d3d2e", "#5f9c7a"],
