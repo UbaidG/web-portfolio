@@ -1,0 +1,248 @@
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import type { DesignProps } from "../types";
+import { CERT_GROUPS, assetUrl, easeInOutCubic, easeOutBack, easeOutCubic, hash01, lerp, range } from "../data";
+import { readRunwayProgress, useScrollProgressRef } from "../hooks/useStickyScrollProgress";
+import { useFrame } from "../physics/useFrame";
+import { usePointer } from "../physics/usePointer";
+import { Spring } from "../physics/spring";
+import { CabinetScene } from "./cabinet/CabinetScene";
+import "./cabinet.css";
+
+const NUMERALS = ["I", "II", "III", "IV"];
+const START = 0.03;
+const END = 0.97;
+/** Phases inside one drawer's window. */
+const OPEN_END = 0.14;
+const OUT_START = 0.12;
+const OUT_END = 0.42;
+const IN_START = 0.7;
+const IN_END = 0.9;
+const CARD_W = 220;
+const CERT_ASPECT = 900 / 695;
+
+interface Flat {
+  group: number;
+  index: number;
+  groupSize: number;
+}
+
+const CabinetDesign: React.FC<DesignProps> = ({ onInspect, manualScrub }) => {
+  const runwayRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const cardRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const sceneRef = useRef<CabinetScene | null>(null);
+  const progress = useScrollProgressRef(runwayRef, manualScrub);
+  const pointer = usePointer(stageRef);
+  const [activeDrawer, setActiveDrawer] = useState(0);
+  const lastDrawer = useRef(0);
+
+  const flat = useMemo(() => {
+    const items: { cert: (typeof CERT_GROUPS)[number]["certs"][number]; meta: Flat }[] = [];
+    CERT_GROUPS.forEach((g, gi) =>
+      g.certs.forEach((cert, ci) => items.push({ cert, meta: { group: gi, index: ci, groupSize: g.certs.length } }))
+    );
+    return items;
+  }, []);
+
+  const sway = useRef(flat.map(() => ({ rot: new Spring(0, { stiffness: 60, damping: 4 }), lift: new Spring(0, { stiffness: 200, damping: 16 }) })));
+
+  useEffect(() => {
+    if (!canvasRef.current) return;
+    const s = new CabinetScene(
+      canvasRef.current,
+      CERT_GROUPS.map((g, i) => ({ numeral: NUMERALS[i], text: g.short })),
+      assetUrl("lab/models/filing-cabinet.glb")
+    );
+    sceneRef.current = s;
+    const onResize = () => {
+      const el = stageRef.current;
+      if (el) s.resize(el.clientWidth, el.clientHeight);
+    };
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      s.dispose();
+      sceneRef.current = null;
+    };
+  }, []);
+
+  const jumpToDrawer = (i: number) => {
+    const runway = runwayRef.current;
+    if (!runway || manualScrub !== null) return;
+    const local = (OUT_END + IN_START) / 2;
+    const target = START + ((i + local) / 4) * (END - START);
+    const top = runway.getBoundingClientRect().top + window.scrollY;
+    const current = readRunwayProgress(runway);
+    const distance = Math.abs(target - current) * (runway.offsetHeight - window.innerHeight);
+    window.scrollTo({ top: top + target * (runway.offsetHeight - window.innerHeight), behavior: distance > 4000 ? "auto" : "smooth" });
+  };
+
+  useFrame((dt, time) => {
+    const s = sceneRef.current;
+    const stage = stageRef.current;
+    if (!s || !stage) return;
+    const W = stage.clientWidth;
+    const H = stage.clientHeight;
+    const p = progress.current;
+    const ptr = pointer.current;
+
+    const local = range(p, START, END) * 4;
+    const d = Math.min(3, Math.floor(local));
+    const t = local - d;
+    const openAmt = t < OPEN_END ? easeOutBack(t / OPEN_END) : t < IN_END ? 1 : 1 - easeInOutCubic(range(t, IN_END, 1));
+    const open = [0, 1, 2, 3].map((i) => (i === d ? Math.max(0, openAmt) : 0));
+
+    s.frame({
+      dt,
+      open,
+      pointerNx: ptr.nx,
+      pointerNy: ptr.ny,
+      pointerInside: ptr.inside,
+      pointerX: ptr.x,
+      pointerY: ptr.y,
+    });
+    stage.style.cursor = s.hovered >= 0 ? "pointer" : "";
+
+    if (d !== lastDrawer.current) {
+      lastDrawer.current = d;
+      setActiveDrawer(d);
+    }
+
+    const [mx, my] = s.mouthScreen(d);
+    const regionX = W > 820 ? W * 0.47 : W * 0.06;
+    const regionW = W > 820 ? W * 0.49 : W * 0.88;
+    const regionY = H * 0.2;
+    const regionH = H * 0.72;
+
+    flat.forEach(({ meta }, k) => {
+      const el = cardRefs.current[k];
+      if (!el) return;
+      if (meta.group !== d) {
+        el.style.opacity = "0";
+        el.style.pointerEvents = "none";
+        return;
+      }
+      const n = meta.groupSize;
+      const cols = n > 6 ? 4 : n > 3 ? 3 : n;
+      const rows = Math.ceil(n / cols);
+      const cw = Math.min(regionW / cols - 18, ((regionH / rows - 18) * CERT_ASPECT), CARD_W * 1.15);
+      const ch = cw / CERT_ASPECT + 34;
+      const c = meta.index % cols;
+      const r = Math.floor(meta.index / cols);
+      const rowCount = r === rows - 1 ? n - r * cols : cols;
+      const sx = regionX + regionW / 2 + (c - (rowCount - 1) / 2) * (cw + 18);
+      const sy = regionY + regionH / 2 + (r - (rows - 1) / 2) * (ch + 18);
+      const sRot = (hash01(k + 3) - 0.5) * 0.08;
+
+      const stagger = (meta.index / Math.max(1, n)) * 0.5;
+      const outT = easeOutCubic(range(t, OUT_START + stagger * (OUT_END - OUT_START), OUT_END));
+      const inT = easeInOutCubic(range(t, IN_START + (1 - stagger - 0.5) * (IN_END - IN_START) * 0.8, IN_END));
+      const f = Math.max(0, outT - inT);
+
+      const rise = range(f, 0, 0.18);
+      const travel = range(f, 0.12, 1);
+      const cx = lerp(mx, sx, travel);
+      const arc = Math.sin(Math.PI * travel) * -H * 0.18;
+      const cy = lerp(my - rise * 70, sy, travel) + arc;
+      const scale = lerp(0.18, 1, easeOutCubic(range(f, 0, 0.6)));
+      const tilt = lerp(-0.5 + (hash01(k) - 0.5) * 0.4, 0, travel);
+
+      const sw = sway.current[k];
+      if (f > 0.98 && ptr.inside) {
+        const dx = sx - ptr.x;
+        const dy = sy - ptr.y;
+        const dist = Math.hypot(dx, dy);
+        const R = 220;
+        if (dist < R) sw.rot.velocity += ptr.vx * 0.00002 * (1 - dist / R) * 60 * dt;
+        const over = Math.abs(dx) < cw / 2 && Math.abs(dy) < ch / 2;
+        sw.lift.target = over ? 1 : 0;
+      } else {
+        sw.lift.target = 0;
+      }
+      sw.rot.target = 0;
+      sw.rot.step(dt);
+      sw.lift.step(dt);
+
+      const idle = f > 0.98 ? Math.sin(time * 0.9 + k) * 0.006 : 0;
+      const rot = lerp(tilt, sRot, travel) + sw.rot.value + idle;
+      el.style.width = `${cw}px`;
+      el.style.height = `${ch}px`;
+      el.style.opacity = f <= 0.001 ? "0" : String(Math.min(1, f * 6));
+      el.style.pointerEvents = f > 0.95 ? "auto" : "none";
+      el.style.zIndex = String(sw.lift.value > 0.05 ? 50 : 10 + meta.index);
+      el.style.transformOrigin = "50% 0%";
+      el.style.transform = `translate3d(${cx - cw / 2}px, ${cy - ch / 2 - sw.lift.value * 10}px, 0) rotate(${rot}rad) scale(${scale * (1 + sw.lift.value * 0.05)})`;
+    });
+  });
+
+  const group = CERT_GROUPS[activeDrawer];
+
+  return (
+    <div className="lab-runway" ref={runwayRef} style={{ height: "600vh" }}>
+      <section
+        className="lab-stage cab-stage"
+        ref={stageRef}
+        onClick={() => {
+          const s = sceneRef.current;
+          if (s && s.hovered >= 0) jumpToDrawer(s.hovered);
+        }}
+      >
+        <div className="lab-stage-caption">
+          <span className="eyebrow">Credentials · Archive</span>
+          <h2>On file.</h2>
+          <p>Four drawers. Pull one and its certificates come out to meet you.</p>
+        </div>
+
+        <canvas ref={canvasRef} className="cab-canvas" />
+
+        <div className="cab-drawer-title" key={activeDrawer}>
+          <span>Drawer {NUMERALS[activeDrawer]}</span>
+          <strong>{group.label}</strong>
+          <em>{group.certs.length} certificates</em>
+        </div>
+
+        <nav className="cab-index" aria-label="Drawers">
+          {CERT_GROUPS.map((g, i) => (
+            <button
+              key={g.key}
+              className={i === activeDrawer ? "is-active" : ""}
+              onClick={(e) => {
+                e.stopPropagation();
+                jumpToDrawer(i);
+              }}
+            >
+              <span>{NUMERALS[i]}</span>
+              {g.short}
+            </button>
+          ))}
+        </nav>
+
+        {flat.map(({ cert }, k) => (
+          <button
+            key={cert.id ?? cert.name}
+            ref={(el) => (cardRefs.current[k] = el)}
+            className="cab-card"
+            onClick={(e) => {
+              e.stopPropagation();
+              onInspect(cert);
+            }}
+          >
+            <span className="cab-card-img cert-face">
+              {cert.image && <img src={assetUrl(cert.image)} alt="" draggable={false} />}
+            </span>
+            <span className="cab-card-meta">
+              <strong>{cert.name}</strong>
+              <em>
+                {cert.issuer} · {cert.date}
+              </em>
+            </span>
+          </button>
+        ))}
+      </section>
+    </div>
+  );
+};
+
+export default CabinetDesign;
