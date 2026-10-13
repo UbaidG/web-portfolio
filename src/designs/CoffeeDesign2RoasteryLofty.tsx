@@ -2,13 +2,9 @@ import React, { useRef, useState, useEffect } from "react";
 import { portfolioData } from "../data/portfolioData";
 import { useLenis } from "../hooks/useLenis";
 import { ContactFooter } from "../components/ContactFooter";
-import {
-  SourcingStickerIcon,
-  ExtractionStickerIcon,
-  CuppingStickerIcon,
-  ProjectPreviewMedia,
-} from "../components/LoftyProcessSVGs";
-import { CertificateWallGallery } from "../components/CertificateWallGallery";
+import { ProjectPreviewMedia } from "../components/LoftyProcessSVGs";
+import { HowIWorkReceipt } from "../components/HowIWorkReceipt";
+import { CertificateCabinet } from "../components/CertificateCabinet";
 import { MortarboardHat } from "../components/MortarboardHat";
 import { HeroModels } from "../components/HeroModels";
 import { ScrollCompanionLine } from "../components/ScrollCompanionLine";
@@ -536,7 +532,7 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
           </div>
         </section>
 
-        {/* Section: How I Work (3-Stage Process Grid inspired by Loftylab) */}
+        {/* Section: How I Work (receipt printer) */}
         <section className="lofty-pipeline-section" id="approach">
           <div className="lofty-section-header">
             <span className="lofty-tag">HOW I WORK</span>
@@ -546,82 +542,7 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
             </p>
           </div>
 
-          <div className="lofty-pipeline-grid">
-            {/* Stage 1: Sourcing & Architecture */}
-            <div className="lofty-pipeline-card card--matcha">
-              <div className="pipeline-card-top">
-                <span className="pipeline-step-idx">01</span>
-                <span className="pipeline-phase-badge">DATA & DESIGN</span>
-              </div>
-              <div className="pipeline-sticker-container">
-                {/* [USER ASSET GAP 2: pipeline_sourcing.svg] */}
-                <div className="pipeline-sticker-diecut sticker-float-1">
-                  <SourcingStickerIcon />
-                </div>
-              </div>
-              <div className="pipeline-card-bottom">
-                <h3 className="pipeline-title">Get the Data Right</h3>
-                <p className="pipeline-desc">
-                  Modeling the data and the workflow before the prompts: graph databases, agent flows, and models that hold up on sparse, real-world data.
-                </p>
-                <div className="pipeline-card-tags">
-                  <span>Neo4j</span>
-                  <span>LangGraph</span>
-                  <span>Apache Spark</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Stage 2: Extraction & Latency */}
-            <div className="lofty-pipeline-card card--ochre">
-              <div className="pipeline-card-top">
-                <span className="pipeline-step-idx">02</span>
-                <span className="pipeline-phase-badge">REAL-TIME AI</span>
-              </div>
-              <div className="pipeline-sticker-container">
-                {/* [USER ASSET GAP 2: pipeline_extraction.svg] */}
-                <div className="pipeline-sticker-diecut sticker-float-2">
-                  <ExtractionStickerIcon />
-                </div>
-              </div>
-              <div className="pipeline-card-bottom">
-                <h3 className="pipeline-title">Build for Live Use</h3>
-                <p className="pipeline-desc">
-                  Voice pipelines, agent workflows, and MCP servers that respond fast enough for live conversations and real users.
-                </p>
-                <div className="pipeline-card-tags">
-                  <span>LiveKit</span>
-                  <span>Deepgram</span>
-                  <span>MCP</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Stage 3: Cupping & Guardrails */}
-            <div className="lofty-pipeline-card card--espresso">
-              <div className="pipeline-card-top">
-                <span className="pipeline-step-idx">03</span>
-                <span className="pipeline-phase-badge">MLOPS & QUALITY</span>
-              </div>
-              <div className="pipeline-sticker-container">
-                {/* [USER ASSET GAP 2: pipeline_cupping.svg] */}
-                <div className="pipeline-sticker-diecut sticker-float-3">
-                  <CuppingStickerIcon />
-                </div>
-              </div>
-              <div className="pipeline-card-bottom">
-                <h3 className="pipeline-title">Ship and Monitor</h3>
-                <p className="pipeline-desc">
-                  Containerized deployments with CI/CD, observability from day one, and PHI/PII masked before data leaves the pipeline.
-                </p>
-                <div className="pipeline-card-tags">
-                  <span>Kubernetes</span>
-                  <span>Arize AX</span>
-                  <span>PHI/PII Masking</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <HowIWorkReceipt />
         </section>
 
         {/* Section 05: Selected Work / Works Grid (Loftylab Editorial Style) */}
@@ -695,8 +616,8 @@ export const CoffeeDesign2RoasteryLofty: React.FC = () => {
           </div>
         </section>
 
-        {/* Section 07: The Credentials Gallery Wall (Hanging Certificates with Physical Swings) */}
-        <CertificateWallGallery />
+        {/* Section 07: Certifications filing cabinet */}
+        <CertificateCabinet />
 
         <ContactFooter eyebrow="Let's brew something great together" />
       </main>

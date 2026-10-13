@@ -1,0 +1,209 @@
+.rc-printer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  width: 1400px;
+  height: 900px;
+  transform-origin: 0 0;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 40px 40px rgba(0, 0, 0, 0.45));
+}
+
+.rc-printer--front {
+  z-index: 4;
+  filter: none;
+}
+
+.rc-printer--front img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.rc-plate {
+  position: absolute;
+  left: 338px;
+  top: 586px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 42px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #e6ddd4;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
+}
+
+.rc-root {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  height: 110px;
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+
+.rc-slice {
+  position: relative;
+  transform-origin: 50% 100%;
+}
+
+.rc-slice-clip {
+  position: absolute;
+  inset: -1px 0 0;
+  overflow: hidden;
+}
+
+.rc-slice-content {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.rc-measure {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  visibility: hidden;
+}
+
+/* Thermal paper ------------------------------------------------------------- */
+
+.rc-paper {
+  width: var(--rc-paper-w, 300px);
+  padding: 22px 18px 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05), transparent 8%, transparent 92%, rgba(0, 0, 0, 0.05)),
+    linear-gradient(#f6f1e9, #f6f1e9);
+  background-repeat: no-repeat;
+  background-size: 100% calc(100% - 10px);
+  color: #2a1d17;
+  font-family: var(--rc-font, "JetBrains Mono", ui-monospace, monospace);
+  font-size: 11px;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  text-align: left;
+  cursor: default;
+}
+
+.rc-center {
+  text-align: center;
+}
+
+.rc-brand {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+}
+
+.rc-thanks {
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.rc-dim {
+  color: rgba(42, 29, 23, 0.55);
+}
+
+.rc-rule {
+  overflow: hidden;
+  white-space: nowrap;
+  color: rgba(42, 29, 23, 0.4);
+  letter-spacing: -0.02em;
+}
+
+.rc-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.rc-wrap {
+  display: block;
+  font-size: 9.5px;
+}
+
+.rc-group {
+  margin: 8px 0 4px;
+}
+
+.rc-group-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  padding: 1px 4px;
+  background: #2a1d17;
+  color: #f6f1e9;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+.rc-item {
+  margin: 0 -6px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.rc-item.is-hover {
+  background: #e27338;
+  color: #fff;
+}
+
+.rc-item.is-hover .rc-dim {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.rc-name {
+  font-weight: 600;
+}
+
+.rc-ok {
+  color: #2b5641;
+  font-weight: 700;
+}
+
+.rc-item.is-hover .rc-ok {
+  color: #fff;
+}
+
+.rc-sub {
+  padding-left: 3ch;
+  font-size: 10px;
+}
+
+.rc-total {
+  margin-top: 6px;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.rc-barcode {
+  height: 46px;
+  margin: 12px 8px 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    #2a1d17 0 2px,
+    transparent 2px 4px,
+    #2a1d17 4px 5px,
+    transparent 5px 8px,
+    #2a1d17 8px 11px,
+    transparent 11px 12px
+  );
+}
+
+.rc-tear {
+  height: 10px;
+  margin: 16px -18px 0;
+  background:
+    linear-gradient(135deg, #f6f1e9 5px, transparent 0) 0 0 / 10px 10px repeat-x,
+    linear-gradient(-135deg, #f6f1e9 5px, transparent 0) 0 0 / 10px 10px repeat-x;
+}
