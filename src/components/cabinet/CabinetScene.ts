@@ -5,7 +5,7 @@ import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader.js";
 import { Spring } from "../../lib/motion/spring";
 import { DRAWER_LOGOS } from "./logos";
 
-export const DRAWER_OPEN = 0.4;
+const DRAWER_OPEN = 0.4;
 /** Local point just above the drawer box's open top, where certificates rise from. */
 const MOUTH_LOCAL = new THREE.Vector3(0, 0.12, 0.14);
 

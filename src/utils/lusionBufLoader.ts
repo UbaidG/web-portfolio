@@ -36,7 +36,7 @@ const TYPED_ARRAY_CONSTRUCTORS = {
   Float32Array,
 };
 
-export function parseLusionBuf(arrayBuffer: ArrayBuffer): THREE.BufferGeometry {
+function parseLusionBuf(arrayBuffer: ArrayBuffer): THREE.BufferGeometry {
   const dv = new DataView(arrayBuffer);
   const headerLength = dv.getUint32(0, true);
   const headerBytes = new Uint8Array(arrayBuffer, 4, headerLength);

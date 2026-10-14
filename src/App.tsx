@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { CoffeeDesign2RoasteryLofty } from "./designs/CoffeeDesign2RoasteryLofty";
 
-export function App() {
+function App() {
   useEffect(() => {
     document.title = "Ubaid Ghante | Machine Learning Engineer";
   }, []);

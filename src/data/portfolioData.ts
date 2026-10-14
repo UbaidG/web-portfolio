@@ -24,7 +24,6 @@ export interface EarlierExperienceItem {
 export interface ProjectItem {
   id: string;
   title: string;
-  subtitle?: string;
   tagline: string;
   tech: string[];
   description: string;
@@ -49,7 +48,6 @@ export interface CertificationItem {
   image?: string;
   pdfUrl?: string;
   credentialUrl?: string;
-  featured?: boolean;
 }
 
 export interface ProofMetric {
@@ -60,11 +58,8 @@ export interface ProofMetric {
 
 const resumeUrl = `${import.meta.env.BASE_URL}Aug2026LatexResumeMinimal.pdf`;
 
-export const PORTFOLIO_DATA = {
+const PORTFOLIO_DATA = {
   personal: {
-    name: "Ubaid Ghante",
-    role: "Machine Learning Engineer",
-    secondaryRole: "Agentic AI · MLOps · Real-time Voice Systems",
     email: "ughante@gmail.com",
     phone: "+919284876115",
     linkedinUrl: "https://www.linkedin.com/in/ubaid-ghante-72a350193/",
@@ -226,7 +221,6 @@ export const PORTFOLIO_DATA = {
     {
       id: "voice-agent",
       title: "Voice Agent Pipeline",
-      subtitle: "Customizable real-time voice interaction system",
       tagline:
         "A modular pipeline connecting speech recognition, language models, and speech synthesis.",
       tech: ["Python", "LiveKit", "Deepgram", "OpenAI", "Cartesia", "HuggingFace"],
@@ -239,7 +233,6 @@ export const PORTFOLIO_DATA = {
     {
       id: "stitchit",
       title: "Stitchit",
-      subtitle: "iOS content-protection and recommendation system",
       tagline:
         "A full-stack iOS application using audio and video embeddings to detect content theft.",
       tech: ["Python", "Flask", "Swift", "AWS", "Neo4j", "Docker", "PANNs", "Swin Transformer"],
@@ -252,7 +245,6 @@ export const PORTFOLIO_DATA = {
     {
       id: "genai-dashboard",
       title: "Gen AI Dashboard",
-      subtitle: "Text-to-SQL and automated visualization",
       tagline:
         "An enterprise chatbot that turns natural-language questions into useful, privacy-aware analytics.",
       tech: ["Python", "Flask", "OpenAI", "RASA", "HuggingFace NER", "SQL"],
@@ -263,7 +255,6 @@ export const PORTFOLIO_DATA = {
     {
       id: "rag-chatbot",
       title: "RAG Chatbot",
-      subtitle: "Specialized clinical knowledge retrieval",
       tagline:
         "A clinician-facing assistant built around intent mapping, caching, and vector search.",
       tech: ["Python", "Flask", "Azure OpenAI", "RASA", "CosmosDB"],
@@ -274,7 +265,6 @@ export const PORTFOLIO_DATA = {
     {
       id: "clinician-note",
       title: "Clinician Note Analyzer",
-      subtitle: "Patient personalizer AI",
       tagline: "A patient-personalization assistant for clinical notes.",
       tech: ["NER", "GraphRAG", "Neo4j", "Python", "spaCy"],
       description:
@@ -284,7 +274,6 @@ export const PORTFOLIO_DATA = {
     {
       id: "patient-progression",
       title: "Patient Health Progression",
-      subtitle: "Lymphedema early-warning model",
       tagline: "An early-warning model for lymphedema.",
       tech: ["PyTorch", "LSTM", "Python", "Time-Series ML", "Scikit-Learn"],
       description:
@@ -292,24 +281,6 @@ export const PORTFOLIO_DATA = {
       category: "Health AI",
     },
   ] as ProjectItem[],
-
-  otherProjects: [
-    {
-      name: "SmartTextArea",
-      desc: "AI-enhanced text component with microphone input, summarizer, and live dictation using Azure AI services.",
-      tech: "Azure AI · React · Web Audio",
-    },
-    {
-      name: "Workforce Optimization",
-      desc: "Constraint-programming algorithm for workforce shift scheduling.",
-      tech: "Constraint Programming · Python",
-    },
-    {
-      name: "Tableau MCP Server",
-      desc: "Model Context Protocol server connecting LLM reasoning to Tableau dashboards via TabPy.",
-      tech: "MCP · TabPy · Python",
-    },
-  ],
 
   education: [
     {
@@ -326,43 +297,6 @@ export const PORTFOLIO_DATA = {
     },
   ] as EducationItem[],
 
-  skills: {
-    Programming: ["Python", "SQL", "NoSQL", "Cypher", "JavaScript", "Java", "C", "C++", "HTML/CSS"],
-    "ML & AI": [
-      "LLMs (OpenAI, Llama2)",
-      "RAG",
-      "NER",
-      "LangChain",
-      "CrewAI",
-      "LangGraph",
-      "PyTorch",
-      "TensorFlow",
-      "scikit-learn",
-      "Pandas",
-      "spaCy",
-      "RASA",
-      "HuggingFace",
-      "Darts",
-      "Kats",
-    ],
-    "Cloud & Tools": [
-      "AWS (Bedrock, AgentCore, ECR, CloudWatch)",
-      "Azure (AI Services, Data Factory)",
-      "Docker",
-      "Git",
-      "GitHub Actions",
-      "GCP",
-      "Neo4j",
-      "Weights & Biases",
-      "Apache Spark",
-      "Kubernetes",
-      "Datadog",
-      "Arize AX",
-    ],
-    Frameworks: ["Flask", "FastAPI", "Streamlit", "Angular", "n8n", "MCP", "A2A", "REST APIs"],
-    Practices: ["Project Management", "Stakeholder Management", "Project Scoping", "Agile Methodology", "PHI/PII Masking", "Real-time Voice Systems"],
-  },
-
   certifications: [
     // --- Google Project Management Specialization ---
     {
@@ -374,7 +308,6 @@ export const PORTFOLIO_DATA = {
       image: "certificates/thumbs/google-pm-spec.webp",
       pdfUrl: "certificates/pdf/Courses/Google Project Management.pdf",
       credentialUrl: "https://coursera.org/verify/professional-cert/BNHJAIIYK0HF",
-      featured: true,
     },
     {
       id: "foundations-pm",
@@ -447,7 +380,6 @@ export const PORTFOLIO_DATA = {
       image: "certificates/thumbs/ml-python-ibm.webp",
       pdfUrl: "certificates/pdf/Courses/Machine Learning with Python.pdf",
       credentialUrl: "https://www.coursera.org/account/accomplishments/records/N6KZR6B4EFK9",
-      featured: true,
     },
     {
       id: "deep-learning-keras-ibm",
@@ -458,7 +390,6 @@ export const PORTFOLIO_DATA = {
       image: "certificates/thumbs/deep-learning-keras-ibm.webp",
       pdfUrl: "certificates/pdf/Courses/Introduction to Deep Learning & Neural Networks with Keras.pdf",
       credentialUrl: "https://www.coursera.org/account/accomplishments/records/KQNFAXN5TSHI",
-      featured: true,
     },
     {
       id: "deep-learning-tensorflow-ibm",
@@ -469,7 +400,6 @@ export const PORTFOLIO_DATA = {
       image: "certificates/thumbs/deep-learning-tensorflow-ibm.webp",
       pdfUrl: "certificates/pdf/Courses/Deep Learning with Keras and Tensorflow.pdf",
       credentialUrl: "https://www.coursera.org/account/accomplishments/records/Q0SDHIWNBN5E",
-      featured: true,
     },
 
     // --- AWS Machine Learning & Cloud Architecture ---
@@ -481,7 +411,6 @@ export const PORTFOLIO_DATA = {
       category: "Cloud & Architecture",
       image: "certificates/thumbs/aws-intro-ml.webp",
       pdfUrl: "certificates/pdf/AWS/Introduction to Machine Learning AWS Course Completion Certificate.pdf",
-      featured: true,
     },
     {
       id: "aws-sagemaker",
@@ -491,7 +420,6 @@ export const PORTFOLIO_DATA = {
       category: "Cloud & Architecture",
       image: "certificates/thumbs/aws-sagemaker.webp",
       pdfUrl: "certificates/pdf/AWS/Introduction to Amazon SageMaker AWS Course Completion Certificate.pdf",
-      featured: true,
     },
     {
       id: "aws-ml-ready-org",

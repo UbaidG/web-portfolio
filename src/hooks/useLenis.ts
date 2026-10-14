@@ -2,6 +2,16 @@ import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 
+let activeLenis: Lenis | null = null;
+
+/**
+ * The page's live Lenis instance, if any. Programmatic scrolls must go through it: Lenis keeps
+ * its own scroll position and overwrites native `window.scrollTo` calls while it is animating.
+ */
+export function getLenis() {
+  return activeLenis;
+}
+
 export function useLenis(enabled: boolean = true) {
   const lenisRef = useRef<Lenis | null>(null);
 
@@ -28,6 +38,7 @@ export function useLenis(enabled: boolean = true) {
     });
 
     lenisRef.current = lenis;
+    activeLenis = lenis;
 
     let rafId: number;
     function raf(time: number) {
@@ -41,6 +52,7 @@ export function useLenis(enabled: boolean = true) {
       cancelAnimationFrame(rafId);
       lenis.destroy();
       lenisRef.current = null;
+      if (activeLenis === lenis) activeLenis = null;
     };
   }, [enabled]);
 

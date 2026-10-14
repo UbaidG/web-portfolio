@@ -9,10 +9,6 @@ export interface CertGroup {
 
 const GROUP_OF: Record<string, string> = {
   "AI & ML": "ai",
-  "Agentic AI": "ai",
-  "Health AI": "ai",
-  "Computer Vision": "ai",
-  "MLOps & Data": "ai",
   "Cloud & Architecture": "cloud",
   "Project Management": "pm",
   Foundations: "foundations",
@@ -31,5 +27,3 @@ export const CERT_GROUPS: CertGroup[] = GROUP_DEFS.map((def) => ({
   ...def,
   certs: ALL_CERTS.filter((c) => GROUP_OF[c.category ?? ""] === def.key),
 }));
-
-export const groupKeyOf = (cert: CertificationItem) => GROUP_OF[cert.category ?? ""] ?? "foundations";

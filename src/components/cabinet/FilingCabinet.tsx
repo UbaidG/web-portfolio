@@ -7,6 +7,7 @@ import { useFrame } from "../../lib/motion/useFrame";
 import { usePointer } from "../../lib/motion/usePointer";
 import { Spring } from "../../lib/motion/spring";
 import { asset } from "../../lib/asset";
+import { getLenis } from "../../hooks/useLenis";
 import { CabinetScene } from "./CabinetScene";
 import "./cabinet.css";
 
@@ -115,7 +116,10 @@ export const FilingCabinet: React.FC<FilingCabinetProps> = ({
     // be instant: the reveal stops tracking scroll, and a smooth scroll still in
     // flight when it ends would drag the cabinet back through other drawers.
     progress.cancelTransition();
-    window.scrollTo({ top: top + target * scrollRange, behavior: "instant" });
+    const y = top + target * scrollRange;
+    const lenis = getLenis();
+    if (lenis) lenis.scrollTo(y, { immediate: true, force: true });
+    else window.scrollTo({ top: y, behavior: "instant" });
     if (drawer !== lastDrawer.current) progress.snapTo(start);
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     progress.transitionTo(target, reducedMotion ? 0 : REVEAL_DURATION);

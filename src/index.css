@@ -99,15 +99,6 @@ button {
   background: #4a2a1d;
 }
 
-.button--outline {
-  border-color: currentColor;
-  color: inherit;
-}
-
-.button--outline:hover {
-  background: rgba(42, 27, 21, 0.08);
-}
-
 .button--quiet {
   border-color: rgba(255, 244, 229, 0.3);
   color: inherit;

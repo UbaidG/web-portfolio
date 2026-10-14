@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type MutableRefObject, type RefObject } from "react";
+import { useEffect, useRef, type MutableRefObject, type RefObject } from "react";
 import { clamp01, easeInOutCubic } from "./easing";
 
 interface ProgressTransition {
@@ -15,7 +15,7 @@ export interface ScrollProgressRef extends MutableRefObject<number> {
 }
 
 /** Raw 0..1 progress of a tall runway scrolled past its sticky 100vh stage. */
-export function readRunwayProgress(el: HTMLElement | null) {
+function readRunwayProgress(el: HTMLElement | null) {
   if (!el) return 0;
   const rect = el.getBoundingClientRect();
   const total = rect.height - window.innerHeight;
@@ -86,30 +86,4 @@ export function useScrollProgressRef(
   }, [runwayRef, smoothing]);
 
   return api.current;
-}
-
-/** Same as `useScrollProgressRef` but as React state, for designs that render from progress directly. */
-export function useStickyScrollProgress(
-  runwayRef: RefObject<HTMLElement>,
-  manualProgress: number | null,
-  smoothing = 0.12
-) {
-  const ref = useScrollProgressRef(runwayRef, manualProgress, smoothing);
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    let raf = 0;
-    let last = -1;
-    const loop = () => {
-      if (Math.abs(ref.current - last) > 0.0002) {
-        last = ref.current;
-        setProgress(ref.current);
-      }
-      raf = requestAnimationFrame(loop);
-    };
-    raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
-  }, [ref]);
-
-  return progress;
 }

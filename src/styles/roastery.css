@@ -83,10 +83,6 @@
   text-decoration: none;
 }
 
-.logo-roast-bean {
-  font-size: 0.95rem;
-}
-
 .lofty-nav-links {
   display: flex;
   align-items: center;
@@ -725,55 +721,6 @@
 
 .pill-ochre { background: #ffe9dc; color: #b84c14; border: 1px solid #fed2bc; }
 .pill-matcha { background: #e3f2eb; color: #1e5a3c; border: 1px solid #cae6d7; }
-
-.lofty-cupping-asset-banner {
-  max-width: 1040px;
-  margin: 3.5rem auto 0;
-}
-
-.cupping-asset-frame {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 28px;
-  overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-}
-
-.cupping-asset-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.cupping-asset-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 2rem;
-  background: linear-gradient(180deg, transparent 0%, rgba(20, 14, 11, 0.85) 100%);
-  color: #ffffff;
-}
-
-.cupping-origin-badge {
-  font-family: "DM Mono", monospace;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  background: #e27338;
-  padding: 0.25rem 0.65rem;
-  border-radius: 6px;
-  display: inline-block;
-  margin-bottom: 0.65rem;
-}
-
-.cupping-quote {
-  font-size: 1.1rem;
-  max-width: 700px;
-  line-height: 1.5;
-  margin: 0;
-}
 
 /* --------------------------------------------------------------------------
    Proof Metrics Grid (High-Contrast Cards)
@@ -1457,14 +1404,6 @@
   background: #fbf8f5;
 }
 
-.lofty-credentials-grid {
-  max-width: 1040px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-}
-
 .lofty-credentials-grid-edu {
   max-width: 960px;
   margin: 0 auto;
@@ -1473,13 +1412,6 @@
   gap: 1.5rem;
   position: relative;
   z-index: 0;
-}
-
-.credentials-column h3 {
-  font-family: "Syne", sans-serif;
-  font-size: 1.4rem;
-  font-weight: 800;
-  margin-bottom: 1.5rem;
 }
 
 .edu-card {
@@ -1892,10 +1824,6 @@
    Responsive Overrides
    -------------------------------------------------------------------------- */
 @media (max-width: 900px) {
-  .lofty-credentials-grid {
-    grid-template-columns: 1fr;
-  }
-
   .lofty-stacked-card {
     padding: 1.75rem;
   }
