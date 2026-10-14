@@ -7,6 +7,7 @@ import "./receipt.css";
 const PRINTER = { width: 1400, height: 900, slotLeft: 288.2, slotRight: 1111.8, slotY: 305.5 };
 const SLICE_H = 110;
 const LINE_STEP = 22;
+const MIN_FIT_SCALE = 0.7;
 
 export interface ReceiptTiming {
   feedStart: number;
@@ -131,7 +132,9 @@ export const ReceiptPrinter: React.FC<ReceiptPrinterProps> = ({
 
     // Root (slice 0): anchored at the slot, then torn off and laid flat.
     const tear = range(p, timing.tearStart, timing.tearEnd);
-    const fitScale = Math.min(1, (H * 0.9) / 600);
+    // Shrink to fit, but not below legibility; anything still too tall pans instead.
+    const maxPaperHeight = H * 0.82;
+    const fitScale = Math.max(MIN_FIT_SCALE, Math.min(1, maxPaperHeight / Math.max(total, 1)));
     const finalX = settledX(W);
     const tall = total * fitScale > H * 0.84;
     const pan = easeInOutCubic(range(p, timing.settleEnd, 1));

@@ -1453,7 +1453,7 @@
    Foundations: Education & Certifications
    -------------------------------------------------------------------------- */
 .lofty-credentials-section {
-  padding: 5rem 1.5rem 6rem;
+  padding: 5rem 1.5rem 3rem;
   background: #fbf8f5;
 }
 
@@ -1486,7 +1486,7 @@
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 18px;
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 1.2rem;
   position: relative;
 }
 
@@ -1516,7 +1516,7 @@
   }
 
   .edu-card--featured {
-    min-height: 280px;
+    min-height: 200px;
   }
 }
 
@@ -1595,8 +1595,8 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  min-height: 95vh;
-  padding: 12rem 1.5rem 6rem;
+  min-height: 70vh;
+  padding: 8rem 1.5rem 6rem;
   background: linear-gradient(
     180deg,
     #fbf8f5 0%,
@@ -1610,7 +1610,7 @@
 }
 
 .cert-cabinet-header {
-  max-width: 720px;
+  max-width: 780px;
   text-align: center;
   color: #fbf8f5;
   will-change: transform, opacity;
@@ -1643,10 +1643,84 @@
   top: 6.5rem;
 }
 
+/* Picks up where the intro gradient ends and settles on the footer colour, like the desktop stage. */
+.cert-gallery-mobile {
+  padding: 2.5rem 1.25rem 5.5rem;
+  background: linear-gradient(180deg, #211813 0, #1b130f 14rem, #100b08 30rem);
+}
+
+.cert-gallery-group {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.cert-gallery-group + .cert-gallery-group {
+  margin-top: 2.75rem;
+}
+
+.cert-gallery-group h3 {
+  margin: 0 0 0.9rem;
+  color: #fbf8f5;
+  font-family: "Syne", sans-serif;
+  font-size: clamp(1.25rem, 5vw, 1.7rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.cert-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.cert-gallery-card {
+  display: block;
+  width: 100%;
+  aspect-ratio: 900 / 695;
+  padding: 0.35rem;
+  overflow: hidden;
+  border: 1px solid rgba(251, 248, 245, 0.14);
+  border-radius: 0.7rem;
+  background: #fbf8f5;
+  box-shadow: 0 10px 24px rgba(8, 5, 3, 0.24);
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.cert-gallery-card:hover,
+.cert-gallery-card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 30px rgba(8, 5, 3, 0.34);
+}
+
+.cert-gallery-card:focus-visible {
+  outline: 2px solid #e27338;
+  outline-offset: 3px;
+}
+
+.cert-gallery-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.35rem;
+  object-fit: cover;
+}
+
+.cert-gallery-missing {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  padding: 0.75rem;
+  color: #1e1613;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
 @media (max-width: 640px) {
   .cert-cabinet-intro {
-    min-height: 80vh;
-    padding: 8rem 1.25rem 4rem;
+    min-height: 60vh;
+    padding: 5rem 1.25rem 4rem;
   }
 
   .cab-stage--site .cab-drawer-title {

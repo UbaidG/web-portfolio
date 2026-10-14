@@ -43,14 +43,6 @@
   animation: cab-title-in 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.cab-drawer-title span {
-  font-family: var(--cab-mono);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--cab-roast);
-}
-
 .cab-drawer-title strong {
   font-family: var(--cab-display);
   font-size: clamp(20px, 2.2vw, 30px);

@@ -2,14 +2,19 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import type { CertificationItem } from "../../data/portfolioData";
 import { CERT_GROUPS } from "../../data/certGroups";
 import { easeInOutCubic, easeOutBack, easeOutCubic, hash01, lerp, range } from "../../lib/motion/easing";
-import { readRunwayProgress, useScrollProgressRef } from "../../lib/motion/useStickyScrollProgress";
+import { useScrollProgressRef } from "../../lib/motion/useStickyScrollProgress";
 import { useFrame } from "../../lib/motion/useFrame";
 import { usePointer } from "../../lib/motion/usePointer";
 import { Spring } from "../../lib/motion/spring";
+import { asset } from "../../lib/asset";
 import { CabinetScene } from "./CabinetScene";
 import "./cabinet.css";
 
 const NUMERALS = ["I", "II", "III", "IV"];
+/** The cabinet model has one drawer per numeral; extra groups would have nowhere to go. */
+if (import.meta.env.DEV && CERT_GROUPS.length > NUMERALS.length) {
+  console.warn(`FilingCabinet supports ${NUMERALS.length} cert groups, got ${CERT_GROUPS.length}.`);
+}
 const START = 0.03;
 const END = 0.97;
 /** Phases inside one drawer's window. */
@@ -18,6 +23,8 @@ const OUT_START = 0.12;
 const OUT_END = 0.42;
 const IN_START = 0.7;
 const IN_END = 0.9;
+const REVEAL_LOCAL = (OUT_END + IN_START) / 2;
+const REVEAL_DURATION = 640;
 const CARD_W = 220;
 const CERT_ASPECT = 900 / 695;
 
@@ -37,8 +44,6 @@ interface FilingCabinetProps {
   /** Rendered inside the sticky stage, e.g. a caption. */
   children?: React.ReactNode;
 }
-
-const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 
 export const FilingCabinet: React.FC<FilingCabinetProps> = ({
   onInspect,
@@ -97,15 +102,23 @@ export const FilingCabinet: React.FC<FilingCabinetProps> = ({
   const jumpToDrawer = (i: number) => {
     const runway = runwayRef.current;
     if (!runway || manualScrub !== null) return;
-    const local = (OUT_END + IN_START) / 2;
-    const target = START + ((i + local) / 4) * (END - START);
+    const drawer = Math.max(0, Math.min(CERT_GROUPS.length - 1, i));
+    const count = CERT_GROUPS.length;
+    const start = START + (drawer / count) * (END - START);
+    const target = START + ((drawer + REVEAL_LOCAL) / count) * (END - START);
     const top = runway.getBoundingClientRect().top + window.scrollY;
-    const current = readRunwayProgress(runway);
-    const distance = Math.abs(target - current) * (runway.offsetHeight - window.innerHeight);
-    window.scrollTo({
-      top: top + target * (runway.offsetHeight - window.innerHeight),
-      behavior: distance > 4000 ? "auto" : "smooth",
-    });
+    const scrollRange = runway.offsetHeight - window.innerHeight;
+    if (scrollRange <= 0) return;
+
+    // Land the page at the selected drawer's settled position, but drive the
+    // visual progress through only that drawer's reveal window. The scroll must
+    // be instant: the reveal stops tracking scroll, and a smooth scroll still in
+    // flight when it ends would drag the cabinet back through other drawers.
+    progress.cancelTransition();
+    window.scrollTo({ top: top + target * scrollRange, behavior: "instant" });
+    if (drawer !== lastDrawer.current) progress.snapTo(start);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    progress.transitionTo(target, reducedMotion ? 0 : REVEAL_DURATION);
   };
 
   useFrame((dt, time) => {
@@ -117,11 +130,12 @@ export const FilingCabinet: React.FC<FilingCabinetProps> = ({
     const p = progress.current;
     const ptr = pointer.current;
 
-    const local = range(p, START, END) * 4;
-    const d = Math.min(3, Math.floor(local));
+    const groupCount = CERT_GROUPS.length;
+    const local = range(p, START, END) * groupCount;
+    const d = Math.min(groupCount - 1, Math.floor(local));
     const t = local - d;
     const openAmt = t < OPEN_END ? easeOutBack(t / OPEN_END) : t < IN_END ? 1 : 1 - easeInOutCubic(range(t, IN_END, 1));
-    const open = [0, 1, 2, 3].map((i) => (i === d ? Math.max(0, openAmt) : 0));
+    const open = Array.from({ length: groupCount }, (_, i) => (i === d ? Math.max(0, openAmt) : 0));
 
     s.frame({
       dt,
@@ -223,7 +237,6 @@ export const FilingCabinet: React.FC<FilingCabinetProps> = ({
         <canvas ref={canvasRef} className="cab-canvas" />
 
         <div className="cab-drawer-title" key={activeDrawer}>
-          <span>Drawer {NUMERALS[activeDrawer]}</span>
           <strong>{group.label}</strong>
           <em>{group.certs.length} certificates</em>
         </div>

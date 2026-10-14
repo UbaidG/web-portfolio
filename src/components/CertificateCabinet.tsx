@@ -1,16 +1,30 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { CertificationItem } from "../data/portfolioData";
 import { ALL_CERTS } from "../data/certGroups";
 import { FilingCabinet } from "./cabinet/FilingCabinet";
+import { CertificateGallery } from "./CertificateGallery";
 import { CertificateDetailLightbox } from "./CertificateDetailLightbox";
 import { useFrame } from "../lib/motion/useFrame";
 import { clamp01 } from "../lib/motion/easing";
 
+const MOBILE_QUERY = "(max-width: 820px)";
+
 export const CertificateCabinet: React.FC = () => {
   const [selected, setSelected] = useState<CertificationItem | null>(null);
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia(MOBILE_QUERY).matches
+  );
   const introRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const close = useCallback(() => setSelected(null), []);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(MOBILE_QUERY);
+    const update = () => setIsMobile(mediaQuery.matches);
+    update();
+    mediaQuery.addEventListener("change", update);
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
 
   // Header drifts slower than the page and fades in as the background darkens behind it.
   useFrame(() => {
@@ -29,16 +43,19 @@ export const CertificateCabinet: React.FC = () => {
     <section className="cert-cabinet-section" id="certifications">
       <div className="cert-cabinet-intro" ref={introRef}>
         <div className="cert-cabinet-header" ref={headerRef}>
-          <span className="lofty-tag">CERTIFICATIONS</span>
-          <h2>Always learning.</h2>
+          <h2>Certifications</h2>
           <p>
             {ALL_CERTS.length} certificates from IBM, Google, AWS, and the University of Michigan, filed by
-            subject. Scroll to pull each drawer open; click any certificate to view it.
+            subject. {isMobile ? "Tap" : "Scroll to open each drawer and click"} any certificate to view it.
           </p>
         </div>
       </div>
 
-      <FilingCabinet runwayHeight="520vh" className="cab-stage--site" showIndex={false} onInspect={setSelected} />
+      {isMobile ? (
+        <CertificateGallery onInspect={setSelected} />
+      ) : (
+        <FilingCabinet runwayHeight="520vh" className="cab-stage--site" showIndex={false} onInspect={setSelected} />
+      )}
 
       <CertificateDetailLightbox cert={selected} onClose={close} />
     </section>
